@@ -5,48 +5,114 @@
 #ifndef PROJECT_GEOMETRY_HPP
 #define PROJECT_GEOMETRY_HPP
 
-typedef struct Point {
+typedef struct {
     float x;
     float y;
     float z;
-}Point;
-
-
-typedef struct {
-    Point
-
-}Rayon;
+} Point3d;
 
 typedef struct {
-    Point centre;
-    float rayon;
+    float x;
+    float y;
+    float z;
+} Direction3d;
 
-}Sphere;
+///////////////////////////////////
+class Ray {
+private:
+    Point3d origin_;
+    Direction3d direction_; // TODO voir si utiliser vector de libg3x ou non
 
-typedef struct {
-    Point sommet_1;
-    Point sommet_2;
-    Point sommet_3;
+public:
+    Ray(Point3d &origin, Direction3d &direction);
 
-}Triangle;
+    ~Ray();
 
+    Point3d origin();
 
-typedef struct {
-
-
-}Cylindre;
-
-
-
-typedef struct {
-    Point point_1;
-    float width;
-    float height;
-//    float
+    Direction3d direction();
+};
 
 
+class Primitive {
+public:
+    Primitive() { }
 
-}Rectangle;
+    virtual ~Primitive() { }
+
+    virtual bool intersect(const Ray &ray, float &dist);
+
+//    virtual void computeColorNormal(const Ray &ray, float dist, Color &color, Vector3df &normal);
+};
+
+
+///////////////////////////////////
+
+class Sphere : public Primitive {
+private:
+    Point3d center_;
+    float radius_;
+
+public:
+    Sphere(Point3d &center, float &radius);
+
+    ~Sphere();
+
+    bool intersect(const Ray &ray, float &dist);
+};
+
+///////////////////////////////////
+
+class Triangle : public Primitive {
+private:
+    Point3d point_1_;
+    Point3d point_2_;
+    Point3d point_3_;
+
+public:
+    Triangle(Point3d &point_1, Point3d &point_2, Point3d &point_3);
+
+    ~Triangle();
+
+    bool intersect(const Ray &ray, float &dist);
+
+};
+
+///////////////////////////////////
+
+class Cylinder : public Primitive {
+private:
+    Point3d center_;
+    float radius_;
+    float height_;
+
+
+public:
+    Cylinder(Point3d center,float radius,float height);
+
+    ~Cylinder();
+
+    bool intersect(const Ray &ray, float &dist);
+
+};
+
+
+///////////////////////////////////
+
+class Rectangle : public Primitive {
+private:
+    Point3d origin_;
+    float width_;
+    float height_;
+
+public:
+    Rectangle(Point3d origin,float width,float height);
+
+    ~Rectangle();
+
+    bool intersect(const Ray &ray, float &dist);
+
+};
 
 
 #endif //PROJECT_GEOMETRY_HPP
