@@ -6,6 +6,7 @@
 #define PROJECT_GEOMETRY_HPP
 
 #include <cmath>
+
 typedef struct {
     float x;
     float y;
@@ -17,6 +18,64 @@ typedef struct {
     float y;
     float z;
 } Direction3d;
+
+// Faire une classe mere de Point et vecteur
+
+class ParentPointVector {
+private:
+    float x;
+    float y;
+    float z;
+public:
+    ParentPointVector(float x, float y, float z);
+
+    ~ParentPointVector();
+
+    ParentPointVector operator+(const ParentPointVector &p);
+
+    ParentPointVector operator-(const ParentPointVector &p);
+
+    bool operator==(const ParentPointVector &p);
+
+    bool operator!=(const ParentPointVector &p);
+};
+
+
+class Point : public  ParentPointVector{
+private:
+    float x;
+    float y;
+    float z;
+public:
+    Point(float x, float y, float z);
+
+    ~Point();
+//    Point addVector(const Vector &v);
+
+//    Point substractVector(const Vector &v);
+
+};
+
+class Vector : public ParentPointVector {
+private:
+    float x;
+    float y;
+    float z;
+public:
+    Vector(float x, float y, float z);
+
+    ~Vector();
+
+    Vector operator*(const Vector &v); // produit vectoriel
+
+    Vector multiBy(float value);
+
+    Vector nullVector();
+
+//    Vector fromPoints(const Point &p, const Point &p2);
+
+
+};
 
 ///////////////////////////////////
 class Ray {
@@ -88,7 +147,7 @@ private:
 
 
 public:
-    Cylinder(float radius,float height);
+    Cylinder(float radius, float height);
 
     virtual ~Cylinder();
 
@@ -106,7 +165,7 @@ private:
     float height_;
 
 public:
-    Rectangle(Point3d &origin,float width,float height);
+    Rectangle(Point3d &origin, float width, float height);
 
     virtual ~Rectangle();
 

@@ -6,6 +6,57 @@
 
 #include <iostream>
 
+//////////////// ParentPointVector ///////////////////
+ParentPointVector::ParentPointVector(float x, float y, float z)
+        : x(x),
+          y(y),
+          z(z) { }
+
+ParentPointVector::~ParentPointVector() { }
+
+ParentPointVector ParentPointVector::operator+(const ParentPointVector &p) {
+    return ParentPointVector(this->x + p.x,this->y + p.y,this->z + p.z);
+}
+
+ParentPointVector ParentPointVector::operator-(const ParentPointVector &p) {
+    return ParentPointVector(this->x - p.x,this->y - p.y,this->z - p.z);
+}
+
+bool ParentPointVector::operator==(const ParentPointVector &p) {
+    return this->x==p.x && this->y==p.y && this->z==p.z;
+}
+
+bool ParentPointVector::operator!=(const ParentPointVector &p) {
+    return this->x!=p.x || this->y!=p.y || this->z!=p.z;
+}
+//////////////// Point ///////////////////
+
+Point::Point(float x, float y, float z):ParentPointVector(x,y,z) { }
+Point::~Point() { }
+
+//////////////// Vector ///////////////////
+
+Vector::Vector(float x, float y, float z):ParentPointVector(x,y,z) { }
+Vector::~Vector() { }
+
+Vector Vector::nullVector() {
+    return Vector(0,0,0);
+}
+
+Vector Vector::operator*(const Vector &v) {
+    float x = this->y * v.z - this->z * v.y ;
+    float y = this->z * v.x - this->x * v.z ;
+    float z = this->x * v.y - this->y * v.x ;
+    return Vector(x,y,z);
+}
+
+Vector Vector::multiBy(float value) {
+    return Vector(this->x * value,this->y * value,this->z * value);
+}
+
+//////////////////////////////////////////// Work in progress ////////////////////////////////////////
+//////////////////////////////////////////// Does not work   ////////////////////////////////////////
+
 //////////////// Ray ///////////////////
 Ray::Ray(Point3d &origin, Direction3d &direction)
         : origin_(origin),
@@ -22,9 +73,6 @@ Point3d Ray::origin() {
 Direction3d Ray::direction() {
     return direction_;
 }
-
-
-
 
 ////////////// Sphere /////////////////////
 
@@ -100,16 +148,34 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 
 /////////////// Rectangle ////////////////////
 
-//Rectangle::Rectangle(Point3d &origin, float width, float height)
-//        : origin_(origin),
-//          width_(width),
-//          height_(height) { }
-//
-//bool Rectangle::intersect(Ray &ray, float &dist) {
-//
-//    return true;
-//}
+Rectangle::Rectangle(Point3d &origin, float width, float height)
+        : origin_(origin),
+          width_(width),
+          height_(height) { }
+
+bool Rectangle::intersect(Ray &ray, float &dist) {
+
+    return true;
+}
 
 int main(void) {
 
+    Point a(1.,2.,3.);
+    std::cout << "test1\n";
+    Point b(1.,2.,3.);
+    std::cout << "test\n";
+
+    if(a==b){
+        std::cout << "test3\n";
+    }
+    else{
+        std::cout << "test4\n";
+    }
+
+//    Point c = a+b;
+
+//    std::cout << c.getX() << "\n";
+    //std::cout << a+b;
+
+    return 0;
 }
