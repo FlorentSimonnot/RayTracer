@@ -23,12 +23,12 @@ typedef struct {
 // Faire une classe mere de Point et vecteur
 
 class ParentPointVector {
-private:
+protected:
     float x;
     float y;
     float z;
 public:
-    ParentPointVector();
+    ParentPointVector(void);
     ParentPointVector(float x, float y, float z);
 
     ~ParentPointVector();
@@ -40,25 +40,23 @@ public:
     bool operator==(const ParentPointVector &p);
 
     bool operator!=(const ParentPointVector &p);
-
-    float getX();
-    float getY();
-    float getZ();
     ParentPointVector operator=(const ParentPointVector &p);
+    float getX() const;
+    float getY() const;
+    float getZ() const;
+
 };
 
 
 class Point : public  ParentPointVector{
-private:
-    float x;
-    float y;
-    float z;
 public:
+    Point(void);
     Point(float x, float y, float z);
     ~Point();
 
     float distance(const Point &p);
     Point operator+(const Point &p);
+    Point operator=(const Point &p);
 //    Point addVector(const Vector &v);
 
 //    Point substractVector(const Vector &v);
@@ -66,10 +64,6 @@ public:
 };
 
 class Vector : public ParentPointVector {
-private:
-    float x;
-    float y;
-    float z;
 public:
     Vector(float x, float y, float z);
 

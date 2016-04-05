@@ -5,12 +5,13 @@
 #include "geometry.hpp"
 
 
-
 //////////////// ParentPointVector ///////////////////
 ParentPointVector::ParentPointVector(float x, float y, float z)
         : x(x),
           y(y),
           z(z) { }
+
+ParentPointVector::ParentPointVector(void) : x(0), y(0), z(0) { }
 
 ParentPointVector::~ParentPointVector() { }
 
@@ -37,18 +38,21 @@ ParentPointVector ParentPointVector::operator=(const ParentPointVector &p) {
     return (*this);
 }
 
-float ParentPointVector::getX() {
+
+float ParentPointVector::getX() const {
     return x;
 }
 
-float ParentPointVector::getY() {
+float ParentPointVector::getY() const {
     return y;
 }
 
-float ParentPointVector::getZ() {
+float ParentPointVector::getZ() const {
     return z;
 }
+
 //////////////// Point ///////////////////
+Point::Point(void) : ParentPointVector() { }
 
 Point::Point(float x, float y, float z) : ParentPointVector(x, y, z) { }
 
@@ -58,12 +62,14 @@ float Point::distance(const Point &p) {
     return sqrt(SQR(p.x - this->x) + SQR(p.y - this->y) + SQR(p.z - this->z));
 }
 
+Point Point::operator=(const Point &p) {
+    this->ParentPointVector::operator=(p);
+    return (*this);
+}
+
 Point Point::operator+(const Point &p) {
-    Point c(this->x + p.x,this->y + p.y, this->z + p.z);
-    std::cout << c.getX() << "\n";
-    std::cout << c.getY() << "\n";
-    std::cout << c.getZ() << "\n";
-    return c;
+    Point result = this->ParentPointVector::operator+(p);
+    return result;
 }
 
 //////////////// Vector ///////////////////
@@ -136,8 +142,8 @@ bool Sphere::intersect(Ray &ray, float &dist) {
               ray.getDirection().getZ() * ray.getOrigin().getZ();
     //norm2(point)
     float c = (SQR((ray.getOrigin() - getCenter()).getX()) +
-            SQR((ray.getOrigin() - getCenter()).getY()) +
-            SQR((ray.getOrigin() - getCenter()).getZ())) -
+               SQR((ray.getOrigin() - getCenter()).getY()) +
+               SQR((ray.getOrigin() - getCenter()).getZ())) -
               radius_ * radius_;
 
     float delta = (b * b - a * c);
@@ -215,9 +221,9 @@ int main(void) {
     std::cout << "a " << a.getZ() << "\n";
 
 
-    Point c(0,0,0);
+    Point c(0, 0, 0);
 
-    c = a+b;
+    c = a + b;
     std::cout << c.getX() << "\n";
     std::cout << c.getY() << "\n";
     std::cout << c.getZ() << "\n";
