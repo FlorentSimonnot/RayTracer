@@ -7,6 +7,7 @@
 
 #include <cmath>
 
+#define SQR(a) a*a
 typedef struct {
     float x;
     float y;
@@ -27,6 +28,7 @@ private:
     float y;
     float z;
 public:
+    ParentPointVector();
     ParentPointVector(float x, float y, float z);
 
     ~ParentPointVector();
@@ -38,6 +40,11 @@ public:
     bool operator==(const ParentPointVector &p);
 
     bool operator!=(const ParentPointVector &p);
+
+    float getX();
+    float getY();
+    float getZ();
+    ParentPointVector operator=(const ParentPointVector &p);
 };
 
 
@@ -48,8 +55,10 @@ private:
     float z;
 public:
     Point(float x, float y, float z);
-
     ~Point();
+
+    float distance(const Point &p);
+//    Point operator+(const Point &p);
 //    Point addVector(const Vector &v);
 
 //    Point substractVector(const Vector &v);
@@ -80,17 +89,17 @@ public:
 ///////////////////////////////////
 class Ray {
 private:
-    Point3d origin_;
-    Direction3d direction_; // TODO voir si utiliser vector de libg3x ou non
+    Point origin_;
+    Vector direction_;
 
 public:
-    Ray(Point3d &origin, Direction3d &direction);
+    Ray(Point &origin, Vector &direction);
 
     ~Ray();
 
-    Point3d origin();
+    Point& getOrigin();
 
-    Direction3d direction();
+    Vector& getDirection();
 };
 
 /*
@@ -110,15 +119,18 @@ public:
 
 class Sphere {
 private:
-    Point3d center_;
+    Point center_;
     float radius_;
 
 public:
-    Sphere(Point3d &center, float &radius);
+    Sphere(Point center, float radius);
 
     virtual ~Sphere();
 
     bool intersect(Ray &ray, float &dist);
+    Point& getCenter();
+
+    float getRadius();
 };
 
 ///////////////////////////////////
