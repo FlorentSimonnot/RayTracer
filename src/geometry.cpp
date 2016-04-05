@@ -1,10 +1,10 @@
 //
 // Created by narex on 03/04/16.
 //
-
+#include <iostream>
 #include "geometry.hpp"
 
-#include <iostream>
+
 
 //////////////// ParentPointVector ///////////////////
 ParentPointVector::ParentPointVector(float x, float y, float z)
@@ -32,7 +32,7 @@ bool ParentPointVector::operator!=(const ParentPointVector &p) {
 
 ParentPointVector ParentPointVector::operator=(const ParentPointVector &p) {
     this->x = p.x;
-    this->y = p.z;
+    this->y = p.y;
     this->z = p.z;
     return (*this);
 }
@@ -46,7 +46,7 @@ float ParentPointVector::getY() {
 }
 
 float ParentPointVector::getZ() {
-    return y;
+    return z;
 }
 //////////////// Point ///////////////////
 
@@ -58,9 +58,13 @@ float Point::distance(const Point &p) {
     return sqrt(SQR(p.x - this->x) + SQR(p.y - this->y) + SQR(p.z - this->z));
 }
 
-//Point Point::operator+(const Point &p) {
-//    return Point(this->x + p.x,this->y + p.y, this->z + p.z);
-//}
+Point Point::operator+(const Point &p) {
+    Point c(this->x + p.x,this->y + p.y, this->z + p.z);
+    std::cout << c.getX() << "\n";
+    std::cout << c.getY() << "\n";
+    std::cout << c.getZ() << "\n";
+    return c;
+}
 
 //////////////// Vector ///////////////////
 
@@ -206,13 +210,23 @@ int main(void) {
     else {
         std::cout << "test4\n";
     }
-    Point c = a+b;
+    std::cout << "a " << a.getX() << "\n";
+    std::cout << "a " << a.getY() << "\n";
+    std::cout << "a " << a.getZ() << "\n";
+
+
+    Point c(0,0,0);
+
+    c = a+b;
+    std::cout << c.getX() << "\n";
+    std::cout << c.getY() << "\n";
+    std::cout << c.getZ() << "\n";
     // Pas possible de faire Point c = a+b; -> error: conversion from ‘ParentPointVector’ to non-scalar type ‘Point’ requested
 
 
-    std::cout << (a + b).getX() << "\n";
-    std::cout << (a + b).getY() << "\n";
-    std::cout << (a + b).getZ() << "\n";
+//    std::cout << (a + b).getX() << "\n";
+//    std::cout << (a + b).getY() << "\n";
+//    std::cout << (a + b).getZ() << "\n";
 //    std::cout << c.getX() << "\n";
     //std::cout << a+b;
 

@@ -58,7 +58,7 @@ public:
     ~Point();
 
     float distance(const Point &p);
-//    Point operator+(const Point &p);
+    Point operator+(const Point &p);
 //    Point addVector(const Vector &v);
 
 //    Point substractVector(const Vector &v);
