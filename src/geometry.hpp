@@ -5,6 +5,7 @@
 #ifndef PROJECT_GEOMETRY_HPP
 #define PROJECT_GEOMETRY_HPP
 
+#include <cmath>
 typedef struct {
     float x;
     float y;
@@ -33,22 +34,22 @@ public:
     Direction3d direction();
 };
 
-
+/*
 class Primitive {
 public:
-    Primitive() { }
+    Primitive();
 
-    virtual ~Primitive() { }
+    virtual ~Primitive();
 
-    virtual bool intersect(const Ray &ray, float &dist);
+    virtual bool intersect(Ray &ray, float &dist);
 
-//    virtual void computeColorNormal(const Ray &ray, float dist, Color &color, Vector3df &normal);
-};
+//    virtual void computeColorNormal(Ray &ray, float dist, Color &color, Vector3df &normal);
+};*/
 
 
 ///////////////////////////////////
 
-class Sphere : public Primitive {
+class Sphere {
 private:
     Point3d center_;
     float radius_;
@@ -56,14 +57,14 @@ private:
 public:
     Sphere(Point3d &center, float &radius);
 
-    ~Sphere();
+    virtual ~Sphere();
 
-    bool intersect(const Ray &ray, float &dist);
+    bool intersect(Ray &ray, float &dist);
 };
 
 ///////////////////////////////////
 
-class Triangle : public Primitive {
+class Triangle {
 private:
     Point3d point_1_;
     Point3d point_2_;
@@ -72,45 +73,44 @@ private:
 public:
     Triangle(Point3d &point_1, Point3d &point_2, Point3d &point_3);
 
-    ~Triangle();
+    virtual ~Triangle();
 
-    bool intersect(const Ray &ray, float &dist);
+    bool intersect(Ray &ray, float &dist);
 
 };
 
 ///////////////////////////////////
 
-class Cylinder : public Primitive {
+class Cylinder {
 private:
-    Point3d center_;
     float radius_;
     float height_;
 
 
 public:
-    Cylinder(Point3d center,float radius,float height);
+    Cylinder(float radius,float height);
 
-    ~Cylinder();
+    virtual ~Cylinder();
 
-    bool intersect(const Ray &ray, float &dist);
+    bool intersect(Ray &ray, float &dist);
 
 };
 
 
 ///////////////////////////////////
 
-class Rectangle : public Primitive {
+class Rectangle {
 private:
     Point3d origin_;
     float width_;
     float height_;
 
 public:
-    Rectangle(Point3d origin,float width,float height);
+    Rectangle(Point3d &origin,float width,float height);
 
-    ~Rectangle();
+    virtual ~Rectangle();
 
-    bool intersect(const Ray &ray, float &dist);
+    bool intersect(Ray &ray, float &dist);
 
 };
 
