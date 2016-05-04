@@ -13,10 +13,11 @@ private:
     Point origin_;
     float width_;
     float height_;
+    float depth_;
 
 public:
     Rectangle(void);
-    Rectangle(Point origin, float width, float height);
+    Rectangle(Point origin, float width, float height,float depth);
 
     ~Rectangle();
 

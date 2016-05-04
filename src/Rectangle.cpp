@@ -4,12 +4,13 @@
 
 #include "../include/Rectangle.hpp"
 
-Rectangle::Rectangle(){ }
+Rectangle::Rectangle() { }
 
-Rectangle::Rectangle(Point origin, float width, float height)
+Rectangle::Rectangle(Point origin, float width, float height, float depth)
         : origin_(origin),
           width_(width),
-          height_(height) { }
+          height_(height),
+          depth_(depth){}
 
 bool Rectangle::intersect(Ray &ray, float &dist) {
 

@@ -1,27 +1,24 @@
 //
-// Created by Narex on 05/04/2016.
+// Created by Narex on 04/05/2016.
 //
 
 #ifndef PROJECT_OBJET_HPP
 #define PROJECT_OBJET_HPP
 
-#include "Ray.hpp"
+class Objet {
+private:
+    int color_;
 
-
-// TODO
-class Objet{
-
-//private:
-//    Color color; // Se servir de la couleur definit dans la librairie graphique
 public:
-//    Objet(void);
-//    Objet(const Objet &c);
-    virtual ~Objet();
-    virtual Objet operator=(const Objet &p);
-    virtual bool intersect(Ray &ray, float &dist);
+    Objet(void);
 
-//    virtual void computeColorNormal(Ray &ray, float dist, Color &color, Vector3df &normal);
+    Objet(const Objet &c);
+
+    ~Objet();
+
+    void setColor(int color);
+    int getColor();
+
 };
-
 
 #endif //PROJECT_OBJET_HPP

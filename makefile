@@ -31,7 +31,7 @@ inc = -I.include/
 exec = geometry 
 
 # Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Triangle.cpp Parser.cpp
-SRC = Point.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp
+SRC = Point.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Objet.cpp Sphere.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
 

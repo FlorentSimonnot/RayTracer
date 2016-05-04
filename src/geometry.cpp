@@ -9,7 +9,7 @@ int main(void) {
 
     Point a(1., 2., 3.);
     std::cout << "test1\n";
-    Point b(1., 2., 3.);
+    Point b(1., 2., 4.);
     std::cout << "test\n";
 
 
@@ -24,13 +24,12 @@ int main(void) {
     std::cout << "a " << a.getZ() << "\n";
 
 
-    Point c(0, 0, 0);
-
-    c = a + b;
-    std::cout << c.getX() << "\n";
-    std::cout << c.getY() << "\n";
-    std::cout << c.getZ() << "\n";
-    // Pas possible de faire Point c = a+b; -> error: conversion from ‘ParentPointVector’ to non-scalar type ‘Point’ requested
+//    Point c(0, 0, 0);
+//
+//    c = a + b;
+//    std::cout << c.getX() << "\n";
+//    std::cout << c.getY() << "\n";
+//    std::cout << c.getZ() << "\n";
 
 
 //    std::cout << (a + b).getX() << "\n";

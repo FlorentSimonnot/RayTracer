@@ -5,23 +5,23 @@
 #ifndef PROJECT_TRIANGLE_HPP
 #define PROJECT_TRIANGLE_HPP
 
-#include "Objet.hpp"
-
 // TODO
-class Triangle : public Objet {
+class Tetraedre : Objet {
 private:
     Point point_1;
     Point point_2;
     Point point_3;
+    Point point_4;
 
+    int color;
 public:
-    Triangle(void);
+    Tetraedre(void);
 
-    Triangle(Point point_1, Point point_2, Point point_3);
+    Tetraedre(Point point_1, Point point_2, Point point_3,Point point_4);
 
-    ~Triangle();
+    ~Tetraedre();
 
-    Triangle operator=(const Triangle &p);
+    Tetraedre operator=(const Tetraedre &p);
 
     bool intersect(Ray &ray, float &dist);
 

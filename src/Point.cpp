@@ -23,15 +23,3 @@ Point Point::operator=(const Point &p) {
     this->ParentPointVector::operator=(p);
     return (*this);
 }
-
-Point Point::operator+(const Point &p) {
-    Point result;
-    result = this->ParentPointVector::operator+(p);
-    return result;
-}
-
-Point Point::operator-(const Point &p) {
-    Point result;
-    result = this->ParentPointVector::operator-(p);
-    return result;
-}

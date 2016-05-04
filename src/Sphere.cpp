@@ -4,7 +4,7 @@
 
 #include "../include/Sphere.hpp"
 
-Sphere::Sphere(){}
+Sphere::Sphere() { }
 
 Sphere::Sphere(Point center, float radius)
         : center_(center),
@@ -22,31 +22,41 @@ Point &Sphere::getCenter() {
     return center_;
 }
 
+float Sphere::getRadius(){
+    return radius_;
+}
+
 // Ne fonctionne pas
-bool Sphere::intersect(Ray &ray, float &dist) {
-//    float A = 1.f;
+bool Sphere::intersect(Ray &ray) {
 
-//    Point point = ray.getOrigin() - getCenter(); // ray.origin() - center_
-
-    float a = SQR(ray.getDirection().getX()) +
-              SQR(ray.getDirection().getY()) +
-              SQR(ray.getDirection().getZ());
-    float b = ray.getDirection().getX() * ray.getOrigin().getX() +
-              ray.getDirection().getY() * ray.getOrigin().getZ() +
-              ray.getDirection().getZ() * ray.getOrigin().getZ();
+    float alpha = SQR(ray.getDirection().getX() - ray.getOrigin().getX())
+                  + SQR(ray.getDirection().getY() - ray.getOrigin().getY())
+                  + SQR(ray.getDirection().getZ() - ray.getOrigin().getZ());
+    float beta = 2 * (
+            (ray.getDirection().getX() - ray.getOrigin().getX()) * (ray.getOrigin().getX() - getCenter().getX()) +
+            (ray.getDirection().getY() - ray.getOrigin().getY()) * (ray.getOrigin().getY() - getCenter().getY()) +
+            (ray.getDirection().getZ() - ray.getOrigin().getZ()) * (ray.getOrigin().getZ() - getCenter().getZ()));
     //norm2(point)
-    float c = (SQR((ray.getOrigin() - getCenter()).getX()) +
-               SQR((ray.getOrigin() - getCenter()).getY()) +
-               SQR((ray.getOrigin() - getCenter()).getZ())) -
-              radius_ * radius_;
+    float gamma = SQR(ray.getDirection().getX()) +
+                  SQR(ray.getDirection().getY()) +
+                  SQR(ray.getDirection().getZ()) +
+                  SQR(getCenter().getX()) +
+                  SQR(getCenter().getY()) +
+                  SQR(getCenter().getZ()) -
+                  2 * (ray.getDirection().getX() * getCenter().getX() +
+                       ray.getDirection().getY() * getCenter().getY() +
+                       ray.getDirection().getZ() * getCenter().getZ()) -
+                  SQR(getRadius());
 
-    float delta = (b * b - a * c);
+    float delta = (beta * beta - 4 * alpha * gamma);
 
-    if (delta <= 0.f)
-        return false;
+    return delta >= 0;
 
-    float disc = sqrt(delta);
-    if ((dist = -(b + disc)) < 0.)
-        dist = -(b - disc);
-    return true;
+//    if (delta <= 0.f)
+//        return false;
+//
+////    float disc = sqrt(delta);
+////    if ((dist = -(b + disc)) < 0.)
+////        dist = -(b - disc);
+//    return true;
 }
