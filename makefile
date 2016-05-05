@@ -31,7 +31,8 @@ inc = -I.include/
 # TODO Changer plus tard par le bon nom
 exec = output
 
-# Materiaux.cpp Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Tetraedre.cpp Parser.cpp RayTracer.cpp Scene.cpp
+# Liste de tout les fichiers cpp à compiler
+# Cylinder.cpp Objet.cpp Point.cpp Scene.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Main.cpp Parser.cpp RayTracer.cpp testGauss.cpp Materiaux.cpp Rectangle.cpp Tetraedre.cpp
 SRC = Materiaux.cpp Point.cpp Vector.cpp ParentPointVector.cpp Ray.cpp Objet.cpp Sphere.cpp Geometry.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
@@ -64,4 +65,5 @@ clean :
 	@rm -f *.o
 cleanall :
 	@rm -f *.o $(exec) *~ */*~
+rebuild : cleanall all
 

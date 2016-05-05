@@ -9,14 +9,14 @@
 #include "Objet.hpp"
 
 // TODO
-class Sphere : Objet {
+class Sphere : public Objet {
 
 private:
     Point center;
     float radius;
 
 public:
-    Sphere(void);
+    Sphere();
 
     Sphere(Point center, float radius);
 

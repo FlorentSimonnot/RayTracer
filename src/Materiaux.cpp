@@ -24,6 +24,22 @@ Materiaux Materiaux::operator=(const Materiaux &m) {
     return (*this);
 }
 
+// TODO Eventuellement ajouter test sur la couleur
+bool Materiaux::operator!=(const Materiaux &m) {
+    return this->brillance != m.brillance ||
+           this->coefReflection != m.coefReflection ||
+           this->indiceRefraction != m.indiceRefraction ||
+           this->coefReflectionInv != m.coefReflectionInv;
+
+}
+
+bool Materiaux::operator==(const Materiaux &m) {
+    return this->brillance == m.brillance &&
+           this->coefReflection == m.coefReflection &&
+           this->indiceRefraction == m.indiceRefraction &&
+           this->coefReflectionInv == m.coefReflectionInv;
+}
+
 void Materiaux::setIndiceRefraction(float v) {
     this->indiceRefraction = v;
 }
@@ -56,7 +72,7 @@ float Materiaux::getIndiceRefraction() {
     return indiceRefraction;
 }
 
-bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray &rayonReflechi) {
+bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonReflechi) {
 
     Vector direction;
     if (getCoefReflection() == 0) {
@@ -64,10 +80,10 @@ bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray &rayonRe
     }
     rayonReflechi->setOrigin(origin);
 
-    direction = r->getDirection();
-    direction.setX(direction.getX() - 2 * r->getDirection().produitScalaire(normale) * normale.getX());
-    direction.setY(direction.getY() - 2 * r->getDirection().produitScalaire(normale) * normale.getY());
-    direction.setZ(direction.getZ() - 2 * r->getDirection().produitScalaire(normale) * normale.getZ());
+    direction = r.getDirection();
+    direction.setX(direction.getX() - 2 * r.getDirection().produitScalaire(normale) * normale.getX());
+    direction.setY(direction.getY() - 2 * r.getDirection().produitScalaire(normale) * normale.getY());
+    direction.setZ(direction.getZ() - 2 * r.getDirection().produitScalaire(normale) * normale.getZ());
 
     rayonReflechi->setDirection(direction);
 

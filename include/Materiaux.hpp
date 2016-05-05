@@ -39,6 +39,10 @@ public:
 
     Materiaux operator=(const Materiaux &m);
 
+    bool operator==(const Materiaux &m);
+
+    bool operator!=(const Materiaux &m);
+
     void setIndiceRefraction(float v);
 
     void setBrillance(float v);
@@ -55,7 +59,7 @@ public:
 
     float getBrillance();
 
-    bool rayonReflechi(Ray &r, Point origin, Vector normale, Ray &rayonReflechi);
+    bool rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonReflechi);
 };
 
 
