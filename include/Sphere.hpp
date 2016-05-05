@@ -12,23 +12,23 @@
 class Sphere : Objet {
 
 private:
-    Point center_;
-    double radius_;
+    Point center;
+    float radius;
 
 public:
     Sphere(void);
 
-    Sphere(Point center, double radius);
+    Sphere(Point center, float radius);
 
     ~Sphere();
 
     Sphere operator=(const Sphere &p);
 
-    bool intersect(Ray &ray,double &dist);
+    bool intersect(Ray &ray,float &dist);
 
     Point &getCenter();
 
-    double getRadius();
+    float getRadius();
 };
 
 

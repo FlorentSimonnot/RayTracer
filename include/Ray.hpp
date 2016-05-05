@@ -11,11 +11,11 @@
 // TODO
 class Ray {
 private:
-    Point origin_;
-    Vector direction_;
+    Point origin;
+    Vector direction;
 
 public:
-    Ray(void);
+    Ray();
 
     Ray(Point &origin, Vector &direction);
 

@@ -4,36 +4,36 @@
 
 #include "../include/Cylinder.hpp"
 
-Cylinder::Cylinder() : radius_(1), height_(1) { }
+Cylinder::Cylinder() : radius(1), height(1) { }
 
-Cylinder::Cylinder(double radius, double height)
-        : radius_(radius),
-          height_(height) { }
+Cylinder::Cylinder(float radius, float height)
+        : radius(radius),
+          height(height) { }
 
 Cylinder::~Cylinder() {
 
 }
 
-double Cylinder::getRadius() {
-    return radius_;
+float Cylinder::getRadius() {
+    return radius;
 }
 
-double Cylinder::getHeight() {
-    return height_;
+float Cylinder::getHeight() {
+    return height;
 }
 
 // Cylindre avec sa hauteur sur l'axe des X
-bool Cylinder::intersect(Ray &ray, double &dist) {
+bool Cylinder::intersect(Ray &ray, float &dist) {
 
-    double a = SQR(ray.getDirection().getY())
+    float a = SQR(ray.getDirection().getY())
               + SQR(ray.getDirection.getZ());
-    double b = ray.getDirection().getY() * ray.getOrigin().getY()
+    float b = ray.getDirection().getY() * ray.getOrigin().getY()
               + ray.getDirection().getZ() * ray.getOrigin().getZ();
-    double c = SQR(ray.getOrigin().getY())
+    float c = SQR(ray.getOrigin().getY())
               + SQR(ray.getOrigin().getZ())
               - SQR(getRadius());
 
-    double delta = b * b - 4 * a * c;
+    float delta = b * b - 4 * a * c;
 
     if (delta < 0) {
 

@@ -6,37 +6,37 @@
 
 Sphere::Sphere() { }
 
-Sphere::Sphere(Point center, double radius)
-        : center_(center),
-          radius_(radius) { }
+Sphere::Sphere(Point center, float radius)
+        : center(center),
+          radius(radius) { }
 
 Sphere::~Sphere() { }
 
 Sphere Sphere::operator=(const Sphere &p) {
-    this->center_ = p.center_;
-    this->radius_ = p.radius_;
+    this->center = p.center;
+    this->radius = p.radius;
     return (*this);
 }
 
 Point &Sphere::getCenter() {
-    return center_;
+    return center;
 }
 
-double Sphere::getRadius(){
-    return radius_;
+float Sphere::getRadius() {
+    return radius;
 }
 
 // TODO A tester
-bool Sphere::intersect(Ray &ray, double &dist) {
+bool Sphere::intersect(Ray &ray, float &dist) {
 
-    double alpha = SQR(ray.getDirection().getX() - ray.getOrigin().getX())
+    float alpha = SQR(ray.getDirection().getX() - ray.getOrigin().getX())
                   + SQR(ray.getDirection().getY() - ray.getOrigin().getY())
                   + SQR(ray.getDirection().getZ() - ray.getOrigin().getZ());
-    double beta = 2 * (
+    float beta = 2 * (
             (ray.getDirection().getX() - ray.getOrigin().getX()) * (ray.getOrigin().getX() - getCenter().getX()) +
             (ray.getDirection().getY() - ray.getOrigin().getY()) * (ray.getOrigin().getY() - getCenter().getY()) +
             (ray.getDirection().getZ() - ray.getOrigin().getZ()) * (ray.getOrigin().getZ() - getCenter().getZ()));
-    double gamma = SQR(ray.getDirection().getX()) +
+    float gamma = SQR(ray.getDirection().getX()) +
                   SQR(ray.getDirection().getY()) +
                   SQR(ray.getDirection().getZ()) +
                   SQR(getCenter().getX()) +
@@ -47,16 +47,16 @@ bool Sphere::intersect(Ray &ray, double &dist) {
                        ray.getDirection().getZ() * getCenter().getZ()) -
                   SQR(getRadius());
 
-    double delta = (beta * beta - 4 * alpha * gamma);
+    float delta = (beta * beta - 4 * alpha * gamma);
 
     if(delta < 0){
         dist = 0;
 ;
     }
     else{
-        double t1 = (-beta + sqrt (delta)) / alpha;
-        double t2 = (-beta - sqrt (delta)) / alpha;
-        double t;
+        float t1 = (-beta + sqrt(delta)) / alpha;
+        float t2 = (-beta - sqrt(delta)) / alpha;
+        float t;
         if ((t1 <= t2 && t1 > getEpsilon()) || (t2 < t1 && t2 < getEpsilon())){
             t = t1;
         }
@@ -66,9 +66,9 @@ bool Sphere::intersect(Ray &ray, double &dist) {
 
 
         //TODO Peut etre A changer
-        double x = t * ray.getDirection.getX() + ray.getOrigin().getX();
-        double y = t * ray.getDirection.getY() + ray.getOrigin().getY();
-        double z = t * ray.getDirection.getZ() + ray.getOrigin().getZ();
+        float x = t * ray.getDirection().getX() + ray.getOrigin().getX();
+        float y = t * ray.getDirection().getY() + ray.getOrigin().getY();
+        float z = t * ray.getDirection().getZ() + ray.getOrigin().getZ();
         Point p(x,y,z);
         dist = p.distance(ray.getOrigin());
 
