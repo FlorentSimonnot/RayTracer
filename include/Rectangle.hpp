@@ -5,12 +5,13 @@
 #ifndef PROJECT_RECTANGLE_HPP
 #define PROJECT_RECTANGLE_HPP
 
-#include "Object.hpp"
+#include "Point.hpp"
+#include "Shape.hpp"
 
 class Ray;
 
 // TODO
-class Rectangle : public Object {
+class Rectangle : public Shape {
 private:
     Point origin;
     float width;
@@ -19,9 +20,9 @@ private:
 
 public:
     Rectangle();
-    Rectangle(Point origin, float width, float height,float depth);
+    Rectangle(Point origin, float width, float height, float depth);
 
-    ~Rectangle();
+    virtual ~Rectangle();
 
     bool intersect(Ray &ray, float &dist);
 

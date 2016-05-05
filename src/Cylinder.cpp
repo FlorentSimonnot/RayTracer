@@ -3,37 +3,42 @@
 //
 
 #include "Cylinder.hpp"
+#include "Ray.hpp"
+#include <cmath>
 
-Cylinder::Cylinder() : radius(1), height(1) { }
+
+Cylinder::Cylinder()
+: m_radius(1.f), m_height(1.f)
+{
+}
 
 Cylinder::Cylinder(float radius, float height)
-        : radius(radius),
-          height(height) { }
+:   m_radius(radius), m_height(height) 
+{
+}
 
 Cylinder::~Cylinder() {
-
 }
 
 float Cylinder::getRadius() {
-    return radius;
+    return m_radius;
 }
 
 float Cylinder::getHeight() {
-    return height;
+    return m_height;
 }
 
 // Cylindre avec sa hauteur sur l'axe des X
 bool Cylinder::intersect(Ray &ray, float &dist) {
+    Vector ray_dir(0, ray.getDirection().y(), ray.getDirection().x());
+    Vector ray_or(0, ray.getOrigin().y(), ray.getOrigin().x());
 
-    float a = SQR(ray.getDirection().getY())
-              + SQR(ray.getDirection.getZ());
-    float b = ray.getDirection().getY() * ray.getOrigin().getY()
-              + ray.getDirection().getZ() * ray.getOrigin().getZ();
-    float c = SQR(ray.getOrigin().getY())
-              + SQR(ray.getOrigin().getZ())
-              - SQR(getRadius());
+    float a = ray_dir.produitScalaire(ray_dir);
+    float b = ray_dir.produitScalaire(ray_or);
+    float c = ray_or.produitScalaire(ray_or) - m_radius * m_radius;
 
     float delta = b * b - 4 * a * c;
+    float t1, t2;
 
     if (delta < 0) {
 
@@ -42,6 +47,7 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
     else if (delta == 0){
 
     }
+
     else{
         t1 = (-b + sqrt(delta)) / a;
         t2 = (-b - sqrt(delta)) / a;
