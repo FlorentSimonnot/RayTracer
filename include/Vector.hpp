@@ -14,6 +14,12 @@ public:
     Vector(float x, float y, float z);
     virtual ~Vector();
 
+    float x() const;
+    float y() const;
+    float z() const;
+
+    float norm() const;
+
     Vector& operator=(Vector const& o);
 
     Vector operator+(Vector const& o) const;

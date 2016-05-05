@@ -3,6 +3,7 @@
 //
 
 #include "Vector.hpp"
+#include <cmath>
 
 
 Vector::Vector()
@@ -16,6 +17,22 @@ Vector::Vector(float x, float y, float z)
 }
 
 Vector::~Vector() {
+}
+
+float Vector::x() const {
+    return m_x;
+}
+
+float Vector::y() const {
+    return m_y;
+}
+
+float Vector::z() const {
+    return m_z;
+}
+
+float Vector::norm() const {
+    return sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
 }
 
 Vector& Vector::operator=(Vector const& o) {
