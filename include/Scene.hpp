@@ -7,6 +7,11 @@
 
 
 class Scene {
+private:
+    Object *objets;
+public:
+    Scene();
+    ~Scene();
 
 };
 

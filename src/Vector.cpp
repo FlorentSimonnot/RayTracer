@@ -31,7 +31,7 @@ float Vector::z() const {
 }
 
 float Vector::norm() const {
-    return sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
+    return (float) sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
 }
 
 float Vector::produitScalaire(Vector const &o) const {

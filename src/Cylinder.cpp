@@ -3,18 +3,15 @@
 //
 
 #include "Cylinder.hpp"
-#include "Ray.hpp"
 #include <cmath>
 
 
 Cylinder::Cylinder()
-:   m_center(), m_radius(1.f), m_height(1.f)
-{
+        : m_center(), m_radius(1.f), m_height(1.f) {
 }
 
-Cylinder::Cylinder(Point const& center, float radius, float height)
-:   m_center(center), m_radius(radius), m_height(height) 
-{
+Cylinder::Cylinder(Point const &center, float radius, float height)
+        : m_center(center), m_radius(radius), m_height(height) {
 }
 
 Cylinder::~Cylinder() {
@@ -38,19 +35,18 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
     float c = ray_or.produitScalaire(ray_or) - m_radius * m_radius;
 
     float delta = b * b - 4 * a * c;
-    float t1, t2;
 
     if (delta < 0) {
 
 
     }
-    else if (delta == 0){
+    else if (delta == 0) {
 
     }
 
-    else{
-        t1 = (-b + sqrt(delta)) / a;
-        t2 = (-b - sqrt(delta)) / a;
+    else {
+        float t1 = (float) (-b + sqrt(delta)) / a;
+        float t2 = (float) (-b - sqrt(delta)) / a;
     }
 
 
