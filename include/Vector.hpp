@@ -5,35 +5,28 @@
 #ifndef PROJECT_VECTOR_H
 #define PROJECT_VECTOR_H
 
-#include "ParentPointVector.hpp"
-
-class Vector : public ParentPointVector {
+class Vector {
 private:
-    Vector operator=(const ParentPointVector &p);
+    float m_x, m_y, m_z;
 
 public:
-    Vector(void);
-
+    Vector();
     Vector(float x, float y, float z);
+    virtual ~Vector();
 
-    ~Vector();
+    Vector& operator=(Vector const& o);
 
-    Vector operator=(const Vector &p);
+    Vector operator+(Vector const& o) const;
+    Vector operator-(Vector const& o) const;
+    Vector operator*(Vector const& o) const;
+    Vector operator*(float f) const;
 
-    Vector operator+(const Vector &p);
-
-    Vector operator-(const Vector &p);
-
-    Vector operator*(const Vector &v); // produit vectoriel
-
-    Vector multiBy(float value);
-
-    Vector nullVector();
-
-//    Vector fromPoints(const Point &p, const Point &p2);
-
-
+    Vector& operator+=(Vector const& o);
+    Vector& operator-=(Vector const& o);
+    Vector& operator*=(Vector const& o);
+    Vector& operator*=(float f);
 };
 
+Vector operator*(float f, Vector const& v);
 
 #endif //PROJECT_VECTOR_H

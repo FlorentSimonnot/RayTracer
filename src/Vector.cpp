@@ -4,45 +4,76 @@
 
 #include "Vector.hpp"
 
-Vector::Vector() : ParentPointVector() { }
 
-Vector::Vector(float x, float y, float z) : ParentPointVector(x, y, z) { }
-
-Vector::~Vector() { }
-
-Vector Vector::nullVector() {
-    return Vector(0, 0, 0);
+Vector::Vector()
+:   m_x(0.f), m_y(0.f), m_z(0.f) 
+{
 }
 
-Vector Vector::operator=(const ParentPointVector &p) {
-    this->ParentPointVector::operator=(p);
-    return (*this);
+Vector::Vector(float x, float y, float z)
+:   m_x(x), m_y(y), m_z(z)
+{
 }
 
-Vector Vector::operator=(const Vector &p) {
-    this->ParentPointVector::operator=(p);
-    return (*this);
+Vector::~Vector() {
 }
 
-Vector Vector::operator+(const Vector &p) {
-    Vector result;
-    result = this->ParentPointVector::operator+(p);
-    return result;
+Vector& Vector::operator=(Vector const& o) {
+    m_x = o.m_x;
+    m_y = o.m_y;
+    m_z = o.m_z;
+
+    return *this;
 }
 
-Vector Vector::operator-(const Vector &p) {
-    Vector result;
-    result = this->ParentPointVector::operator-(p);
-    return result;
+Vector Vector::operator+(Vector const& o) const {
+    return Vector(m_x + o.m_x, m_y + o.m_y, m_z + o.m_z);
 }
 
-Vector Vector::operator*(const Vector &v) {
-    float x = this->y * v.z - this->z * v.y;
-    float y = this->z * v.x - this->x * v.z;
-    float z = this->x * v.y - this->y * v.x;
-    return Vector(x, y, z);
+Vector Vector::operator-(Vector const& o) const {
+    return Vector(m_x - o.m_x, m_y - o.m_y, m_z - o.m_z);
 }
 
-Vector Vector::multiBy(float value) {
-    return Vector(this->x * value, this->y * value, this->z * value);
+Vector Vector::operator*(Vector const& o) const {
+    return Vector(m_x * o.m_x, m_y * o.m_y, m_z * o.m_z);
+}
+
+Vector Vector::operator*(float f) const {
+    return Vector(m_x * f, m_y * f, m_z * f);
+}
+
+Vector& Vector::operator+=(Vector const& o) {
+    m_x += o.m_x;
+    m_y += o.m_y;
+    m_z += o.m_z;
+
+    return *this;
+}
+
+Vector& Vector::operator-=(Vector const& o) {
+    m_x -= o.m_x;
+    m_y -= o.m_y;
+    m_z -= o.m_z;
+
+    return *this;    
+}
+
+Vector& Vector::operator*=(Vector const& o) {
+    m_x *= o.m_x;
+    m_y *= o.m_y;
+    m_z *= o.m_z;
+
+    return *this;
+}
+
+Vector& Vector::operator*=(float f) {
+    m_x *= f;
+    m_y *= f;
+    m_z *= f;
+
+    return *this;    
+}
+
+Vector operator*(float f, Vector const& v) {
+    return v * f;
 }
