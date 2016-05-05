@@ -379,6 +379,30 @@ src/Scene.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Scene.cpp.s
 .PHONY : src/Scene.cpp.s
 
+src/Shape.o: src/Shape.cpp.o
+.PHONY : src/Shape.o
+
+# target to build an object file
+src/Shape.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Shape.cpp.o
+.PHONY : src/Shape.cpp.o
+
+src/Shape.i: src/Shape.cpp.i
+.PHONY : src/Shape.i
+
+# target to preprocess a source file
+src/Shape.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Shape.cpp.i
+.PHONY : src/Shape.cpp.i
+
+src/Shape.s: src/Shape.cpp.s
+.PHONY : src/Shape.s
+
+# target to generate assembly for a file
+src/Shape.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Shape.cpp.s
+.PHONY : src/Shape.cpp.s
+
 src/Sphere.o: src/Sphere.cpp.o
 .PHONY : src/Sphere.o
 
@@ -426,6 +450,30 @@ src/Tetraedre.s: src/Tetraedre.cpp.s
 src/Tetraedre.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Tetraedre.cpp.s
 .PHONY : src/Tetraedre.cpp.s
+
+src/Triangle.o: src/Triangle.cpp.o
+.PHONY : src/Triangle.o
+
+# target to build an object file
+src/Triangle.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Triangle.cpp.o
+.PHONY : src/Triangle.cpp.o
+
+src/Triangle.i: src/Triangle.cpp.i
+.PHONY : src/Triangle.i
+
+# target to preprocess a source file
+src/Triangle.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Triangle.cpp.i
+.PHONY : src/Triangle.cpp.i
+
+src/Triangle.s: src/Triangle.cpp.s
+.PHONY : src/Triangle.s
+
+# target to generate assembly for a file
+src/Triangle.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Triangle.cpp.s
+.PHONY : src/Triangle.cpp.s
 
 src/Vector.o: src/Vector.cpp.o
 .PHONY : src/Vector.o
@@ -493,12 +541,18 @@ help:
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"
+	@echo "... src/Shape.o"
+	@echo "... src/Shape.i"
+	@echo "... src/Shape.s"
 	@echo "... src/Sphere.o"
 	@echo "... src/Sphere.i"
 	@echo "... src/Sphere.s"
 	@echo "... src/Tetraedre.o"
 	@echo "... src/Tetraedre.i"
 	@echo "... src/Tetraedre.s"
+	@echo "... src/Triangle.o"
+	@echo "... src/Triangle.i"
+	@echo "... src/Triangle.s"
 	@echo "... src/Vector.o"
 	@echo "... src/Vector.i"
 	@echo "... src/Vector.s"

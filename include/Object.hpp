@@ -5,6 +5,7 @@
 #ifndef PROJECT_OBJECT_HPP
 #define PROJECT_OBJECT_HPP
 
+#include "Ray.hpp"
 class Object {    
 public:
     Object();

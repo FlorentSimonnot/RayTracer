@@ -16,7 +16,6 @@ class Materiaux {
 
 private:
 
-
     float coefReflection;
     /* coefficient de reflection */
 
@@ -29,7 +28,6 @@ private:
     float brillance;
     /* brillance du materiaux*/
 
-    int color;
 public:
 
     Materiaux();
@@ -37,7 +35,7 @@ public:
     ~Materiaux();
 
 
-    Materiaux operator=(const Materiaux &m);
+    Materiaux &operator=(const Materiaux &m);
 
     bool operator==(const Materiaux &m);
 
@@ -46,10 +44,6 @@ public:
     void setIndiceRefraction(float v);
 
     void setBrillance(float v);
-
-    void setColor(int color);
-
-    int getColor();
 
     float getCoefReflection();
 

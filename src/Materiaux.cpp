@@ -4,19 +4,17 @@
 
 #include "../include/Materiaux.hpp"
 
-Materiaux::Materiaux() {
-
-    indiceRefraction = 1.0;
-    brillance = 1.0;
-    coefReflection = 1.0;
-    coefReflectionInv = 1 - coefReflection;
-
+Materiaux::Materiaux() :
+        coefReflection(1.0),
+        coefReflectionInv(1 - coefReflection),
+        indiceRefraction(1.0),
+        brillance(1.0) {
 }
 
 Materiaux::~Materiaux() { }
 
 
-Materiaux Materiaux::operator=(const Materiaux &m) {
+Materiaux &Materiaux::operator=(const Materiaux &m) {
     this->brillance = m.brillance;
     this->coefReflection = m.coefReflection;
     this->indiceRefraction = m.indiceRefraction;
@@ -46,14 +44,6 @@ void Materiaux::setIndiceRefraction(float v) {
 
 void Materiaux::setBrillance(float v) {
     this->brillance = v;
-}
-
-void Materiaux::setColor(int color) {
-    this->color = color;
-}
-
-int Materiaux::getColor() {
-    return color;
 }
 
 float Materiaux::getCoefReflection() {
