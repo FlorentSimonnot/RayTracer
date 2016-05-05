@@ -4,7 +4,7 @@
 
 #include "ParentPointVector.hpp"
 
-ParentPointVector::ParentPointVector(float x, float y, float z)
+ParentPointVector::ParentPointVector(double x, double y, double z)
         : x(x),
           y(y),
           z(z) { }
@@ -37,14 +37,26 @@ ParentPointVector ParentPointVector::operator=(const ParentPointVector &p) {
 }
 
 
-float ParentPointVector::getX() const {
+double ParentPointVector::getX() const {
     return x;
 }
 
-float ParentPointVector::getY() const {
+double ParentPointVector::getY() const {
     return y;
 }
 
-float ParentPointVector::getZ() const {
+double ParentPointVector::getZ() const {
     return z;
+}
+
+void ParentPointVector::setX(double v) {
+    this->x = v;
+}
+
+void ParentPointVector::setY(double v) {
+    this->y = v;
+}
+
+void ParentPointVector::setZ(double v) {
+    this->z = v;
 }

@@ -13,17 +13,17 @@ class Ray;
 class Rectangle : public Object {
 private:
     Point origin_;
-    float width_;
-    float height_;
-    float depth_;
+    double width_;
+    double height_;
+    double depth_;
 
 public:
     Rectangle(void);
-    Rectangle(Point origin, float width, float height,float depth);
+    Rectangle(Point origin, double width, double height,double depth);
 
     ~Rectangle();
 
-    bool intersect(Ray &ray, float &dist);
+    bool intersect(Ray &ray, double &dist);
 
 };
 

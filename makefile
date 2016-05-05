@@ -28,9 +28,10 @@ src = src/
 #inc = -I./include $(incG3X)
 inc = -I.include/
 
-exec = geometry 
+# TODO Changer plus tard par le bon nom
+exec = Geometry
 
-# Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Triangle.cpp Parser.cpp
+# Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Tetraedre.cpp Parser.cpp RayTracer.cpp Scene.cpp
 SRC = Point.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Objet.cpp Sphere.cpp
 
 OBJ = $(SRC:%.cpp=%.o)

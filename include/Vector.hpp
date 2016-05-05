@@ -19,6 +19,7 @@ public:
     float z() const;
 
     float norm() const;
+    float produitScalaire(Vector const& o) const;
 
     Vector& operator=(Vector const& o);
 

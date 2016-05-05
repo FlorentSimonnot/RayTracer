@@ -14,6 +14,14 @@ Ray::~Ray() {
 
 }
 
+void Ray::setDirection(const Vector &v) {
+    this->direction_=v;
+}
+
+void Ray::setOrigin(const Point &p) {
+    this->origin_=p;
+}
+
 Point &Ray::getOrigin() {
     return origin_;
 }

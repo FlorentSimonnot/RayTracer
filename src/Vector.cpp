@@ -35,6 +35,10 @@ float Vector::norm() const {
     return sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
 }
 
+float Vector::produitScalaire(Vector const& o) const {
+    return m_x * o.m_x + m_y * o.m_y + m_z * o.m_z;
+}
+
 Vector& Vector::operator=(Vector const& o) {
     m_x = o.m_x;
     m_y = o.m_y;

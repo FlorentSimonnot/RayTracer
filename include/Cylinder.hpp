@@ -12,21 +12,19 @@ class Ray;
 // TODO
 class Cylinder : public Object {
 private:
-    float radius_;
-    float height_;
+    double radius_;
+    double height_;
 
 public:
     Cylinder(void);
-    Cylinder(float radius, float height);
+    Cylinder(double radius, double height);
 
     ~Cylinder();
 
+    bool intersect(Ray &ray, double &dist);
 
-
-
-
-    bool intersect(Ray &ray, float &dist);
-
+    double getRadius();
+    double getHeight();
 };
 
 
