@@ -25,27 +25,27 @@ float Cylinder::getHeight() {
 // Cylindre avec sa hauteur sur l'axe des X
 bool Cylinder::intersect(Ray &ray, float &dist) {
 
-    float a = SQR(ray.getDirection().getY())
-              + SQR(ray.getDirection.getZ());
-    float b = ray.getDirection().getY() * ray.getOrigin().getY()
-              + ray.getDirection().getZ() * ray.getOrigin().getZ();
-    float c = SQR(ray.getOrigin().getY())
-              + SQR(ray.getOrigin().getZ())
-              - SQR(getRadius());
-
-    float delta = b * b - 4 * a * c;
-
-    if (delta < 0) {
-
-
-    }
-    else if (delta == 0){
-
-    }
-    else{
-        t1 = (-b + sqrt(delta)) / a;
-        t2 = (-b - sqrt(delta)) / a;
-    }
+//    float a = SQR(ray.getDirection().y())
+//              + SQR(ray.getDirection().z());
+//    float b = ray.getDirection().y() * ray.getOrigin().y()
+//              + ray.getDirection().z() * ray.getOrigin().z();
+//    float c = SQR(ray.getOrigin().y())
+//              + SQR(ray.getOrigin().z())
+//              - SQR(getRadius());
+//
+//    float delta = b * b - 4 * a * c;
+//
+//    if (delta < 0) {
+//
+//
+//    }
+//    else if (delta == 0){
+//
+//    }
+//    else{
+//        double t1 = (-b + sqrt(delta)) / a;
+//        double t2 = (-b - sqrt(delta)) / a;
+//    }
 
 
     // Code source trouve en ligne

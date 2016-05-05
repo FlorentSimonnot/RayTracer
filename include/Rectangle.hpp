@@ -6,9 +6,7 @@
 #define PROJECT_RECTANGLE_HPP
 
 #include "Object.hpp"
-
-class Ray;
-
+#include "Point.hpp"
 // TODO
 class Rectangle : public Object {
 private:

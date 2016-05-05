@@ -11,9 +11,9 @@ Object::Object(const Object &c) { }
 Object::~Object() { }
 
 void Object::setColor(int color) {
-    this->color_ = color;
+    this->color = color;
 }
 
-int Object::getColor(){
-    return color_;
+int Object::getColor() {
+    return color;
 }

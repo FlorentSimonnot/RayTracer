@@ -5,9 +5,11 @@
 #ifndef PROJECT_OBJECT_HPP
 #define PROJECT_OBJECT_HPP
 
+#include "Materiaux.hpp"
+
 class Object {
 private:
-    int color_;
+    int color;
 
 public:
     Object(void);

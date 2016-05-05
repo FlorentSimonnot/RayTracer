@@ -5,8 +5,7 @@
 #include "Tetraedre.hpp"
 
 Tetraedre::Tetraedre()
-:	point_1(), point_2(), point_3(), point_4(), color()
-{
+        : point_1(), point_2(), point_3(), point_4(), color() {
 }
 
 Tetraedre::Tetraedre(Point point_1, Point point_2, Point point_3, Point point_4)

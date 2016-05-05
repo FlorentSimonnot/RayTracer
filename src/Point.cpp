@@ -5,23 +5,20 @@
 #include "Point.hpp"
 
 Point::Point()
-:	Vector()
-{
+		: Vector() {
 }
 
 Point::Point(float x, float y, float z)
-: 	Vector(x, y, z)
-{
+		: Vector(x, y, z) {
 }
 
-Point::Point(Vector const& o) 
-:	Vector(o)
-{
+Point::Point(Vector const &o)
+		: Vector(o) {
 }
 
 Point::~Point() {
 }
 
-float Point::distance(Point const& o) const {
+float Point::distance(Point const &o) const {
 	return (*this - o).norm();
 }
