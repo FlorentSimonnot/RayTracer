@@ -16,7 +16,7 @@ Tetraedre::~Tetraedre() {
 
 }
 
-bool Tetraedre::intersect(Ray &ray, double &dist) {
+bool Tetraedre::intersect(Ray &ray, float &dist) {
 
     return true;
 }

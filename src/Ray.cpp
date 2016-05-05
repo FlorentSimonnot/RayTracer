@@ -7,26 +7,26 @@
 // TODO
 
 Ray::Ray(Point &origin, Vector &direction)
-        : origin_(origin),
-          direction_(direction) { }
+        : origin(origin),
+          direction(direction) { }
 
 Ray::~Ray() {
 
 }
 
 void Ray::setDirection(const Vector &v) {
-    this->direction_=v;
+    this->direction = v;
 }
 
 void Ray::setOrigin(const Point &p) {
-    this->origin_=p;
+    this->origin = p;
 }
 
 Point &Ray::getOrigin() {
-    return origin_;
+    return origin;
 }
 
 Vector &Ray::getDirection() {
-    return direction_;
+    return direction;
 }
 

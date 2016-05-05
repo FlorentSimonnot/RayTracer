@@ -9,7 +9,7 @@
 
 class RayTracer {
 
-    Scene *scene;
+    Scene scene;
 
 };
 

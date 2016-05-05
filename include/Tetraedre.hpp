@@ -25,7 +25,7 @@ public:
 
     Tetraedre operator=(const Tetraedre &p);
 
-    bool intersect(Ray &ray, double &dist);
+    bool intersect(Ray &ray, float &dist);
 
 };
 

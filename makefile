@@ -29,10 +29,10 @@ src = src/
 inc = -I.include/
 
 # TODO Changer plus tard par le bon nom
-exec = Geometry
+exec = output
 
-# Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Tetraedre.cpp Parser.cpp RayTracer.cpp Scene.cpp
-SRC = Point.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Objet.cpp Sphere.cpp
+# Materiaux.cpp Cylinder.cpp Objet.cpp Point.cpp Rectangle.cpp Vector.cpp geometry.cpp ParentPointVector.cpp Ray.cpp Sphere.cpp Tetraedre.cpp Parser.cpp RayTracer.cpp Scene.cpp
+SRC = Materiaux.cpp Point.cpp Vector.cpp ParentPointVector.cpp Ray.cpp Objet.cpp Sphere.cpp Geometry.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
 

@@ -12,18 +12,18 @@ class Ray;
 // TODO
 class Rectangle : public Object {
 private:
-    Point origin_;
-    double width_;
-    double height_;
-    double depth_;
+    Point origin;
+    float width;
+    float height;
+    float depth;
 
 public:
-    Rectangle(void);
-    Rectangle(Point origin, double width, double height,double depth);
+    Rectangle();
+    Rectangle(Point origin, float width, float height,float depth);
 
     ~Rectangle();
 
-    bool intersect(Ray &ray, double &dist);
+    bool intersect(Ray &ray, float &dist);
 
 };
 

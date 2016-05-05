@@ -13,12 +13,6 @@
 #include "Cylinder.hpp"
 #include "Rectangle.hpp"
 
-
-
-// Pour chaque classe
-// Faire constructeur par defaut / copie
-// redefinir operateur =
-
 ///////////////////////////////////
 
 
