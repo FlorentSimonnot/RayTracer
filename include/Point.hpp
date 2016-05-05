@@ -5,29 +5,16 @@
 #ifndef PROJECT_POINT_HPP
 #define PROJECT_POINT_HPP
 
-#include "ParentPointVector.hpp"
-#include <cmath>
+#include "Vector.hpp"
 
-class Point : public ParentPointVector {
-private:
-    Point operator=(const ParentPointVector &p);
-
+class Point : public Vector {
 public:
-    Point(void);
-
+    Point();
     Point(float x, float y, float z);
+    Point(Vector const& o);
+    virtual ~Point();
 
-    ~Point();
-
-    float distance(const Point &p);
-
-    Point operator=(const Point &p);
-
-//    Point addVector(const Vector &v);
-
-//    Point substractVector(const Vector &v);
-
+    float distance(Point const& o) const;
 };
-
 
 #endif //PROJECT_POINT_HPP

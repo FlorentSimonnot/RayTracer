@@ -5,15 +5,15 @@
 #ifndef PROJECT_SPHERE_HPP
 #define PROJECT_SPHERE_HPP
 
-
-#include "Objet.hpp"
+#include "Point.hpp"
+#include "Object.hpp"
 
 // TODO
-class Sphere : public Objet {
+class Sphere : public Object {
 
 private:
-    Point center;
-    float radius;
+    Point m_center;
+    float m_radius;
 
 public:
     Sphere();
@@ -22,7 +22,7 @@ public:
 
     ~Sphere();
 
-    Sphere operator=(const Sphere &p);
+    Sphere& operator=(const Sphere &p);
 
     bool intersect(Ray &ray,float &dist);
 

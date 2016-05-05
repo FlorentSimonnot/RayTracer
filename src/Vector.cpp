@@ -2,55 +2,104 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/Vector.hpp"
+#include "Vector.hpp"
+#include <cmath>
 
-Vector::Vector() : ParentPointVector() { }
+#define FLOAT_EQ(a, b) (fabs(a - b) < 0.00001f) 
 
-Vector::Vector(double x, double y, double z) : ParentPointVector(x, y, z) { }
-
-Vector::~Vector() { }
-
-Vector Vector::nullVector() {
-    return Vector(0, 0, 0);
+Vector::Vector()
+:   m_x(0.f), m_y(0.f), m_z(0.f) 
+{
 }
 
-Vector Vector::operator=(const ParentPointVector &p) {
-    this->ParentPointVector::operator=(p);
-    return (*this);
+Vector::Vector(float x, float y, float z)
+:   m_x(x), m_y(y), m_z(z)
+{
 }
 
-Vector Vector::operator=(const Vector &p) {
-    this->ParentPointVector::operator=(p);
-    return (*this);
+Vector::~Vector() {
 }
 
-Vector Vector::operator+(const Vector &p) {
-    Vector result;
-    result = this->ParentPointVector::operator+(p);
-    return result;
+float Vector::x() const {
+    return m_x;
 }
 
-Vector Vector::operator-(const Vector &p) {
-    Vector result;
-    result = this->ParentPointVector::operator-(p);
-    return result;
+float Vector::y() const {
+    return m_y;
 }
 
-Vector Vector::operator*(const Vector &v) {
-    double x = this->y * v.z - this->z * v.y;
-    double y = this->z * v.x - this->x * v.z;
-    double z = this->x * v.y - this->y * v.x;
-    return Vector(x, y, z);
+float Vector::z() const {
+    return m_z;
 }
 
-double Vector::produitScalaire(const Vector &v) {
-    double ps = 0;
-    ps = this->getX() + v.getX()
-         + this->getY() + v.getY()
-         + this->getZ() + v.getZ();
-    return ps;
+float Vector::norm() const {
+    return sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
 }
 
-Vector Vector::multiBy(double value) {
-    return Vector(this->x * value, this->y * value, this->z * value);
+float Vector::produitScalaire(Vector const& o) const {
+    return m_x * o.m_x + m_y * o.m_y + m_z * o.m_z;
+}
+
+Vector& Vector::operator=(Vector const& o) {
+    m_x = o.m_x;
+    m_y = o.m_y;
+    m_z = o.m_z;
+
+    return *this;
+}
+
+Vector Vector::operator+(Vector const& o) const {
+    return Vector(m_x + o.m_x, m_y + o.m_y, m_z + o.m_z);
+}
+
+Vector Vector::operator-(Vector const& o) const {
+    return Vector(m_x - o.m_x, m_y - o.m_y, m_z - o.m_z);
+}
+
+Vector Vector::operator*(Vector const& o) const {
+    return Vector(m_x * o.m_x, m_y * o.m_y, m_z * o.m_z);
+}
+
+Vector Vector::operator*(float f) const {
+    return Vector(m_x * f, m_y * f, m_z * f);
+}
+
+Vector& Vector::operator+=(Vector const& o) {
+    m_x += o.m_x;
+    m_y += o.m_y;
+    m_z += o.m_z;
+
+    return *this;
+}
+
+Vector& Vector::operator-=(Vector const& o) {
+    m_x -= o.m_x;
+    m_y -= o.m_y;
+    m_z -= o.m_z;
+
+    return *this;    
+}
+
+Vector& Vector::operator*=(Vector const& o) {
+    m_x *= o.m_x;
+    m_y *= o.m_y;
+    m_z *= o.m_z;
+
+    return *this;
+}
+
+Vector& Vector::operator*=(float f) {
+    m_x *= f;
+    m_y *= f;
+    m_z *= f;
+
+    return *this;    
+}
+
+Vector operator*(float f, Vector const& v) {
+    return v * f;
+}
+
+bool Vector::operator==(Vector const& o) const {
+    return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
 }

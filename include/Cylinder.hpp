@@ -5,10 +5,12 @@
 #ifndef PROJECT_CYLINDER_HPP
 #define PROJECT_CYLINDER_HPP
 
-#include "Objet.hpp"
+#include "Object.hpp"
+
+class Ray;
 
 // TODO
-class Cylinder : public Objet {
+class Cylinder : public Object {
 private:
     float radius;
     float height;

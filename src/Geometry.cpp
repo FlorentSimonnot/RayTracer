@@ -2,7 +2,7 @@
 // Created by narex on 03/04/16.
 //
 #include <iostream>
-#include "../include/Geometry.hpp"
+#include "Geometry.hpp"
 
 
 int main(void) {
@@ -19,9 +19,9 @@ int main(void) {
     else {
         std::cout << "test4\n";
     }
-    std::cout << "a " << a.getX() << "\n";
-    std::cout << "a " << a.getY() << "\n";
-    std::cout << "a " << a.getZ() << "\n";
+    std::cout << "a " << a.x() << "\n";
+    std::cout << "a " << a.y() << "\n";
+    std::cout << "a " << a.z() << "\n";
 
 
 //    Point c(0, 0, 0);

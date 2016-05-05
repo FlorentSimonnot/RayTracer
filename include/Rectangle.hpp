@@ -5,10 +5,12 @@
 #ifndef PROJECT_RECTANGLE_HPP
 #define PROJECT_RECTANGLE_HPP
 
-#include "Objet.hpp"
+#include "Object.hpp"
+
+class Ray;
 
 // TODO
-class Rectangle : public Objet {
+class Rectangle : public Object {
 private:
     Point origin;
     float width;
