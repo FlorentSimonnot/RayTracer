@@ -427,30 +427,6 @@ src/Sphere.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Sphere.cpp.s
 .PHONY : src/Sphere.cpp.s
 
-src/Tetraedre.o: src/Tetraedre.cpp.o
-.PHONY : src/Tetraedre.o
-
-# target to build an object file
-src/Tetraedre.cpp.o:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Tetraedre.cpp.o
-.PHONY : src/Tetraedre.cpp.o
-
-src/Tetraedre.i: src/Tetraedre.cpp.i
-.PHONY : src/Tetraedre.i
-
-# target to preprocess a source file
-src/Tetraedre.cpp.i:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Tetraedre.cpp.i
-.PHONY : src/Tetraedre.cpp.i
-
-src/Tetraedre.s: src/Tetraedre.cpp.s
-.PHONY : src/Tetraedre.s
-
-# target to generate assembly for a file
-src/Tetraedre.cpp.s:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Tetraedre.cpp.s
-.PHONY : src/Tetraedre.cpp.s
-
 src/Triangle.o: src/Triangle.cpp.o
 .PHONY : src/Triangle.o
 
@@ -547,9 +523,6 @@ help:
 	@echo "... src/Sphere.o"
 	@echo "... src/Sphere.i"
 	@echo "... src/Sphere.s"
-	@echo "... src/Tetraedre.o"
-	@echo "... src/Tetraedre.i"
-	@echo "... src/Tetraedre.s"
 	@echo "... src/Triangle.o"
 	@echo "... src/Triangle.i"
 	@echo "... src/Triangle.s"
