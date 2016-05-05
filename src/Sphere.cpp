@@ -2,7 +2,7 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/Sphere.hpp"
+#include "Sphere.hpp"
 
 Sphere::Sphere() { }
 

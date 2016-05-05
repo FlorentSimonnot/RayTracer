@@ -2,7 +2,7 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/ParentPointVector.hpp"
+#include "ParentPointVector.hpp"
 
 ParentPointVector::ParentPointVector(float x, float y, float z)
         : x(x),

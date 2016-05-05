@@ -2,7 +2,7 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/Rectangle.hpp"
+#include "Rectangle.hpp"
 
 Rectangle::Rectangle() { }
 

@@ -7,10 +7,10 @@
 
 #include "Point.hpp"
 #include "Ray.hpp"
-#include "Objet.hpp"
+#include "Object.hpp"
 
 // TODO
-class Sphere : Objet {
+class Sphere : public Object {
 
 private:
     Point center_;

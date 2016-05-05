@@ -5,8 +5,10 @@
 #ifndef PROJECT_TRIANGLE_HPP
 #define PROJECT_TRIANGLE_HPP
 
+#include "Object.hpp"
+
 // TODO
-class Tetraedre : Objet {
+class Tetraedre : public Object {
 private:
     Point point_1;
     Point point_2;

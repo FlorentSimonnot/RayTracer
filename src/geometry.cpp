@@ -2,7 +2,7 @@
 // Created by narex on 03/04/16.
 //
 #include <iostream>
-#include "../include/geometry.hpp"
+#include "geometry.hpp"
 
 
 int main(void) {

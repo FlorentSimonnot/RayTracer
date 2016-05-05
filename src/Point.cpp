@@ -2,7 +2,7 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/Point.hpp"
+#include "Point.hpp"
 
 Point::Point(void) : ParentPointVector() { }
 

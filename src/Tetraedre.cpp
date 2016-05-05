@@ -2,7 +2,7 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include "../include/Tetraedre.hpp"
+#include "Tetraedre.hpp"
 
 Tetraedre::Tetraedre() { }
 
