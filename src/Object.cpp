@@ -5,15 +5,10 @@
 #include "Object.hpp"
 
 Object::Object() {
-
 }
 
-Object::~Object() { }
+Object::Object(Object const& o) {
+}
 
-//void Object::setColor(int color) {
-//    this->color = color;
-//}
-//
-//int Object::getColor() {
-//    return color;
-//}
+Object::~Object() {
+}

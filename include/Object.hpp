@@ -5,20 +5,11 @@
 #ifndef PROJECT_OBJECT_HPP
 #define PROJECT_OBJECT_HPP
 
-#include "Materiaux.hpp"
-
-class Object {
-private:
-//    int color;
-
+class Object {    
 public:
-    Object(void);
-
+    Object();
+    Object(Object const& o);
     virtual ~Object();
-
-//    void setColor(int color);
-//    int getColor();
-
 };
 
 #endif //PROJECT_OBJECT_HPP
