@@ -5,7 +5,6 @@
 #ifndef PROJECT_TRIANGLE_HPP
 #define PROJECT_TRIANGLE_HPP
 
-#include "Point.hpp"
 #include "Object.hpp"
 
 class Ray;

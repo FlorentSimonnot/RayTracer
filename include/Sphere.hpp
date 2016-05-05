@@ -5,7 +5,6 @@
 #ifndef PROJECT_SPHERE_HPP
 #define PROJECT_SPHERE_HPP
 
-#include "Point.hpp"
 #include "Object.hpp"
 
 // TODO
