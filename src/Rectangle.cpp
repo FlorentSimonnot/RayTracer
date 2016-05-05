@@ -4,7 +4,14 @@
 
 #include "Rectangle.hpp"
 
-Rectangle::Rectangle() { }
+Rectangle::Rectangle() :
+        width(0),
+        height(0),
+        depth(0) { }
+
+Rectangle::~Rectangle() {
+
+}
 
 Rectangle::Rectangle(Point origin, float width, float height, float depth)
         : origin(origin),

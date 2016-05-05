@@ -81,11 +81,12 @@ bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonRe
     rayonReflechi->setOrigin(origin);
 
     direction = r.getDirection();
-    direction.setX(direction.getX() - 2 * r.getDirection().produitScalaire(normale) * normale.getX());
-    direction.setY(direction.getY() - 2 * r.getDirection().produitScalaire(normale) * normale.getY());
-    direction.setZ(direction.getZ() - 2 * r.getDirection().produitScalaire(normale) * normale.getZ());
 
-    rayonReflechi->setDirection(direction);
+    Vector newDir(direction.x() - 2 * r.getDirection().produitScalaire(normale) * normale.x(),
+                  direction.y() - 2 * r.getDirection().produitScalaire(normale) * normale.y(),
+                  direction.z() - 2 * r.getDirection().produitScalaire(normale) * normale.z()
+    );
+    rayonReflechi->setDirection(newDir);
 
     return true;
 

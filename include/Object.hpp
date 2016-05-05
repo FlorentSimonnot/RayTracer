@@ -9,17 +9,15 @@
 
 class Object {
 private:
-    int color;
+//    int color;
 
 public:
     Object(void);
 
-    Object(const Object &c);
+    virtual ~Object();
 
-    ~Object();
-
-    void setColor(int color);
-    int getColor();
+//    void setColor(int color);
+//    int getColor();
 
 };
 

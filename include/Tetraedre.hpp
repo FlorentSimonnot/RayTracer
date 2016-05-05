@@ -23,7 +23,7 @@ public:
 
     Tetraedre(Point point_1, Point point_2, Point point_3,Point point_4);
 
-    virtual ~Tetraedre();
+    ~Tetraedre();
 
     Tetraedre operator=(const Tetraedre &p);
 
