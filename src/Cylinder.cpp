@@ -8,12 +8,12 @@
 
 
 Cylinder::Cylinder()
-: m_radius(1.f), m_height(1.f)
+:   m_center(), m_radius(1.f), m_height(1.f)
 {
 }
 
-Cylinder::Cylinder(float radius, float height)
-:   m_radius(radius), m_height(height) 
+Cylinder::Cylinder(Point const& center, float radius, float height)
+:   m_center(center), m_radius(radius), m_height(height) 
 {
 }
 

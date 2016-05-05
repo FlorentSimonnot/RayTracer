@@ -6,18 +6,20 @@
 #define PROJECT_CYLINDER_HPP
 
 #include "Shape.hpp"
+#include "Point.hpp"
 
 class Ray;
 
 // TODO
 class Cylinder : public Shape {
 private:
+	Point m_center;
     float m_radius;
     float m_height;
 
 public:
     Cylinder();
-    Cylinder(float radius, float height);
+    Cylinder(Point const& center, float radius, float height);
     ~Cylinder();
 
     bool intersect(Ray &ray, float &dist);

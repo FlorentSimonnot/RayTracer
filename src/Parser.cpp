@@ -1,120 +1,196 @@
 #include "Parser.hpp"
-#include <sstream>
+#include "Triangle.hpp"
+#include "Sphere.hpp"
+#include "Rectangle.hpp"
+#include "Cylinder.hpp"
 #include <iostream>
+#include <sstream>
 
-typedef enum {
-	INST_TRIANGLE, INST_SPHERE, INST_RECTANGLE, INST_CYLINDER, INST_CAMERA
-} Instruction;
+static bool parseType(std::string const& content, size_t& pos, std::string& type);
+static bool parseScalar(std::string const& content, size_t& pos, float& scalar);
+static bool parseVector(std::string const& content, size_t& pos, float& x, float& y, float& z);
+static bool parsePoint(std::string const& content, size_t& pos, Point& point);
+static bool parseEnd(std::string const& content, size_t& pos);
+static void consumeBlank(std::string const& content, size_t& pos);
 
-static void skipBlanks(std::string const& content, int& pos);
+static bool parseInstruction(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+
+static bool parseWord(std::string const& content, size_t& pos, std::string& word);
+static bool isCharacter(char c);
 static bool isBlank(char c);
-static bool readFloat(std::string const& content, int& pos, float& result);
-static bool readInteger(std::string const& content, int& pos, int& result);
+
+static bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+static bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+static bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+static bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 
 Parser::Parser(std::string const& path)
-:	m_file(path.c_str()), m_status(true), m_error()
+:	m_path(path), m_stream(path)
 {
-	if (m_file.fail()) {
-		m_status = false;
-		m_error = "File cannot be open.";
-	}
 }
 
 Parser::~Parser() {
-	if(m_file.is_open()){
-		m_file.close();
+	if (m_stream.is_open()) {
+		m_stream.close();
 	}
 }
 
-void Parser::parse() {
-	std::stringstream stream;
-	stream << m_file.rdbuf();
-	std::string content = stream.str();
-	int pos = 0;
+bool Parser::parse(std::vector<std::unique_ptr<Object>>& objects) {
+	if (m_stream.fail()) {
+		std::cerr << "Cannot open file " << m_path << "." << std::endl;
+		return false;
+	}
 
-	while (pos < content.length()) {
-		int inst = readInstruction(content, pos);
-		if (inst < 0) {
-			return;
+	std::stringstream ss;
+	ss << m_stream.rdbuf();
+	std::string content = ss.str();
+	size_t pos = 0;
+
+	while (!parseEnd(content, pos)) {
+		if (pos >= content.length()) {
+			std::cerr << "Unexpected end of string." << std::endl;
+			return false;
 		}
 
+		std::unique_ptr<Object> object;
+		if (!parseInstruction(content, pos, object)) {
+			return false;
+		}
 
-
+		objects.emplace_back(std::move(object));
 	}
 
-	// Tant que c'est pas la fin du fichier
-
-		// Lire une instruction (séquence de charactères en minuscule)
-
-		// Lire les caractères qui servent à rien.
-
-		// Lire les paramètres de l'instruction (etc.)
-
-		// Lire les caractères qui servent à rien.
-
+	return true;
 }
 
-bool Parser::check() {
-	if (m_status) {
+bool parseInstruction(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	std::string type;
+	if (parseType(content, pos, type)) {
+		if (type == "sphere") {
+			return parseSphere(content, pos, object);
+		} else if (type == "triangle") {
+			return parseTriangle(content, pos, object);			
+		} else if (type == "rectangle") {
+			return parseRectangle(content, pos, object);
+		} else if (type == "cylinder") {
+			return parseCylinder(content, pos, object);
+		}
+	}
+
+	return false;
+}
+
+bool parseType(std::string const& content, size_t& pos, std::string& type) {
+	consumeBlank(content, pos);
+	return parseWord(content, pos, type);
+}
+
+bool parseScalar(std::string const& content, size_t& pos, float& scalar) {
+	consumeBlank(content, pos);
+	size_t size;
+	scalar = std::stof(content.substr(pos), &size);
+	pos += size;
+	return size != 0;
+}
+
+bool parseVector(std::string const& content, size_t& pos, float& x, float& y, float& z) {
+	consumeBlank(content, pos);
+	if (content[pos] == '(') {
+		++ pos;
+		if (parseScalar(content, pos, x) && parseScalar(content, pos, y) && parseScalar(content, pos, z)) {
+			consumeBlank(content, pos);
+			if (content[pos] == ')') {
+				++ pos;
+				return true;
+			}
+		}
+	}
+
+	return false; 
+}
+
+bool parsePoint(std::string const& content, size_t& pos, Point& point) {
+	float x, y, z;
+	if (parseVector(content, pos, x, y, z)) {
+		point = Point(x, y, z);
 		return true;
 	}
 
-	std::cerr << "Error while parsing: " << m_error << std::endl;
-	return m_status;
+	return false;
 }
 
-int Parser::readInstruction(std::string const& content, int& pos) {
-	std::string inst;
-	int begin = pos;
-	
-	skipBlanks(content, pos);
-	while (pos < content.length() && content[pos] >= 'a' && content[pos] <= 'z'){	
-		++ pos;
-	}
-
-	inst = content.substr(begin, pos - begin);
-
-	if (inst == "triangle") {
-		return INST_TRIANGLE;
-	} else if (inst == "sphere"){
-		return INST_SPHERE;
-	} else if (inst == "rectangle"){
-		return INST_RECTANGLE;
-	} else if (inst == "cylinder"){
-		return INST_CYLINDER;
-	} else if (inst == "camera"){
-		return INST_CAMERA;
-	} else {
-		m_status = false;
-		m_error = "Unknown instruction '" + inst + "'.";
-		return -1;
-	}
+bool parseEnd(std::string const& content, size_t& pos) {
+	consumeBlank(content, pos);
+	return pos < content.length() && content[pos] == EOF;
 }
 
-
-
-void skipBlanks(std::string const& content, int& pos) {
+void consumeBlank(std::string const& content, size_t& pos) {
 	while (pos < content.length() && isBlank(content[pos])) {
 		++ pos;
 	}
 }
 
+bool parseWord(std::string const& content, size_t& pos, std::string& word) {
+	size_t start = pos;
+	while (pos < content.length()) {
+		if (!isCharacter(content[pos])) {
+			word = content.substr(start, pos - start);
+			return pos != start;
+		}
+
+		++ pos;
+	}
+
+	return false;
+}
+
+bool isCharacter(char c) {
+	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); 
+}
+
 bool isBlank(char c) {
-	return c == ' ' || c =='\n' || c =='\r' || c == '\t';
+	return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 }
 
-bool readFloat(std::string const& content, int& pos, float& result) {
-	skipBlanks(content, pos);
-	size_t end;
-	result = std::stof(content.substr(pos), &end);
-	pos += end;
-	return end != 0;
+bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	Point center;
+	float radius;
+	if (parsePoint(content, pos, center) && parseScalar(content, pos, radius)) {
+		object.reset(new Sphere(center, radius));
+		return true;
+	}
+
+	return false;
 }
 
-bool readInteger(std::string const& content, int& pos, int& result) {
-	skipBlanks(content, pos);
-	size_t end;
-	result = std::stoi(content.substr(pos), &end);
-	pos += end;
-	return end != 0;
+bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	Point p1, p2, p3;
+	if (parsePoint(content, pos, p1) && parsePoint(content, pos, p2) && parsePoint(content, pos, p3)) {
+		object.reset(new Triangle(p1, p2, p3));
+		return true;
+	}
+
+	return false;
+}
+
+bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	Point center;
+	float width, height, depth;
+	if (parsePoint(content, pos, center) && parseScalar(content, pos, width) && parseScalar(content, pos, height) && parseScalar(content, pos, depth)) {
+		object.reset(new Rectangle(center, width, height, depth));
+		return true;
+	}
+
+	return false;
+}
+
+bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	Point center;
+	float radius, height;
+	if (parsePoint(content, pos, center) && parseScalar(content, pos, radius) && parseScalar(content, pos, height)) {
+		object.reset(new Cylinder(center, radius, height));
+		return true;
+	}
+
+	return false;
 }

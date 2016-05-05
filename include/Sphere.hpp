@@ -18,7 +18,7 @@ private:
     float m_radius;
 
 public:
-    Sphere(void);
+    Sphere();
 
     Sphere(Point center, float radius);
 
