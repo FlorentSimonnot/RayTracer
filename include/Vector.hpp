@@ -14,7 +14,7 @@ private:
 public:
     Vector(void);
 
-    Vector(float x, float y, float z);
+    Vector(double x, double y, double z);
 
     ~Vector();
 
@@ -24,11 +24,13 @@ public:
 
     Vector operator-(const Vector &p);
 
-    Vector operator*(const Vector &v); // produit vectoriel
+    Vector operator*(const Vector &v);
 
-    Vector multiBy(float value);
+    Vector multiBy(double value);
 
     Vector nullVector();
+
+    double produitScalaire(const Vector &v);
 
 //    Vector fromPoints(const Point &p, const Point &p2);
 

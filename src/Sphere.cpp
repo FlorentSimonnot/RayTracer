@@ -6,7 +6,7 @@
 
 Sphere::Sphere() { }
 
-Sphere::Sphere(Point center, float radius)
+Sphere::Sphere(Point center, double radius)
         : center_(center),
           radius_(radius) { }
 
@@ -22,22 +22,21 @@ Point &Sphere::getCenter() {
     return center_;
 }
 
-float Sphere::getRadius(){
+double Sphere::getRadius(){
     return radius_;
 }
 
-// Ne fonctionne pas
-bool Sphere::intersect(Ray &ray) {
+// TODO A tester
+bool Sphere::intersect(Ray &ray, double &dist) {
 
-    float alpha = SQR(ray.getDirection().getX() - ray.getOrigin().getX())
+    double alpha = SQR(ray.getDirection().getX() - ray.getOrigin().getX())
                   + SQR(ray.getDirection().getY() - ray.getOrigin().getY())
                   + SQR(ray.getDirection().getZ() - ray.getOrigin().getZ());
-    float beta = 2 * (
+    double beta = 2 * (
             (ray.getDirection().getX() - ray.getOrigin().getX()) * (ray.getOrigin().getX() - getCenter().getX()) +
             (ray.getDirection().getY() - ray.getOrigin().getY()) * (ray.getOrigin().getY() - getCenter().getY()) +
             (ray.getDirection().getZ() - ray.getOrigin().getZ()) * (ray.getOrigin().getZ() - getCenter().getZ()));
-    //norm2(point)
-    float gamma = SQR(ray.getDirection().getX()) +
+    double gamma = SQR(ray.getDirection().getX()) +
                   SQR(ray.getDirection().getY()) +
                   SQR(ray.getDirection().getZ()) +
                   SQR(getCenter().getX()) +
@@ -48,15 +47,33 @@ bool Sphere::intersect(Ray &ray) {
                        ray.getDirection().getZ() * getCenter().getZ()) -
                   SQR(getRadius());
 
-    float delta = (beta * beta - 4 * alpha * gamma);
+    double delta = (beta * beta - 4 * alpha * gamma);
+
+    if(delta < 0){
+        dist = 0;
+;
+    }
+    else{
+        double t1 = (-beta + sqrt (delta)) / alpha;
+        double t2 = (-beta - sqrt (delta)) / alpha;
+        double t;
+        if ((t1 <= t2 && t1 > getEpsilon()) || (t2 < t1 && t2 < getEpsilon())){
+            t = t1;
+        }
+        else if ((t2 < t1 && t2 > getEpsilon()) || (t1 < t2 && t1 < getEpsilon())) {
+            t = t2;
+        }
+
+
+        //TODO Peut etre A changer
+        double x = t * ray.getDirection.getX() + ray.getOrigin().getX();
+        double y = t * ray.getDirection.getY() + ray.getOrigin().getY();
+        double z = t * ray.getDirection.getZ() + ray.getOrigin().getZ();
+        Point p(x,y,z);
+        dist = p.distance(ray.getOrigin());
+
+    }
 
     return delta >= 0;
 
-//    if (delta <= 0.f)
-//        return false;
-//
-////    float disc = sqrt(delta);
-////    if ((dist = -(b + disc)) < 0.)
-////        dist = -(b - disc);
-//    return true;
 }

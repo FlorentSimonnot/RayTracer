@@ -9,12 +9,12 @@
 
 class ParentPointVector {
 protected:
-    float x;
-    float y;
-    float z;
+    double x;
+    double y;
+    double z;
 public:
     ParentPointVector(void);
-    ParentPointVector(float x, float y, float z);
+    ParentPointVector(double x, double y, double z);
 
     ~ParentPointVector();
     ParentPointVector operator+(const ParentPointVector &p);
@@ -22,9 +22,13 @@ public:
     bool operator==(const ParentPointVector &p);
     bool operator!=(const ParentPointVector &p);
     ParentPointVector operator=(const ParentPointVector &p);
-    float getX() const;
-    float getY() const;
-    float getZ() const;
+
+    void setX(double v) ;
+    void setY(double v) ;
+    void setZ(double v) ;
+    double getX() const;
+    double getY() const;
+    double getZ() const;
 };
 
 

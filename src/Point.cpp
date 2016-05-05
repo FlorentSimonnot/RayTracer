@@ -6,11 +6,11 @@
 
 Point::Point(void) : ParentPointVector() { }
 
-Point::Point(float x, float y, float z) : ParentPointVector(x, y, z) { }
+Point::Point(double x, double y, double z) : ParentPointVector(x, y, z) { }
 
 Point::~Point() { }
 
-float Point::distance(const Point &p) {
+double Point::distance(const Point &p) {
     return sqrt(SQR(p.x - this->x) + SQR(p.y - this->y) + SQR(p.z - this->z));
 }
 

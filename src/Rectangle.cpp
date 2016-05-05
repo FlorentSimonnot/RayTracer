@@ -6,13 +6,13 @@
 
 Rectangle::Rectangle() { }
 
-Rectangle::Rectangle(Point origin, float width, float height, float depth)
+Rectangle::Rectangle(Point origin, double width, double height, double depth)
         : origin_(origin),
           width_(width),
           height_(height),
           depth_(depth){}
 
-bool Rectangle::intersect(Ray &ray, float &dist) {
+bool Rectangle::intersect(Ray &ray, double &dist) {
 
     return true;
 }
