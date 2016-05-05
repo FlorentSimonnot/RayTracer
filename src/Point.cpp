@@ -14,6 +14,11 @@ Point::Point(float x, float y, float z)
 {
 }
 
+Point::Point(Vector const& o) 
+:	Vector(o)
+{
+}
+
 Point::~Point() {
 }
 

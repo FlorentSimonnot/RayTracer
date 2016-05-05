@@ -14,8 +14,8 @@ class Ray;
 class Sphere : public Object {
 
 private:
-    Point center;
-    float radius;
+    Point m_center;
+    float m_radius;
 
 public:
     Sphere(void);
@@ -24,7 +24,7 @@ public:
 
     ~Sphere();
 
-    Sphere operator=(const Sphere &p);
+    Sphere& operator=(const Sphere &p);
 
     bool intersect(Ray &ray,float &dist);
 

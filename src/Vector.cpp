@@ -5,6 +5,7 @@
 #include "Vector.hpp"
 #include <cmath>
 
+#define FLOAT_EQ(a, b) (fabs(a - b) < 0.00001f) 
 
 Vector::Vector()
 :   m_x(0.f), m_y(0.f), m_z(0.f) 
@@ -97,4 +98,8 @@ Vector& Vector::operator*=(float f) {
 
 Vector operator*(float f, Vector const& v) {
     return v * f;
+}
+
+bool Vector::operator==(Vector const& o) const {
+    return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
 }
