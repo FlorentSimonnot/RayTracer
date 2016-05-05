@@ -5,20 +5,11 @@
 #ifndef PROJECT_OBJECT_HPP
 #define PROJECT_OBJECT_HPP
 
-class Object {
-private:
-    int color_;
-
+class Object {    
 public:
-    Object(void);
-
-    Object(const Object &c);
-
-    ~Object();
-
-    void setColor(int color);
-    int getColor();
-
+    Object();
+    Object(Object const& o);
+    virtual ~Object();
 };
 
 #endif //PROJECT_OBJECT_HPP

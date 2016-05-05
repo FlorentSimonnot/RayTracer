@@ -4,16 +4,11 @@
 
 #include "Object.hpp"
 
-Object::Object(void) { }
-
-Object::Object(const Object &c) { }
-
-Object::~Object() { }
-
-void Object::setColor(int color) {
-    this->color_ = color;
+Object::Object() {
 }
 
-int Object::getColor(){
-    return color_;
+Object::Object(Object const& o) {
+}
+
+Object::~Object() {
 }
