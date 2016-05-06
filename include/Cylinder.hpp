@@ -8,7 +8,6 @@
 #include "Shape.hpp"
 #include "Point.hpp"
 
-class Ray;
 
 // TODO
 class Cylinder : public Shape {
