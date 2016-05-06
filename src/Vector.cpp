@@ -101,3 +101,9 @@ Vector operator*(float f, Vector const &v) {
 bool Vector::operator==(Vector const &o) const {
     return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
 }
+
+Vector Vector::crossProduct(Vector const &o) {
+    return Vector(m_y * o.z() - m_z * o.y(),
+                  m_z * o.x() - m_x * o.z(),
+                  m_x * o.y() - m_y * o.x());
+}

@@ -34,6 +34,8 @@ public:
     Vector& operator*=(float f);
 
     bool operator==(Vector const& o) const;
+
+    Vector crossProduct(Vector const& o);
 };
 
 Vector operator*(float f, Vector const& v);

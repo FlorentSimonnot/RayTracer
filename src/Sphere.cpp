@@ -47,9 +47,10 @@ bool Sphere::intersect(Ray &ray, float &dist) {
     float delta = (beta * beta - 4 * alpha * gamma);
 
     if (delta < 0) {
-        dist = 0;
+        dist = std::numeric_limits<float>::max();;
+        return false;
 
-    } else {
+    }
         float t1 = (float) (-beta + sqrt(delta)) / alpha;
         float t2 = (float) (-beta - sqrt(delta)) / alpha;
         float t = 0;
@@ -65,9 +66,8 @@ bool Sphere::intersect(Ray &ray, float &dist) {
         //TODO Peut etre A changer
         Point p = t * ray.getDirection() + ray.getOrigin();
         dist = p.distance(ray.getOrigin());
+    return true;
 
-    }
 
-    return delta >= 0;
 
 }
