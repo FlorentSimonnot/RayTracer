@@ -1,7 +1,7 @@
 #include "Shape.hpp"
 
 Shape::Shape() 
-:	Object(), m_color()
+:	Object(), m_position(0.f, 0.f, 0.f), m_rotation(0.f, 0.f, 0.f), m_scale(1.f, 1.f, 1.f), m_color()
 {
 }
 
