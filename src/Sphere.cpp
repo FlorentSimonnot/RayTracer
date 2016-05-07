@@ -8,28 +8,23 @@
 
 
 Sphere::Sphere()
-        : Shape(), m_center(), m_radius(1.f) {
+:   Shape() 
+{
 }
 
-Sphere::Sphere(Point center, float radius)
-        : m_center(center), m_radius(radius) {
+Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale)
+:   Shape(position, rotation, scale)
+{
 }
 
 Sphere::~Sphere() {
 }
 
-Sphere &Sphere::operator=(const Sphere &o) {
-    m_center = o.m_center;
-    m_radius = o.m_radius;
+Sphere& Sphere::operator=(Sphere const& o) {
+    m_position = o.m_position;
+    m_rotation = o.m_rotation;
+    m_scale = o.m_scale;
     return *this;
-}
-
-Point &Sphere::getCenter() {
-    return m_center;
-}
-
-float Sphere::getRadius() {
-    return m_radius;
 }
 
 // TODO A tester
@@ -68,9 +63,4 @@ bool Sphere::intersect(Ray &ray, float &dist) {
         Point p = t * ray.getDirection() + ray.getOrigin();
         dist = p.distance(ray.getOrigin());
     return true;
-}
-
-Sphere Sphere::calculSphereEnglobante() {
-
-    return Sphere();
 }

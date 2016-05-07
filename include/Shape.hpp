@@ -12,6 +12,7 @@ private:
 
 public:
     Shape();
+    Shape(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Shape();
 
     void setColor(int color);

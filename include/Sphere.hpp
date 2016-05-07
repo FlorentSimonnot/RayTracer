@@ -9,27 +9,14 @@
 
 // TODO
 class Sphere : public Shape {
-
-private:
-    Point m_center;
-    float m_radius;
-
 public:
     Sphere();
+    Sphere(Vector const& position, Vector const& rotation, Vector const& scale);
+    virtual ~Sphere();
 
-    Sphere(Point center, float radius);
-
-    ~Sphere();
-
-    Sphere& operator=(const Sphere &p);
+    Sphere& operator=(Sphere const& o);
 
     bool intersect(Ray &ray,float &dist);
-
-    Point &getCenter();
-
-    float getRadius();
-
-    Sphere calculSphereEnglobante() override;
 };
 
 

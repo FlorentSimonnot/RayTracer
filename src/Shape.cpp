@@ -5,6 +5,11 @@ Shape::Shape()
 {
 }
 
+Shape::Shape(Vector const& position, Vector const& rotation, Vector const& scale) 
+:	Object(), m_position(position), m_rotation(rotation), m_scale(scale), m_color()
+{
+}
+
 Shape::~Shape() {
 }
 
