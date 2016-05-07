@@ -14,4 +14,6 @@ public:
     operator std::string() const;
 
 	bool intersect(Ray const& ray, float &dist);
+
+	void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 };

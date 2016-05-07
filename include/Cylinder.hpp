@@ -22,6 +22,8 @@ public:
     float getRadius();
 
     float getHeight();
+
+    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 };
 
 
