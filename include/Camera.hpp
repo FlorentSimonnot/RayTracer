@@ -7,8 +7,9 @@
 
 #include "Vector.hpp"
 #include "Point.hpp"
+#include "Object.hpp"
 
-class Camera {
+class Camera : public Object {
 private:
     float m_fov; // Angle d'ouverture
     float m_depth; // Profondeur de vue <=> distance max jusqu'a laquel les objets apparaissent

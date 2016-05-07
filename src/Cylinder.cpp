@@ -14,8 +14,7 @@ Cylinder::Cylinder()
 
 
 Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale)
-:   Shape(position, rotation, scale)
-{
+        : Shape(position, rotation, scale) {
 
 }
 

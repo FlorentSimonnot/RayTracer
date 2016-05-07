@@ -2,8 +2,7 @@
 
 #include "Object.hpp"
 #include "Vector.hpp"
-
-class Ray;
+#include "Ray.hpp"
 
 class Shape : public Object {
 protected:

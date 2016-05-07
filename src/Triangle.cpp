@@ -1,5 +1,4 @@
 #include <limits>
-#include "Ray.hpp"
 #include "Triangle.hpp"
 
 Triangle::Triangle()

@@ -12,8 +12,7 @@ Sphere::Sphere()
 }
 
 Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale)
-:   Shape(position, rotation, scale)
-{
+        : Shape(position, rotation, scale) {
 }
 
 Sphere::~Sphere() {
@@ -29,6 +28,7 @@ Sphere& Sphere::operator=(Sphere const& o) {
     m_scale = o.m_scale;
     return *this;
 }
+
 float Sphere::getRadius() {
     return m_scale.x();
 }
