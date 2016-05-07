@@ -36,6 +36,7 @@ public:
     Vector& operator*=(float f);
 
     bool operator==(Vector const& o) const;
+    bool operator!=(Vector const &o) const;
     operator std::string() const;
 
     Vector crossProduct(Vector const& o);

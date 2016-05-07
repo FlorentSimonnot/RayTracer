@@ -7,23 +7,21 @@
 
 #include "Camera.hpp"
 #include "Object.hpp"
+#include <vector>
+#include <Ray.hpp>
 class Scene {
 private:
-//    Camera m_camera;
+    std::vector<Shape>& m_Shapes;
 
-//    Object *m_objets;
-
-    float m_width;
-    float m_height;
-    float m_depth;
-
-
-
-    //
 public:
     Scene();
-    Scene(float width, float height, float depth);
+
+    Scene(std::vector<Shape>& shapes);
     ~Scene();
+
+    float getFirstCollision(Ray const& ray,float& dist);
+
+    bool addShape(Shape const& shape);
 
     void constructionArbreSpherEnglobant();
 

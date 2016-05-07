@@ -16,4 +16,9 @@ public:
     virtual ~Shape();
 
     virtual operator std::string() const;
+
+    virtual bool intersect(Ray const& ray, float& dist) = 0;
+
+    bool operator==(Shape const& o);
+    bool operator!=(Shape const& o);
 };

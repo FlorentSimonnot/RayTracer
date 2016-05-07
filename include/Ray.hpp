@@ -20,10 +20,6 @@ public:
 
     ~Ray();
 
-    Ray operator=(const Ray& p);
-
-    Ray operator+(const Ray& p);
-
     void setOrigin(const Point& p);
 
     void setDirection(const Vector& v);

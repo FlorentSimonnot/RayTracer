@@ -6,6 +6,7 @@
 #include <cmath>
 
 #define FLOAT_EQ(a, b) (fabs(a - b) < 0.00001f)
+#define FLOAT_NOT_EQ(a, b) (fabs(a - b) > 0.00001f)
 
 Vector::Vector()
         : m_x(0.f), m_y(0.f), m_z(0.f) {
@@ -104,6 +105,10 @@ Vector::operator std::string() const {
 
 bool Vector::operator==(Vector const &o) const {
     return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
+}
+
+bool Vector::operator!=(Vector const& o) const {
+    return FLOAT_NOT_EQ(m_x, o.m_x) || FLOAT_NOT_EQ(m_y, o.m_y) || FLOAT_NOT_EQ(m_z, o.m_z);
 }
 
 Vector Vector::crossProduct(Vector const &o) {
