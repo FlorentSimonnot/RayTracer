@@ -2,8 +2,7 @@
 #include "Triangle.hpp"
 
 Triangle::Triangle()
-        : Shape(), m_p1(-0.5f, -0.5f, 0), m_p2(0.5f, -0.5f, 0), m_p3(0, 1.f, 0)
-{
+        : Shape(), m_p1(-0.5f, -0.5f, 0), m_p2(0.5f, -0.5f, 0), m_p3(0, 1.f, 0) {
 }
 
 Triangle::Triangle(Point const& p1, Point const& p2, Point const& p3, Vector const& color)
@@ -14,7 +13,8 @@ Triangle::~Triangle() {
 }
 
 Triangle::operator std::string() const {
-    return "triangle => " + std::string(m_p1) + " " + std::string(m_p2) + " " + std::string(m_p3);
+    return "triangle => " + std::string(m_p1) + " " + std::string(m_p2) + " " + std::string(m_p3) +
+           "\t color : " + std::string(m_color);
 }
 
 // Algo de Möller-Trumbdore

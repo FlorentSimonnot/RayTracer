@@ -62,13 +62,13 @@ float Materiaux::getIndiceRefraction() const {
     return indiceRefraction;
 }
 
-bool Materiaux::rayonReflechi(Ray& r, Point origin, Vector normale, Ray *rayonReflechi) {
+bool Materiaux::rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi) {
 
     Vector direction;
-    if (getCoefReflection() == 0) {
+    if (coefReflection == 0) {
         return false;
     }
-    rayonReflechi->setOrigin(origin);
+    rayonReflechi.setOrigin(origin);
 
     direction = r.getDirection();
 
@@ -76,7 +76,7 @@ bool Materiaux::rayonReflechi(Ray& r, Point origin, Vector normale, Ray *rayonRe
                   direction.y() - 2 * r.getDirection().produitScalaire(normale) * normale.y(),
                   direction.z() - 2 * r.getDirection().produitScalaire(normale) * normale.z()
     );
-    rayonReflechi->setDirection(newDir);
+    rayonReflechi.setDirection(newDir);
 
     return true;
 

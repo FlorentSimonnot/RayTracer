@@ -35,25 +35,25 @@ public:
     ~Materiaux();
 
 
-    Materiaux &operator=(const Materiaux &m);
+    Materiaux& operator=(const Materiaux& m);
 
-    bool operator==(const Materiaux &m);
+    bool operator==(const Materiaux& m);
 
-    bool operator!=(const Materiaux &m);
+    bool operator!=(const Materiaux& m);
 
     void setIndiceRefraction(float v);
 
     void setBrillance(float v);
 
-    float getCoefReflection() const ;
+    float getCoefReflection() const;
 
-    float getCoefReflectionInv() const ;
+    float getCoefReflectionInv() const;
 
-    float getIndiceRefraction() const ;
+    float getIndiceRefraction() const;
 
-    float getBrillance() const ;
+    float getBrillance() const;
 
-    bool rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonReflechi);
+    bool rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi);
 };
 
 

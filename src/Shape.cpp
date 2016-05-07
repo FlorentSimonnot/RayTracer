@@ -14,5 +14,5 @@ Shape::~Shape() {
 
 Shape::operator std::string() const {
     return "position : " + std::string(m_position) + "\t rotation : " + std::string(m_rotation) + "\t scale : " +
-           std::string(m_scale);
+           std::string(m_scale) + "\t color : " + std::string(m_color);
 }
