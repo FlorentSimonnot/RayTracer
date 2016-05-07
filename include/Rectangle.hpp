@@ -14,6 +14,8 @@ public:
     Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Rectangle();
 
+    operator std::string() const;
+
     bool intersect(Ray &ray, float &dist);
 };
 

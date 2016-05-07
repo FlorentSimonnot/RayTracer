@@ -98,8 +98,8 @@ Vector operator*(float f, Vector const &v) {
     return v * f;
 }
 
-std::ostream& operator<<(std::ostream& stream, Vector const& v) {
-    return stream << '(' << v.m_y << ", " << v.m_y << ", " << v.m_z << ')';
+Vector::operator std::string() const {
+    return '(' + std::to_string(m_x) + ", " + std::to_string(m_y) + ", " + std::to_string(m_z) + ')';
 }
 
 bool Vector::operator==(Vector const &o) const {

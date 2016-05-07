@@ -20,6 +20,10 @@ Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& sca
 Sphere::~Sphere() {
 }
 
+Sphere::operator std::string() const {
+    return "sphere => " + Shape::operator std::string();
+}
+
 Sphere& Sphere::operator=(Sphere const& o) {
     m_position = o.m_position;
     m_rotation = o.m_rotation;

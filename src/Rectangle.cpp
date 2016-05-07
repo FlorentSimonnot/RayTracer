@@ -2,7 +2,6 @@
 // Created by Narex on 05/04/2016.
 //
 
-#include <Triangle.hpp>
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
@@ -16,6 +15,10 @@ Rectangle::Rectangle(Vector const& position, Vector const& rotation, Vector cons
 }
 
 Rectangle::~Rectangle() {
+}
+
+Rectangle::operator std::string() const {
+    return "rectangle => " + Shape::operator std::string();
 }
 
 // TODO

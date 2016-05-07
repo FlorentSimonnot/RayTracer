@@ -16,6 +16,8 @@ public:
 
     Sphere& operator=(Sphere const& o);
 
+    operator std::string() const;
+
     bool intersect(Ray &ray,float &dist);
 };
 

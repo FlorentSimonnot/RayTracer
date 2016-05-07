@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Shape.hpp"
+#include "Point.hpp"
+
+class Ray;
 
 class Triangle: public Shape {
 private:
@@ -10,5 +13,8 @@ public:
 	Triangle();
 	Triangle(Point const& p1, Point const& p2, Point const& p3);
 	virtual ~Triangle();
+
+    operator std::string() const;
+
 	bool intersect(Ray &ray, float &dist);
 };

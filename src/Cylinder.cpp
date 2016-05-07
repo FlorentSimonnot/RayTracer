@@ -21,6 +21,10 @@ Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const&
 Cylinder::~Cylinder() {
 }
 
+Cylinder::operator std::string() const {
+    return "cylinder => " + Shape::operator std::string();
+}
+
 // Cylindre avec sa hauteur sur l'axe des X
 // TODO A finir
 bool Cylinder::intersect(Ray &ray, float &dist) {
