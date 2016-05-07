@@ -12,7 +12,7 @@ class Rectangle : public Shape {
 
 public:
     Rectangle();
-    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
+    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale,Vector const& color);
     virtual ~Rectangle();
 
     operator std::string() const;

@@ -8,7 +8,7 @@ private:
 
 public:
 	Triangle();
-	Triangle(Point const& p1, Point const& p2, Point const& p3);
+	Triangle(Point const& p1, Point const& p2, Point const& p3,Vector const& color);
 	virtual ~Triangle();
 
     operator std::string() const;

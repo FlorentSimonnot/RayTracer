@@ -13,15 +13,16 @@ private:
 
 //    Object *m_objets;
 
-//    float m_width;
-//    float m_height;
-//    float m_depth;
+    float m_width;
+    float m_height;
+    float m_depth;
 
 
 
     //
 public:
     Scene();
+    Scene(float width, float height, float depth);
     ~Scene();
 
     void constructionArbreSpherEnglobant();

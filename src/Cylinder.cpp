@@ -13,14 +13,15 @@ Cylinder::Cylinder()
 }
 
 
-Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale)
-        : Shape(position, rotation, scale) {
+Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color)
+        : Shape(position, rotation, scale, color) {
 
 }
 
 Cylinder::~Cylinder() {
 }
 
+// TODO A changer
 float Cylinder::getRadius() {
     return m_scale.x();
 }

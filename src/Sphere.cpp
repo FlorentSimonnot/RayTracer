@@ -11,8 +11,8 @@ Sphere::Sphere()
         : Shape() {
 }
 
-Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale)
-        : Shape(position, rotation, scale) {
+Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color)
+        : Shape(position, rotation, scale, color) {
 }
 
 Sphere::~Sphere() {

@@ -6,21 +6,14 @@
 
 class Shape : public Object {
 protected:
-    Vector m_position, m_rotation, m_scale;
-
-private:
-    int m_color;
+    Vector m_position, m_rotation, m_scale, m_color;
 
 public:
     Shape();
 
-    Shape(const Vector& position, const Vector& rotation, const Vector& scale);
+    Shape(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color);
 
     virtual ~Shape();
 
     virtual operator std::string() const;
-
-    void setColor(int color);
-
-    int getColor();
 };

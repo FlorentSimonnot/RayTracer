@@ -5,7 +5,10 @@
 
 #include "Scene.hpp"
 
-Scene::Scene() { }
+Scene::Scene() : m_width(1280), m_height(720), m_depth(100) { }
+
+Scene::Scene(float width, float height, float depth)
+        : m_width(width), m_height(height), m_depth(depth) { }
 
 Scene::~Scene() { }
 
