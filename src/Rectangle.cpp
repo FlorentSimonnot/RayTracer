@@ -2,16 +2,15 @@
 // Created by Narex on 05/04/2016.
 //
 
+#include <Triangle.hpp>
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
-:   Shape()
-{
+        : Shape() {
 }
 
 Rectangle::Rectangle(Vector const& position, Vector const& rotation, Vector const& scale)
-:   Shape(position, rotation, scale)
-{
+        : Shape(position, rotation, scale) {
 }
 
 Rectangle::~Rectangle() {
@@ -22,7 +21,7 @@ Rectangle::operator std::string() const {
 }
 
 // TODO
-bool Rectangle::intersect(Ray &ray, float &dist) {
+bool Rectangle::intersect(const Ray& ray, float& dist) {
 
     // Idee algo ->
     // Diviser chaque cote en 2 triangle
@@ -43,14 +42,14 @@ bool Rectangle::intersect(Ray &ray, float &dist) {
 //    |    | /
 //    |____|/
 //   p0    P1
-    Point p0(origin);
-    Point p1(origin.x() + width, origin.y(), origin.z());
-    Point p2(origin.x(), origin.y() + height, origin.z());
-    Point p3(origin.x() + width, origin.y() + height, origin.z());
-    Point p4(origin.x(), origin.y(), origin.z() + depth);
-    Point p5(origin.x() + width, origin.y(), origin.z() + depth);
-    Point p6(origin.x() + width, origin.y() + height, origin.z() + depth);
-    Point p7(origin.x(), origin.y() + height, origin.z() + depth);
+    Point p0(m_position);
+    Point p1(m_position.x() + m_scale.x(), m_position.y(), m_position.z());
+    Point p2(m_position.x(), m_position.y() + m_scale.y(), m_position.z());
+    Point p3(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z());
+    Point p4(m_position.x(), m_position.y(), m_position.z() + m_scale.z());
+    Point p5(m_position.x() + m_scale.x(), m_position.y(), m_position.z() + m_scale.z());
+    Point p6(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
+    Point p7(m_position.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
 
     Triangle t1(p0, p2, p1);
     Triangle t2(p0, p2, p3);

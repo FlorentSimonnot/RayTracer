@@ -26,9 +26,9 @@ public:
     void setOrigin(const Point &p);
     void setDirection(const Vector &v);
 
-    Point &getOrigin();
+    Point &getOrigin() const;
 
-    Vector &getDirection();
+    Vector &getDirection() const ;
 };
 
 

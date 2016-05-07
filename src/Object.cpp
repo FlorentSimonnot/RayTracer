@@ -7,7 +7,7 @@
 Object::Object() {
 }
 
-Object::Object(Object const& o) {
+Object::Object(const Object& o) {
 }
 
 Object::~Object() {

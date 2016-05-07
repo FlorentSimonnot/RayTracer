@@ -17,9 +17,12 @@ public:
 
     operator std::string() const;
 
-    bool intersect(Ray &ray, float &dist);
-};
+    bool intersect(const Ray& ray, float& dist);
 
+    float getRadius();
+
+    float getHeight();
+};
 
 
 #endif //PROJECT_CYLINDER_HPP

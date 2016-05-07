@@ -10,7 +10,7 @@
 class Object {    
 public:
     Object();
-    Object(Object const& o);
+    Object(const Object & o);
     virtual ~Object();
 
     virtual operator std::string() const = 0;

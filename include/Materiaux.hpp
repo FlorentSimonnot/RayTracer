@@ -45,13 +45,13 @@ public:
 
     void setBrillance(float v);
 
-    float getCoefReflection();
+    float getCoefReflection() const ;
 
-    float getCoefReflectionInv();
+    float getCoefReflectionInv() const ;
 
-    float getIndiceRefraction();
+    float getIndiceRefraction() const ;
 
-    float getBrillance();
+    float getBrillance() const ;
 
     bool rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonReflechi);
 };

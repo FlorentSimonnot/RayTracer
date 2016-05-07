@@ -9,16 +9,24 @@
 
 
 Cylinder::Cylinder()
-:   Shape()
-{
+        : Shape() {
 }
 
+
 Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale)
-:   Shape(position, rotation, scale)
-{
+        : Shape(position, rotation, scale) {
+
 }
 
 Cylinder::~Cylinder() {
+}
+
+float Cylinder::getRadius() {
+    return m_scale.x();
+}
+
+float Cylinder::getHeight() {
+    return m_scale.z();
 }
 
 Cylinder::operator std::string() const {
@@ -27,13 +35,13 @@ Cylinder::operator std::string() const {
 
 // Cylindre avec sa hauteur sur l'axe des X
 // TODO A finir
-bool Cylinder::intersect(Ray &ray, float &dist) {
+bool Cylinder::intersect(const Ray& ray, float& dist) {
     Vector ray_dir(0, ray.getDirection().y(), ray.getDirection().x());
     Vector ray_or(0, ray.getOrigin().y(), ray.getOrigin().x());
 
     float a = ray_dir.produitScalaire(ray_dir);
     float b = ray_dir.produitScalaire(ray_or);
-    float c = ray_or.produitScalaire(ray_or) - m_radius * m_radius;
+    float c = ray_or.produitScalaire(ray_or) - getRadius() * getRadius();
 
     float delta = b * b - 4 * a * c;
 

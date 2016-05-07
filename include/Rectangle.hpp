@@ -9,6 +9,7 @@
 
 // TODO
 class Rectangle : public Shape {
+
 public:
     Rectangle();
     Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
@@ -16,7 +17,7 @@ public:
 
     operator std::string() const;
 
-    bool intersect(Ray &ray, float &dist);
+    bool intersect(Ray const& ray, float &dist);
 };
 
 #endif //PROJECT_RECTANGLE_HPP
