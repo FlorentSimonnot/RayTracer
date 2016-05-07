@@ -117,7 +117,7 @@ bool parsePoint(std::string const& content, size_t& pos, Point& point) {
 
 bool parseEnd(std::string const& content, size_t& pos) {
 	consumeBlank(content, pos);
-	return pos < content.length() && content[pos] == EOF;
+	return pos == content.length();
 }
 
 void consumeBlank(std::string const& content, size_t& pos) {
