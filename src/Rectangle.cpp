@@ -6,18 +6,18 @@
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
-        : Shape(), origin(), width(1.f), height(1.f), depth(1.f) {
+        : Shape() {
 }
 
-Rectangle::Rectangle(Point origin, float width, float height, float depth)
-        : Shape(), origin(origin), width(width), height(height), depth(depth) {
+Rectangle::Rectangle(Vector const &position, Vector const &rotation, Vector const &scale)
+        : Shape(position, rotation, scale) {
 }
 
 Rectangle::~Rectangle() {
 }
 
 // TODO
-bool Rectangle::intersect(Ray &ray, float &dist) {
+bool Rectangle::intersect(Ray const &ray, float &dist) {
 
     // Idee algo ->
     // Diviser chaque cote en 2 triangle
@@ -38,14 +38,14 @@ bool Rectangle::intersect(Ray &ray, float &dist) {
 //    |    | /
 //    |____|/
 //   p0    P1
-    Point p0(origin);
-    Point p1(origin.x() + width, origin.y(), origin.z());
-    Point p2(origin.x(), origin.y() + height, origin.z());
-    Point p3(origin.x() + width, origin.y() + height, origin.z());
-    Point p4(origin.x(), origin.y(), origin.z() + depth);
-    Point p5(origin.x() + width, origin.y(), origin.z() + depth);
-    Point p6(origin.x() + width, origin.y() + height, origin.z() + depth);
-    Point p7(origin.x(), origin.y() + height, origin.z() + depth);
+    Point p0(m_position);
+    Point p1(m_position.x() + m_scale.x(), m_position.y(), m_position.z());
+    Point p2(m_position.x(), m_position.y() + m_scale.y(), m_position.z());
+    Point p3(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z());
+    Point p4(m_position.x(), m_position.y(), m_position.z() + m_scale.z());
+    Point p5(m_position.x() + m_scale.x(), m_position.y(), m_position.z() + m_scale.z());
+    Point p6(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
+    Point p7(m_position.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
 
     Triangle t1(p0, p2, p1);
     Triangle t2(p0, p2, p3);
@@ -72,9 +72,4 @@ bool Rectangle::intersect(Ray &ray, float &dist) {
 
 
     return true;
-}
-
-Sphere Rectangle::calculSphereEnglobante() {
-
-    return Sphere();
 }

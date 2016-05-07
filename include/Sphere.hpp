@@ -15,9 +15,9 @@ public:
     Sphere(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Sphere();
 
-    bool intersect(Ray &ray,float &dist);
+    bool intersect(Ray const &ray,float &dist);
 
-    Point &getCenter();
+    Vector &getCenter();
 
     float getRadius();
 

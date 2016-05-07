@@ -8,19 +8,17 @@
 
 
 Sphere::Sphere()
-        : Shape()
-{
+        : Shape() {
 }
 
-Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale)
-:   Shape(position, rotation, scale)
-{
+Sphere::Sphere(Vector const &position, Vector const &rotation, Vector const &scale)
+        : Shape(position, rotation, scale) {
 }
 
 Sphere::~Sphere() {
 }
 
-Point &Sphere::getCenter() {
+Vector &Sphere::getCenter() {
     return m_position;
 }
 
@@ -28,7 +26,7 @@ float Sphere::getRadius() {
     return m_scale.x();
 }
 
-Sphere& Sphere::operator=(Sphere const& o) {
+Sphere &Sphere::operator=(Sphere const &o) {
     m_position = o.m_position;
     m_rotation = o.m_rotation;
     m_scale = o.m_scale;
@@ -37,7 +35,7 @@ Sphere& Sphere::operator=(Sphere const& o) {
 
 
 // TODO A tester
-bool Sphere::intersect(Ray &ray, float &dist) {
+bool Sphere::intersect(Ray const &ray, float &dist) {
     Vector d1 = ray.getDirection() - ray.getOrigin();
     Vector d2 = ray.getOrigin() - getCenter();
     Vector ray_dir = ray.getDirection();
@@ -56,20 +54,20 @@ bool Sphere::intersect(Ray &ray, float &dist) {
         return false;
 
     }
-        float t1 = (float) (-beta + sqrt(delta)) / alpha;
-        float t2 = (float) (-beta - sqrt(delta)) / alpha;
-        float t = 0;
+    float t1 = (float) (-beta + sqrt(delta)) / alpha;
+    float t2 = (float) (-beta - sqrt(delta)) / alpha;
+    float t = 0;
 
-        if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
-            (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
-            t = t1;
-        } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
-                   (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
-            t = t2;
-        }
+    if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
+        (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
+        t = t1;
+    } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
+               (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
+        t = t2;
+    }
 
-        //TODO Peut etre A changer
-        Point p = t * ray.getDirection() + ray.getOrigin();
-        dist = p.distance(ray.getOrigin());
+    //TODO Peut etre A changer
+    Point p = t * ray.getDirection() + ray.getOrigin();
+    dist = p.distance(ray.getOrigin());
     return true;
 }

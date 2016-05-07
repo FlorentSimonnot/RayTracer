@@ -10,5 +10,5 @@ public:
 	Triangle();
 	Triangle(Point const& p1, Point const& p2, Point const& p3);
 	virtual ~Triangle();
-	bool intersect(Ray &ray, float &dist);
+	bool intersect(Ray const &ray, float &dist);
 };

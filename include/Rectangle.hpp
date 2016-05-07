@@ -10,21 +10,18 @@
 
 // TODO
 class Rectangle : public Shape {
-private:
-    Point origin;
-    float width;
-    float height;
-    float depth;
+//private:
+//    float m_width;
+//    float m_height;
+//    float m_depth;
 
 public:
     Rectangle();
-    Rectangle(Point origin, float width, float height, float depth);
+    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
 
     virtual ~Rectangle();
 
-    bool intersect(Ray &ray, float &dist);
-
-    Sphere calculSphereEnglobante() override;
+    bool intersect(Ray const &ray, float &dist);
 
 };
 
