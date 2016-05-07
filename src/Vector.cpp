@@ -98,6 +98,10 @@ Vector operator*(float f, Vector const &v) {
     return v * f;
 }
 
+std::ostream& operator<<(std::ostream& stream, Vector const& v) {
+    return stream << '(' << v.m_y << ", " << v.m_y << ", " << v.m_z << ')';
+}
+
 bool Vector::operator==(Vector const &o) const {
     return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
 }

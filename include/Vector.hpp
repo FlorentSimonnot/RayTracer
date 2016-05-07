@@ -5,7 +5,11 @@
 #ifndef PROJECT_VECTOR_H
 #define PROJECT_VECTOR_H
 
+#include <ostream>
+
 class Vector {
+    friend std::ostream& operator<<(std::ostream& stream, Vector const& v);
+    
 private:
     float m_x, m_y, m_z;
 
@@ -39,5 +43,6 @@ public:
 };
 
 Vector operator*(float f, Vector const& v);
+std::ostream& operator<<(std::ostream& stream, Vector const& v);
 
 #endif //PROJECT_VECTOR_H
