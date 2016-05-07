@@ -20,7 +20,7 @@ public:
     Camera();
     Camera(Point const& position, Vector const& orientation);
     Camera(float fov, float depth, Point const& position, Vector const& orientation);
-    ~Camera();
+    virtual ~Camera();
 
     float getFov();
 
