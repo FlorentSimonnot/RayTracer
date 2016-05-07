@@ -8,12 +8,11 @@
 Camera::Camera()
         : m_fov(60), m_depth(10) { }
 
-Camera::Camera(Point position, Vector orientation)
-        : Camera(),
-          m_position(position),
+Camera::Camera(Point const& position, Vector const& orientation)
+        : m_position(position),
           m_orientation(orientation) { }
 
-Camera::Camera(float fov, float depth, Point position, Vector orientation)
+Camera::Camera(float fov, float depth, Point const& position, Vector const& orientation)
         : m_fov(fov),
           m_depth(depth),
           m_position(position),
