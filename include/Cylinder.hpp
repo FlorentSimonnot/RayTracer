@@ -12,7 +12,7 @@
 class Cylinder : public Shape {
 public:
     Cylinder();
-    Cylinder(Vector const& position, Vector const& rotation, Vector const& scale);
+    Cylinder(Vector const& position, Vector const& rotation, Vector const& scale,Vector const& color);
     virtual ~Cylinder();
 
     operator std::string() const;
