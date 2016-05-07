@@ -2,13 +2,12 @@
 #include "Triangle.hpp"
 
 Triangle::Triangle()
-        : Shape(),
-          m_p1(Point(0, 0, 0)),
-          m_p2(Point(0, 0, 0)),
-          m_p3(Point(0, 0, 0)) { }
+:   Shape(), m_p1(Point(-0.5f, -0.5f, 0)), m_p2(Point(0.5f, -0.5f, 0)), m_p3(Point(0, 1.f, 0))
+{
+}
 
 Triangle::Triangle(Point const &p1, Point const &p2, Point const &p3)
-        : Shape(), m_p1(p1), m_p2(p2), m_p3(p3) {
+:   Shape(), m_p1(p1), m_p2(p2), m_p3(p3) {
 }
 
 Triangle::~Triangle() {
@@ -17,11 +16,8 @@ Triangle::~Triangle() {
 // Algo de Möller-Trumbdore
 // TODO A verifier
 bool Triangle::intersect(Ray &ray, float &dist) {
-
     Vector edge_1(m_p2 - m_p1);
-
     Vector edge_2(m_p3 - m_p1);
-
     Vector p(ray.getDirection().crossProduct(edge_2));
 
     float det = edge_1.produitScalaire(p);
@@ -50,9 +46,4 @@ bool Triangle::intersect(Ray &ray, float &dist) {
         return true;
     }
     return false;
-}
-
-Sphere Triangle::calculSphereEnglobante() {
-
-    return Sphere();
 }
