@@ -5,27 +5,16 @@
 #ifndef PROJECT_RECTANGLE_HPP
 #define PROJECT_RECTANGLE_HPP
 
-#include "Point.hpp"
 #include "Shape.hpp"
 
 // TODO
 class Rectangle : public Shape {
-private:
-    Point origin;
-    float width;
-    float height;
-    float depth;
-
 public:
     Rectangle();
-    Rectangle(Point origin, float width, float height, float depth);
-
+    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Rectangle();
 
     bool intersect(Ray &ray, float &dist);
-
-    Sphere calculSphereEnglobante() override;
-
 };
 
 #endif //PROJECT_RECTANGLE_HPP
