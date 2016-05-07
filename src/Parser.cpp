@@ -8,7 +8,7 @@
 
 static bool parseType(std::string const& content, size_t& pos, std::string& type);
 static bool parseScalar(std::string const& content, size_t& pos, float& scalar);
-static bool parseVector(std::string const& content, size_t& pos, float& x, float& y, float& z);
+static bool parseVector(std::string const& content, size_t& pos, Vector& vector);
 static bool parsePoint(std::string const& content, size_t& pos, Point& point);
 static bool parseEnd(std::string const& content, size_t& pos);
 static void consumeBlank(std::string const& content, size_t& pos);
@@ -93,7 +93,8 @@ bool parseScalar(std::string const& content, size_t& pos, float& scalar) {
 	return size != 0;
 }
 
-bool parseVector(std::string const& content, size_t& pos, float& x, float& y, float& z) {
+bool parseVector(std::string const& content, size_t& pos, Vector& vector) {
+	float x, y, z;
 	consumeBlank(content, pos);
 	if (content[pos] == '(') {
 		++ pos;
@@ -101,6 +102,7 @@ bool parseVector(std::string const& content, size_t& pos, float& x, float& y, fl
 			consumeBlank(content, pos);
 			if (content[pos] == ')') {
 				++ pos;
+				vector = Vector(x, y, z);
 				return true;
 			}
 		}
@@ -110,13 +112,7 @@ bool parseVector(std::string const& content, size_t& pos, float& x, float& y, fl
 }
 
 bool parsePoint(std::string const& content, size_t& pos, Point& point) {
-	float x, y, z;
-	if (parseVector(content, pos, x, y, z)) {
-		point = Point(x, y, z);
-		return true;
-	}
-
-	return false;
+	return parseVector(content, pos, point);
 }
 
 bool parseEnd(std::string const& content, size_t& pos) {
@@ -153,10 +149,9 @@ bool isBlank(char c) {
 }
 
 bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Point center;
-	float radius;
-	if (parsePoint(content, pos, center) && parseScalar(content, pos, radius)) {
-		object.reset(new Sphere(center, radius));
+	Vector position, rotation, scale;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale)) {
+		object.reset(new Sphere(position, rotation, scale));
 		return true;
 	}
 
@@ -174,10 +169,9 @@ bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Obje
 }
 
 bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Point center;
-	float width, height, depth;
-	if (parsePoint(content, pos, center) && parseScalar(content, pos, width) && parseScalar(content, pos, height) && parseScalar(content, pos, depth)) {
-		object.reset(new Rectangle(center, width, height, depth));
+	Vector position, rotation, scale;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale)) {
+		object.reset(new Rectangle(position, rotation, scale));
 		return true;
 	}
 
@@ -185,10 +179,9 @@ bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Obj
 }
 
 bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Point center;
-	float radius, height;
-	if (parsePoint(content, pos, center) && parseScalar(content, pos, radius) && parseScalar(content, pos, height)) {
-		object.reset(new Cylinder(center, radius, height));
+	Vector position, rotation, scale;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale)) {
+		object.reset(new Cylinder(position, rotation, scale));
 		return true;
 	}
 
