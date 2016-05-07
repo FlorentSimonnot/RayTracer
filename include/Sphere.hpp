@@ -12,7 +12,9 @@ class Sphere : public Shape {
 
 public:
     Sphere();
-    Sphere(Vector const& position, Vector const& rotation, Vector const& scale,Vector const& color);
+
+    Sphere(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color);
+
     virtual ~Sphere();
 
     bool intersect(const Ray& ray, float& dist);
@@ -22,6 +24,8 @@ public:
     Sphere& operator=(Sphere const& o);
 
     operator std::string() const;
+
+    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 };
 
 

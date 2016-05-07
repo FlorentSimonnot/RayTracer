@@ -19,6 +19,10 @@ public:
 
     virtual bool intersect(Ray const& ray, float& dist) = 0;
 
+    // A changer la variable color peut etre plus tard
+    virtual void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) = 0;
+
     bool operator==(Shape const& o);
+
     bool operator!=(Shape const& o);
 };

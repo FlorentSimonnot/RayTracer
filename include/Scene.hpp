@@ -23,6 +23,8 @@ public:
 
     bool addShape(Shape const& shape);
 
+    Shape& getShape(float index);
+
     void constructionArbreSpherEnglobant();
 
 };

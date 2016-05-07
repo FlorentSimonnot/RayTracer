@@ -12,6 +12,8 @@
 class Camera: public Object {
 private:
     float m_fov; // Angle d'ouverture
+
+//    float m_width,m_height;
     float m_depth; // Profondeur de vue <=> distance max jusqu'a laquel les objets apparaissent
     Point m_position; // Position de la camera
     Vector m_orientation; // Orientation de la camera
@@ -24,13 +26,21 @@ public:
 
     float getFov();
 
-    float getDepth();
+//    float width();
+//
+//    float height();
+
+    float depth();
 
     Point getPosition();
 
     Vector getOrientation();
 
     void setFov(float val);
+
+//    void setWidth(float val);
+//
+//    void setHeight(float val);
 
     void setDepth(float val);
 

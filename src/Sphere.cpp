@@ -71,3 +71,11 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     dist = p.distance(ray.getOrigin());
     return true;
 }
+
+void Sphere::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
+
+//    Vector v(ray.getOrigin() + dist*ray.getDirection());
+//    normal = v - m_position;
+//    normal *= 1/(sqrt(normal.norm()));
+    color = this->m_color;
+}

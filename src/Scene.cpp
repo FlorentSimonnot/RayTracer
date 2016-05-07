@@ -51,6 +51,10 @@ bool Scene::addShape(Shape const& shape) {
     return true;
 }
 
+Shape& Scene::getShape(float index) {
+    return m_Shapes[index];
+}
+
 void Scene::constructionArbreSpherEnglobant() {
 
 
