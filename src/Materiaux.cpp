@@ -4,24 +4,38 @@
 
 #include "../include/Materiaux.hpp"
 
-Materiaux::Materiaux() {
-
-    indiceRefraction = 1.0;
-    brillance = 1.0;
-    coefReflection = 1.0;
-    coefReflectionInv = 1 - coefReflection;
-
+Materiaux::Materiaux() :
+        coefReflection(1.0),
+        coefReflectionInv(1 - coefReflection),
+        indiceRefraction(1.0),
+        brillance(1.0) {
 }
 
 Materiaux::~Materiaux() { }
 
 
-Materiaux Materiaux::operator=(const Materiaux &m) {
+Materiaux &Materiaux::operator=(const Materiaux &m) {
     this->brillance = m.brillance;
     this->coefReflection = m.coefReflection;
     this->indiceRefraction = m.indiceRefraction;
     this->coefReflectionInv = m.coefReflectionInv;
     return (*this);
+}
+
+// TODO Eventuellement ajouter test sur la couleur
+bool Materiaux::operator!=(const Materiaux &m) {
+    return this->brillance != m.brillance ||
+           this->coefReflection != m.coefReflection ||
+           this->indiceRefraction != m.indiceRefraction ||
+           this->coefReflectionInv != m.coefReflectionInv;
+
+}
+
+bool Materiaux::operator==(const Materiaux &m) {
+    return this->brillance == m.brillance &&
+           this->coefReflection == m.coefReflection &&
+           this->indiceRefraction == m.indiceRefraction &&
+           this->coefReflectionInv == m.coefReflectionInv;
 }
 
 void Materiaux::setIndiceRefraction(float v) {
@@ -30,14 +44,6 @@ void Materiaux::setIndiceRefraction(float v) {
 
 void Materiaux::setBrillance(float v) {
     this->brillance = v;
-}
-
-void Materiaux::setColor(int color) {
-    this->color = color;
-}
-
-int Materiaux::getColor() {
-    return color;
 }
 
 float Materiaux::getCoefReflection() {
@@ -56,7 +62,7 @@ float Materiaux::getIndiceRefraction() {
     return indiceRefraction;
 }
 
-bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray &rayonReflechi) {
+bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray *rayonReflechi) {
 
     Vector direction;
     if (getCoefReflection() == 0) {
@@ -64,12 +70,13 @@ bool Materiaux::rayonReflechi(Ray &r, Point origin, Vector normale, Ray &rayonRe
     }
     rayonReflechi->setOrigin(origin);
 
-    direction = r->getDirection();
-    direction.setX(direction.getX() - 2 * r->getDirection().produitScalaire(normale) * normale.getX());
-    direction.setY(direction.getY() - 2 * r->getDirection().produitScalaire(normale) * normale.getY());
-    direction.setZ(direction.getZ() - 2 * r->getDirection().produitScalaire(normale) * normale.getZ());
+    direction = r.getDirection();
 
-    rayonReflechi->setDirection(direction);
+    Vector newDir(direction.x() - 2 * r.getDirection().produitScalaire(normale) * normale.x(),
+                  direction.y() - 2 * r.getDirection().produitScalaire(normale) * normale.y(),
+                  direction.z() - 2 * r.getDirection().produitScalaire(normale) * normale.z()
+    );
+    rayonReflechi->setDirection(newDir);
 
     return true;
 

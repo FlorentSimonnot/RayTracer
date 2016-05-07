@@ -3,18 +3,17 @@
 //
 
 #include "Cylinder.hpp"
-#include "Ray.hpp"
 #include <cmath>
+#include <limits>
+
 
 
 Cylinder::Cylinder()
-:   m_center(), m_radius(1.f), m_height(1.f)
-{
+        : m_center(), m_radius(1.f), m_height(1.f) {
 }
 
-Cylinder::Cylinder(Point const& center, float radius, float height)
-:   m_center(center), m_radius(radius), m_height(height) 
-{
+Cylinder::Cylinder(Point const &center, float radius, float height)
+        : m_center(center), m_radius(radius), m_height(height) {
 }
 
 Cylinder::~Cylinder() {
@@ -29,6 +28,7 @@ float Cylinder::getHeight() {
 }
 
 // Cylindre avec sa hauteur sur l'axe des X
+// TODO A finir
 bool Cylinder::intersect(Ray &ray, float &dist) {
     Vector ray_dir(0, ray.getDirection().y(), ray.getDirection().x());
     Vector ray_or(0, ray.getOrigin().y(), ray.getOrigin().x());
@@ -38,38 +38,46 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
     float c = ray_or.produitScalaire(ray_or) - m_radius * m_radius;
 
     float delta = b * b - 4 * a * c;
-    float t1, t2;
 
     if (delta < 0) {
-
+        dist = std::numeric_limits<float>::max();;// TODO Mettre une grande valeur ou rien du tout
+    }
+    else if (delta == 0) {
 
     }
-    else if (delta == 0){
 
-    }
+    else {
+        float t1 = (float) (-b + sqrt(delta)) / a;
+        float t2 = (float) (-b - sqrt(delta)) / a;
+        float t = 0;
 
-    else{
-        t1 = (-b + sqrt(delta)) / a;
-        t2 = (-b - sqrt(delta)) / a;
+        if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
+            (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
+            t = t1;
+        } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
+                   (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
+            t = t2;
+        }
+
+        //TODO Peut etre A changer
+        Point p = t * ray.getDirection() + ray.getOrigin();
+        dist = p.distance(ray.getOrigin());
     }
 
 
     // Code source trouve en ligne
-//    if (delta < 0) {
+//    if (delta < 0)    {
 //        d = MAXDOUBLE;
-//        if ((pos2[1] * pos2[1] + pos2[2] * pos2[2]) < (leRayon * leRayon)) {
-//            if (((longueur != 0.0))
-//                && (pos2[0] > longueur
-//                    || (pos2[0] >= 0.0 && pos2[0] < longueur))) {
-//                if (dir2[0] != 0) {
+//        if ((pos2[1] * pos2[1] + pos2[2] * pos2[2]) < (leRayon * leRayon))	{
+//            if (((longueur != 0.0))&& (pos2[0] > longueur || (pos2[0] >= 0.0 && pos2[0] < longueur))) {
+//                if (dir2[0] != 0){
 //                    t = (longueur - pos2[0]) / dir2[0];
 //                    p[0] = longueur;
 //                    p[1] = t * dir2[1] + pos2[1];
 //                    p[2] = t * dir2[2] + pos2[2];
 //                    p[3] = 1.0;
-//                    if ((t > epsilon)
-//                        && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)) {
-//                        d = distance(p, pos2);
+//                    if ((t > epsilon)&& ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
+//                        d = distance (p, pos2);
 //                    }
 //                    else
 //                        d = MAXDOUBLE;
@@ -77,18 +85,15 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 //                else
 //                    d = MAXDOUBLE;
 //            }
-//
-//            if (((longueur != 0.0))
-//                && (pos2[0] < 0.0 || (pos2[0] > 0.0 && pos2[0] <= longueur))) {
-//                if (dir2[0] != 0) {
+//            if (((longueur != 0.0))&& (pos2[0] < 0.0 || (pos2[0] > 0.0 && pos2[0] <= longueur))){
+//                if (dir2[0] != 0){
 //                    t = (0.0 - pos2[0]) / dir2[0];
 //                    p[0] = 0.0;
 //                    p[1] = t * dir2[1] + pos2[1];
 //                    p[2] = t * dir2[2] + pos2[2];
 //                    p[3] = 1.0;
-//                    if ((t > epsilon)
-//                        && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)) {
-//                        d = distance(p, pos2);
+//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
+//                        d = distance (p, pos2);
 //                    }
 //                    else
 //                        d = MAXDOUBLE;
@@ -98,13 +103,12 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 //            }
 //        }
 //    }
-//    else {
-//        t1 = (-b + sqrt(delta)) / a;
-//        t2 = (-b - sqrt(delta)) / a;
-//
+//    else{
+//        t1 = (-b + sqrt (delta)) / a;
+//        t2 = (-b - sqrt (delta)) / a;
 //        if (t1 <= epsilon && t2 <= epsilon)
 //            d = MAXDOUBLE;
-//        else {
+//        else{
 //            if ((t1 <= t2 && t1 > epsilon) || (t2 < t1 && t2 < epsilon))
 //                t = t1;
 //            else if ((t2 < t1 && t2 > epsilon) || (t1 < t2 && t1 < epsilon))
@@ -114,19 +118,17 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 //            p[1] = t * dir2[1] + pos2[1];
 //            p[2] = t * dir2[2] + pos2[2];
 //            p[3] = 1.0;
-//            d = distance(p, pos2);
+//            d = distance (p, pos2);
 //
-//            if (((longueur != 0.0)) && (p[0] > longueur) ||
-//                (pos2[0] > longueur && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <= (leRayon * leRayon))) {
-//                if (dir2[0] != 0) {
+//            if (((longueur != 0.0)) && (p[0] > longueur)|| (pos2[0] > longueur && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <= (leRayon * leRayon))){
+//                if (dir2[0] != 0){
 //                    t = (longueur - pos2[0]) / dir2[0];
 //                    p[0] = longueur;
 //                    p[1] = t * dir2[1] + pos2[1];
 //                    p[2] = t * dir2[2] + pos2[2];
 //                    p[3] = 1.0;
-//                    if ((t > epsilon)
-//                        && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)) {
-//                        d = distance(p, pos2);
+//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
+//                        d = distance (p, pos2);
 //                    }
 //                    else
 //                        d = MAXDOUBLE;
@@ -135,19 +137,15 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 //                    d = MAXDOUBLE;
 //            }
 //
-//            if (((longueur != 0.0)) && (p[0] < 0.0)
-//                || (pos2[0] < 0
-//                    && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <=
-//                       (leRayon * leRayon))) {
-//                if (dir2[0] != 0) {
+//            if (((longueur != 0.0)) && (p[0] < 0.0) || (pos2[0] < 0  && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <=  (leRayon * leRayon)))	{
+//                if (dir2[0] != 0){
 //                    t = (0.0 - pos2[0]) / dir2[0];
 //                    p[0] = 0.0;
 //                    p[1] = t * dir2[1] + pos2[1];
 //                    p[2] = t * dir2[2] + pos2[2];
 //                    p[3] = 1.0;
-//                    if ((t > epsilon)
-//                        && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)) {
-//                        d = distance(p, pos2);
+//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
+//                        d = distance (p, pos2);
 //                    }
 //                    else
 //                        d = MAXDOUBLE;
@@ -160,4 +158,9 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 
 
     return true;
+}
+
+Sphere Cylinder::calculSphereEnglobante() {
+
+    return Sphere();
 }

@@ -8,8 +8,6 @@
 #include "Point.hpp"
 #include "Shape.hpp"
 
-class Ray;
-
 // TODO
 class Rectangle : public Shape {
 private:
@@ -25,6 +23,8 @@ public:
     virtual ~Rectangle();
 
     bool intersect(Ray &ray, float &dist);
+
+    Sphere calculSphereEnglobante() override;
 
 };
 

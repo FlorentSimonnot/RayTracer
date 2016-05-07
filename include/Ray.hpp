@@ -6,7 +6,6 @@
 #define PROJECT_RAY_HPP
 
 #include "Point.hpp"
-#include "Vector.hpp"
 
 // TODO
 class Ray {

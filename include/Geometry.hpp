@@ -7,9 +7,7 @@
 
 #include <cmath>
 
-#include "Ray.hpp"
 #include "Sphere.hpp"
-#include "Tetraedre.hpp"
 #include "Cylinder.hpp"
 #include "Rectangle.hpp"
 

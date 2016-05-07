@@ -8,7 +8,6 @@
 #include "Shape.hpp"
 #include "Point.hpp"
 
-class Ray;
 
 // TODO
 class Cylinder : public Shape {
@@ -25,6 +24,8 @@ public:
     bool intersect(Ray &ray, float &dist);
     float getRadius();
     float getHeight();
+
+	Sphere calculSphereEnglobante() override ;
 };
 
 
