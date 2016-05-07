@@ -9,20 +9,17 @@
 #include "Point.hpp"
 #include "Object.hpp"
 
-class Camera : public Object {
+class Camera: public Object {
 private:
     float m_fov; // Angle d'ouverture
     float m_depth; // Profondeur de vue <=> distance max jusqu'a laquel les objets apparaissent
-    Vector m_orientation; // Orientation de la camera
     Point m_position; // Position de la camera
+    Vector m_orientation; // Orientation de la camera
 
 public:
     Camera();
-
-    Camera(Point position, Vector orientation);
-
-    Camera(float fov, float depth, Point position, Vector orientation);
-
+    Camera(Point const& position, Vector const& orientation);
+    Camera(float fov, float depth, Point const& position, Vector const& orientation);
     ~Camera();
 
     float getFov();
