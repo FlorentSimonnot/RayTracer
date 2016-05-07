@@ -9,13 +9,13 @@
 #include "Object.hpp"
 class Scene {
 private:
-    Camera m_camera;
+//    Camera m_camera;
 
-    Object *m_objets;
+//    Object *m_objets;
 
-    float m_width;
-    float m_height;
-    float m_depth;
+//    float m_width;
+//    float m_height;
+//    float m_depth;
 
 
 

@@ -22,11 +22,11 @@ void Ray::setOrigin(const Point& p) {
     this->origin = p;
 }
 
-Point& Ray::getOrigin() const {
+Point Ray::getOrigin() const {
     return origin;
 }
 
-Vector& Ray::getDirection() const {
+Vector Ray::getDirection() const {
     return direction;
 }
 

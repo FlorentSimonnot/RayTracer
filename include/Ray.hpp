@@ -16,19 +16,21 @@ private:
 public:
     Ray();
 
-    Ray(Point &origin, Vector &direction);
+    Ray(Point& origin, Vector& direction);
 
     ~Ray();
 
-    Ray operator=(const Ray &p);
-    Ray operator+(const Ray &p);
+    Ray operator=(const Ray& p);
 
-    void setOrigin(const Point &p);
-    void setDirection(const Vector &v);
+    Ray operator+(const Ray& p);
 
-    Point &getOrigin() const;
+    void setOrigin(const Point& p);
 
-    Vector &getDirection() const ;
+    void setDirection(const Vector& v);
+
+    Point getOrigin() const;
+
+    Vector getDirection() const;
 };
 
 
