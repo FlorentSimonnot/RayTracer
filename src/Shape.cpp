@@ -15,3 +15,11 @@ void Shape::setColor(int color) {
 int Shape::getColor(){
     return m_color;
 }
+
+void Shape::setSphereEnglobante(Sphere sphere) {
+    sphereEnglobante = sphere;
+}
+
+Sphere Shape::getSphereEnglobante() {
+    return sphereEnglobante;
+}

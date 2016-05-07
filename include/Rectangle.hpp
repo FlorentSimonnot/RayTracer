@@ -24,6 +24,8 @@ public:
 
     bool intersect(Ray &ray, float &dist);
 
+    Sphere calculSphereEnglobante() override;
+
 };
 
 #endif //PROJECT_RECTANGLE_HPP

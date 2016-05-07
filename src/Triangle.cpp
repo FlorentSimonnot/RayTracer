@@ -51,3 +51,8 @@ bool Triangle::intersect(Ray &ray, float &dist) {
     }
     return false;
 }
+
+Sphere Triangle::calculSphereEnglobante() {
+
+    return Sphere();
+}

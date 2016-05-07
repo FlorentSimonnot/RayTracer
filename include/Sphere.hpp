@@ -5,10 +5,10 @@
 #ifndef PROJECT_SPHERE_HPP
 #define PROJECT_SPHERE_HPP
 
-#include "Object.hpp"
+#include <Shape.hpp>
 
 // TODO
-class Sphere : public Object {
+class Sphere : public Shape {
 
 private:
     Point m_center;
@@ -28,6 +28,8 @@ public:
     Point &getCenter();
 
     float getRadius();
+
+    Sphere calculSphereEnglobante() override;
 };
 
 

@@ -73,3 +73,8 @@ bool Rectangle::intersect(Ray &ray, float &dist) {
 
     return true;
 }
+
+Sphere Rectangle::calculSphereEnglobante() {
+
+    return Sphere();
+}

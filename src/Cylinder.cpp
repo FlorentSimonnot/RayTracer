@@ -7,6 +7,7 @@
 #include <limits>
 
 
+
 Cylinder::Cylinder()
         : m_center(), m_radius(1.f), m_height(1.f) {
 }
@@ -157,4 +158,9 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 
 
     return true;
+}
+
+Sphere Cylinder::calculSphereEnglobante() {
+
+    return Sphere();
 }

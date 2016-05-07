@@ -6,14 +6,25 @@
 #define PROJECT_SCENE_HPP
 
 #include "Camera.hpp"
+#include "Object.hpp"
 class Scene {
 private:
-    Camera camera;
+    Camera m_camera;
 
-    Object *objets;
+    Object *m_objets;
+
+    float m_width;
+    float m_height;
+    float m_depth;
+
+
+
+    //
 public:
     Scene();
     ~Scene();
+
+    void constructionArbreSpherEnglobant();
 
 };
 

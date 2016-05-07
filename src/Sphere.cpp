@@ -6,8 +6,9 @@
 #include <cmath>
 #include <limits>
 
+
 Sphere::Sphere()
-        : m_center(), m_radius(1.f) {
+        : Shape(), m_center(), m_radius(1.f) {
 }
 
 Sphere::Sphere(Point center, float radius)
@@ -67,7 +68,9 @@ bool Sphere::intersect(Ray &ray, float &dist) {
         Point p = t * ray.getDirection() + ray.getOrigin();
         dist = p.distance(ray.getOrigin());
     return true;
+}
 
+Sphere Sphere::calculSphereEnglobante() {
 
-
+    return Sphere();
 }

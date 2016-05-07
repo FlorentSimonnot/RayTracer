@@ -11,4 +11,6 @@ public:
 	Triangle(Point const& p1, Point const& p2, Point const& p3);
 	virtual ~Triangle();
 	bool intersect(Ray &ray, float &dist);
+
+	Sphere calculSphereEnglobante() override ;
 };
