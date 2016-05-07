@@ -9,14 +9,20 @@
 
 // TODO
 class Sphere : public Shape {
+
 public:
     Sphere();
     Sphere(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Sphere();
 
+    bool intersect(Ray &ray,float &dist);
+
+    Point &getCenter();
+
+    float getRadius();
+
     Sphere& operator=(Sphere const& o);
 
-    bool intersect(Ray &ray,float &dist);
 };
 
 

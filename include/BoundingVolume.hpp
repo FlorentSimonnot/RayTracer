@@ -1,0 +1,14 @@
+//
+// Created by Narex on 07/05/2016.
+//
+
+#ifndef SYNTHESE_IMAGE_BOUNDINGVOLUME_HPP
+#define SYNTHESE_IMAGE_BOUNDINGVOLUME_HPP
+
+
+class BoundingVolume {
+
+};
+
+
+#endif //SYNTHESE_IMAGE_BOUNDINGVOLUME_HPP

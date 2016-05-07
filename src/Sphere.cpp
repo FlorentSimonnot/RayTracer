@@ -8,7 +8,7 @@
 
 
 Sphere::Sphere()
-:   Shape() 
+        : Shape()
 {
 }
 
@@ -20,12 +20,21 @@ Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& sca
 Sphere::~Sphere() {
 }
 
+Point &Sphere::getCenter() {
+    return m_position;
+}
+
+float Sphere::getRadius() {
+    return m_scale.x();
+}
+
 Sphere& Sphere::operator=(Sphere const& o) {
     m_position = o.m_position;
     m_rotation = o.m_rotation;
     m_scale = o.m_scale;
     return *this;
 }
+
 
 // TODO A tester
 bool Sphere::intersect(Ray &ray, float &dist) {
@@ -38,7 +47,7 @@ bool Sphere::intersect(Ray &ray, float &dist) {
     float beta = 2 * d1.produitScalaire(d2);
     float gamma =
             ray_dir.produitScalaire(ray_dir) + center.produitScalaire(center) - 2 * ray_dir.produitScalaire(center) -
-            m_radius * m_radius;
+            getRadius() * getRadius();
 
     float delta = (beta * beta - 4 * alpha * gamma);
 
