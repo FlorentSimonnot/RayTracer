@@ -115,6 +115,54 @@ Synthese_Image/fast:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/build
 .PHONY : Synthese_Image/fast
 
+src/BoundingVolume.o: src/BoundingVolume.cpp.o
+.PHONY : src/BoundingVolume.o
+
+# target to build an object file
+src/BoundingVolume.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.o
+.PHONY : src/BoundingVolume.cpp.o
+
+src/BoundingVolume.i: src/BoundingVolume.cpp.i
+.PHONY : src/BoundingVolume.i
+
+# target to preprocess a source file
+src/BoundingVolume.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.i
+.PHONY : src/BoundingVolume.cpp.i
+
+src/BoundingVolume.s: src/BoundingVolume.cpp.s
+.PHONY : src/BoundingVolume.s
+
+# target to generate assembly for a file
+src/BoundingVolume.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.s
+.PHONY : src/BoundingVolume.cpp.s
+
+src/Camera.o: src/Camera.cpp.o
+.PHONY : src/Camera.o
+
+# target to build an object file
+src/Camera.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Camera.cpp.o
+.PHONY : src/Camera.cpp.o
+
+src/Camera.i: src/Camera.cpp.i
+.PHONY : src/Camera.i
+
+# target to preprocess a source file
+src/Camera.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Camera.cpp.i
+.PHONY : src/Camera.cpp.i
+
+src/Camera.s: src/Camera.cpp.s
+.PHONY : src/Camera.s
+
+# target to generate assembly for a file
+src/Camera.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Camera.cpp.s
+.PHONY : src/Camera.cpp.s
+
 src/Cylinder.o: src/Cylinder.cpp.o
 .PHONY : src/Cylinder.o
 
@@ -484,6 +532,12 @@ help:
 	@echo "... Synthese_Image"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... src/BoundingVolume.o"
+	@echo "... src/BoundingVolume.i"
+	@echo "... src/BoundingVolume.s"
+	@echo "... src/Camera.o"
+	@echo "... src/Camera.i"
+	@echo "... src/Camera.s"
 	@echo "... src/Cylinder.o"
 	@echo "... src/Cylinder.i"
 	@echo "... src/Cylinder.s"

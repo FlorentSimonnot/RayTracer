@@ -6,7 +6,7 @@
 
 // TODO
 
-Ray::Ray(Point &origin, Vector &direction)
+Ray::Ray(Point& origin, Vector& direction)
         : origin(origin),
           direction(direction) { }
 
@@ -14,19 +14,19 @@ Ray::~Ray() {
 
 }
 
-void Ray::setDirection(const Vector &v) {
+void Ray::setDirection(const Vector& v) {
     this->direction = v;
 }
 
-void Ray::setOrigin(const Point &p) {
+void Ray::setOrigin(const Point& p) {
     this->origin = p;
 }
 
-Point &Ray::getOrigin() const {
+Point& Ray::getOrigin() const {
     return origin;
 }
 
-Vector &Ray::getDirection() const {
+Vector& Ray::getDirection() const {
     return direction;
 }
 

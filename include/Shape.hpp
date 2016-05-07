@@ -13,7 +13,7 @@ private:
 public:
     Shape();
 
-    Shape(Vector const &position, Vector const &rotation, Vector const &scale);
+    Shape(const Vector& position, const Vector& rotation, const Vector& scale);
 
     virtual ~Shape();
 

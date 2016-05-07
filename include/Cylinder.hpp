@@ -13,14 +13,17 @@
 class Cylinder : public Shape {
 public:
     Cylinder();
-    Cylinder(Vector const& position, Vector const& rotation, Vector const& scale);
+
+    Cylinder(const Vector& position, const Vector& rotation, const Vector& scale);
+
     ~Cylinder();
 
-    bool intersect(Ray &ray, float &dist);
+    bool intersect(const Ray& ray, float& dist);
+
     float getRadius();
+
     float getHeight();
 };
-
 
 
 #endif //PROJECT_CYLINDER_HPP

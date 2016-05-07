@@ -10,18 +10,15 @@
 
 // TODO
 class Rectangle : public Shape {
-//private:
-//    float m_width;
-//    float m_height;
-//    float m_depth;
 
 public:
     Rectangle();
-    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
+
+    Rectangle(const Vector& position, const Vector& rotation, const Vector& scale);
 
     virtual ~Rectangle();
 
-    bool intersect(Ray const &ray, float &dist);
+    bool intersect(const Ray& ray, float& dist);
 
 };
 

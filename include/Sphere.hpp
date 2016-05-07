@@ -12,12 +12,12 @@ class Sphere : public Shape {
 
 public:
     Sphere();
-    Sphere(Vector const& position, Vector const& rotation, Vector const& scale);
+
+    Sphere(const Vector& position, const Vector& rotation, const Vector& scale);
+
     virtual ~Sphere();
 
-    bool intersect(Ray const &ray,float &dist);
-
-    Vector &getCenter();
+    bool intersect(const Ray& ray, float& dist);
 
     float getRadius();
 

@@ -9,7 +9,7 @@ Rectangle::Rectangle()
         : Shape() {
 }
 
-Rectangle::Rectangle(Vector const &position, Vector const &rotation, Vector const &scale)
+Rectangle::Rectangle(const Vector& position, const Vector& rotation, const Vector& scale)
         : Shape(position, rotation, scale) {
 }
 
@@ -17,7 +17,7 @@ Rectangle::~Rectangle() {
 }
 
 // TODO
-bool Rectangle::intersect(Ray const &ray, float &dist) {
+bool Rectangle::intersect(const Ray& ray, float& dist) {
 
     // Idee algo ->
     // Diviser chaque cote en 2 triangle

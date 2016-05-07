@@ -11,22 +11,18 @@ Sphere::Sphere()
         : Shape() {
 }
 
-Sphere::Sphere(Vector const &position, Vector const &rotation, Vector const &scale)
+Sphere::Sphere(const Vector& position, const Vector& rotation, const Vector& scale)
         : Shape(position, rotation, scale) {
 }
 
 Sphere::~Sphere() {
 }
 
-Vector &Sphere::getCenter() {
-    return m_position;
-}
-
 float Sphere::getRadius() {
     return m_scale.x();
 }
 
-Sphere &Sphere::operator=(Sphere const &o) {
+Sphere& Sphere::operator=(const Sphere& o) {
     m_position = o.m_position;
     m_rotation = o.m_rotation;
     m_scale = o.m_scale;
@@ -35,11 +31,11 @@ Sphere &Sphere::operator=(Sphere const &o) {
 
 
 // TODO A tester
-bool Sphere::intersect(Ray const &ray, float &dist) {
+bool Sphere::intersect(const Ray& ray, float& dist) {
     Vector d1 = ray.getDirection() - ray.getOrigin();
-    Vector d2 = ray.getOrigin() - getCenter();
+    Vector d2 = ray.getOrigin() - m_position;
     Vector ray_dir = ray.getDirection();
-    Vector center = getCenter();
+    Vector center = m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);

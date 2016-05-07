@@ -7,12 +7,11 @@
 #include <limits>
 
 
-
 Cylinder::Cylinder()
         : Shape() {
 }
 
-Cylinder::Cylinder(Vector const &position, Vector const &rotation, Vector const &scale)
+Cylinder::Cylinder(const Vector& position, const Vector& rotation, const Vector& scale)
         : Shape(position, rotation, scale) {
 }
 
@@ -30,7 +29,7 @@ float Cylinder::getHeight() {
 
 // Cylindre avec sa hauteur sur l'axe des X
 // TODO A finir
-bool Cylinder::intersect(Ray &ray, float &dist) {
+bool Cylinder::intersect(const Ray& ray, float& dist) {
     Vector ray_dir(0, ray.getDirection().y(), ray.getDirection().x());
     Vector ray_or(0, ray.getOrigin().y(), ray.getOrigin().x());
 

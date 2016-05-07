@@ -11,10 +11,10 @@ class Point : public Vector {
 public:
     Point();
     Point(float x, float y, float z);
-    Point(Vector const& o);
+    Point(const Vector & o);
     virtual ~Point();
 
-    float distance(Point const& o) const;
+    float distance(const Point & o) const;
 };
 
 #endif //PROJECT_POINT_HPP

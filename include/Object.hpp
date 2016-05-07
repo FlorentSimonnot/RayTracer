@@ -9,7 +9,7 @@
 class Object {    
 public:
     Object();
-    Object(Object const& o);
+    Object(const Object & o);
     virtual ~Object();
 };
 
