@@ -1,4 +1,5 @@
 #include <limits>
+#include "Ray.hpp"
 #include "Triangle.hpp"
 
 Triangle::Triangle()
@@ -11,6 +12,10 @@ Triangle::Triangle(Point const &p1, Point const &p2, Point const &p3)
 }
 
 Triangle::~Triangle() {
+}
+
+Triangle::operator std::string() const {
+    return "triangle => " + std::string(m_p1) + " " + std::string(m_p2) + " " + std::string(m_p3);
 }
 
 // Algo de Möller-Trumbdore

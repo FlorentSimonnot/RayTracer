@@ -5,7 +5,6 @@
 #ifndef PROJECT_RECTANGLE_HPP
 #define PROJECT_RECTANGLE_HPP
 
-#include "Point.hpp"
 #include "Shape.hpp"
 
 // TODO
@@ -13,13 +12,12 @@ class Rectangle : public Shape {
 
 public:
     Rectangle();
-
-    Rectangle(const Vector& position, const Vector& rotation, const Vector& scale);
-
+    Rectangle(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Rectangle();
 
-    bool intersect(const Ray& ray, float& dist);
+    operator std::string() const;
 
+    bool intersect(Ray const& ray, float &dist);
 };
 
 #endif //PROJECT_RECTANGLE_HPP

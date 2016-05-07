@@ -8,15 +8,14 @@
 #include "Shape.hpp"
 #include "Point.hpp"
 
-
 // TODO
 class Cylinder : public Shape {
 public:
     Cylinder();
+    Cylinder(Vector const& position, Vector const& rotation, Vector const& scale);
+    virtual ~Cylinder();
 
-    Cylinder(const Vector& position, const Vector& rotation, const Vector& scale);
-
-    ~Cylinder();
+    operator std::string() const;
 
     bool intersect(const Ray& ray, float& dist);
 

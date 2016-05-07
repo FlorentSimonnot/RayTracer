@@ -98,6 +98,10 @@ Vector operator*(float f, Vector const &v) {
     return v * f;
 }
 
+Vector::operator std::string() const {
+    return '(' + std::to_string(m_x) + ", " + std::to_string(m_y) + ", " + std::to_string(m_z) + ')';
+}
+
 bool Vector::operator==(Vector const &o) const {
     return FLOAT_EQ(m_x, o.m_x) && FLOAT_EQ(m_y, o.m_y) && FLOAT_EQ(m_z, o.m_z);
 }

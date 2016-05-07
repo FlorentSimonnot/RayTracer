@@ -7,24 +7,31 @@
 #include <limits>
 
 
+
 Cylinder::Cylinder()
         : Shape() {
 }
 
-Cylinder::Cylinder(const Vector& position, const Vector& rotation, const Vector& scale)
-        : Shape(position, rotation, scale) {
+
+Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale)
+:   Shape(position, rotation, scale)
+{
+
 }
 
 Cylinder::~Cylinder() {
 }
 
-// TODO A changer les 2 get
 float Cylinder::getRadius() {
     return m_scale.x();
 }
 
 float Cylinder::getHeight() {
     return m_scale.z();
+}
+
+Cylinder::operator std::string() const {
+    return "cylinder => " + Shape::operator std::string();
 }
 
 // Cylindre avec sa hauteur sur l'axe des X

@@ -5,7 +5,9 @@
 #ifndef PROJECT_VECTOR_H
 #define PROJECT_VECTOR_H
 
-class Vector {
+#include <ostream>
+
+class Vector {    
 private:
     float m_x, m_y, m_z;
 
@@ -34,6 +36,7 @@ public:
     Vector& operator*=(float f);
 
     bool operator==(Vector const& o) const;
+    operator std::string() const;
 
     Vector crossProduct(Vector const& o);
 };

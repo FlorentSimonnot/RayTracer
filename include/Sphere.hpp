@@ -12,9 +12,7 @@ class Sphere : public Shape {
 
 public:
     Sphere();
-
-    Sphere(const Vector& position, const Vector& rotation, const Vector& scale);
-
+    Sphere(Vector const& position, Vector const& rotation, Vector const& scale);
     virtual ~Sphere();
 
     bool intersect(const Ray& ray, float& dist);
@@ -23,6 +21,7 @@ public:
 
     Sphere& operator=(Sphere const& o);
 
+    operator std::string() const;
 };
 
 

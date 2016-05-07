@@ -9,11 +9,16 @@ Rectangle::Rectangle()
         : Shape() {
 }
 
-Rectangle::Rectangle(const Vector& position, const Vector& rotation, const Vector& scale)
-        : Shape(position, rotation, scale) {
+Rectangle::Rectangle(Vector const& position, Vector const& rotation, Vector const& scale)
+:   Shape(position, rotation, scale)
+{
 }
 
 Rectangle::~Rectangle() {
+}
+
+Rectangle::operator std::string() const {
+    return "rectangle => " + Shape::operator std::string();
 }
 
 // TODO
