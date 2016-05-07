@@ -6,18 +6,18 @@
 #include "Camera.hpp"
 
 Camera::Camera()
-        : m_fov(60), m_depth(10), m_orientation(1, 1, 1), m_position(0, 0, 0) { }
+        : m_fov(60), m_depth(10), m_position(0, 0, 0), m_orientation(1, 1, 1) { }
 
 Camera::Camera(Point const& position, Vector const& orientation)
         : m_fov(60), m_depth(10),
-          m_orientation(orientation),
-          m_position(position) { }
+          m_position(position),
+          m_orientation(orientation) { }
 
 Camera::Camera(float fov, float depth, Point const& position, Vector const& orientation)
         : m_fov(fov),
           m_depth(depth),
-          m_orientation(orientation),
-          m_position(position) { }
+          m_position(position),
+          m_orientation(orientation) { }
 
 Camera::~Camera() { }
 
