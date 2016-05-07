@@ -5,9 +5,11 @@
 #ifndef PROJECT_SCENE_HPP
 #define PROJECT_SCENE_HPP
 
-
+#include "Camera.hpp"
 class Scene {
 private:
+    Camera camera;
+
     Object *objets;
 public:
     Scene();
