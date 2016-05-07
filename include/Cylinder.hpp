@@ -11,21 +11,12 @@
 
 // TODO
 class Cylinder : public Shape {
-private:
-	Point m_center;
-    float m_radius;
-    float m_height;
-
 public:
     Cylinder();
-    Cylinder(Point const& center, float radius, float height);
-    ~Cylinder();
+    Cylinder(Vector const& position, Vector const& rotation, Vector const& scale);
+    virtual ~Cylinder();
 
     bool intersect(Ray &ray, float &dist);
-    float getRadius();
-    float getHeight();
-
-	Sphere calculSphereEnglobante() override ;
 };
 
 

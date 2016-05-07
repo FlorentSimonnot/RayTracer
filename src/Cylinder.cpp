@@ -9,22 +9,16 @@
 
 
 Cylinder::Cylinder()
-        : m_center(), m_radius(1.f), m_height(1.f) {
+:   Shape()
+{
 }
 
-Cylinder::Cylinder(Point const &center, float radius, float height)
-        : m_center(center), m_radius(radius), m_height(height) {
+Cylinder::Cylinder(Vector const& position, Vector const& rotation, Vector const& scale)
+:   Shape(position, rotation, scale)
+{
 }
 
 Cylinder::~Cylinder() {
-}
-
-float Cylinder::getRadius() {
-    return m_radius;
-}
-
-float Cylinder::getHeight() {
-    return m_height;
 }
 
 // Cylindre avec sa hauteur sur l'axe des X
@@ -158,9 +152,4 @@ bool Cylinder::intersect(Ray &ray, float &dist) {
 
 
     return true;
-}
-
-Sphere Cylinder::calculSphereEnglobante() {
-
-    return Sphere();
 }
