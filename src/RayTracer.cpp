@@ -39,6 +39,7 @@ void RayTracer::draw(Scene const& scene) {
         }
     }
 
+    m_gui.render();
 }
 
 void RayTracer::updatePrecomp() {
