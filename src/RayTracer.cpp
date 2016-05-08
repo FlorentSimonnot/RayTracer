@@ -6,16 +6,32 @@
 
 #include "RayTracer.hpp"
 
-RayTracer::RayTracer() { }
+RayTracer::RayTracer() :
+        m_position(0, 0, 0),
+        m_orientation(0, 0, 0),
+        m_width(100),
+        m_height(100),
+        m_depth(50),
+        m_pixelWidth(640),
+        m_pixelHeight(480),
+        m_scene(),
+        m_gui(),
+        m_precompWidth(0),
+        m_precompHeight(0) { }
 
 RayTracer::RayTracer(float width, float height, float depth, float pixelWidth, float pixelHeight, Scene scene, Gui gui)
-        : m_width(width),
+        : m_position(0, 0, 0),
+          m_orientation(0, 0, 0),
+          m_width(width),
           m_height(height),
           m_depth(depth),
           m_pixelWidth(pixelWidth),
           m_pixelHeight(pixelHeight),
           m_scene(scene),
-          m_gui(gui) {
+          m_gui(gui),
+          m_precompWidth(0),
+          m_precompHeight(0) {
+    updatePrecomp();
 }
 
 RayTracer::~RayTracer() { }

@@ -10,7 +10,7 @@
 class RayTracer {
 private:
     // Ajouter dimension
-    Scene m_scene;
+
 //    Camera camera;
 
     // Concerne celui qui regarde
@@ -25,11 +25,15 @@ private:
     float m_pixelWidth;
     float m_pixelHeight;
 
+
+
+    Scene m_scene;
+
+    Gui m_gui;
+
     /// Precalcule afin d'optimiser ///
     float m_precompWidth;
     float m_precompHeight;
-
-    Gui m_gui;
 
     void updatePrecomp();
 
