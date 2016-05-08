@@ -6,7 +6,7 @@ Triangle::Triangle()
 }
 
 Triangle::Triangle(Point const& p1, Point const& p2, Point const& p3, Vector const& color)
-        : Shape(), m_p1(p1), m_p2(p2), m_p3(p3), m_color(color) {
+        : Shape(color), m_p1(p1), m_p2(p2), m_p3(p3) {
 }
 
 Triangle::~Triangle() {
@@ -58,4 +58,8 @@ bool Triangle::intersect(const Ray& ray, float& dist) {
 BoundingVolume Triangle::getBoundingVolume() {
     BoundingVolume boundingVolume(m_position, m_scale.x());
     return boundingVolume;
+}
+
+void Triangle::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
+    
 }
