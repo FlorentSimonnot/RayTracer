@@ -6,26 +6,25 @@
 
 #include "RayTracer.hpp"
 
-RayTracer::RayTracer(float width, float height, float depth, float pixelWidth, float pixelHeight)
+RayTracer::RayTracer(float width, float height, float depth)
         : m_width(width),
           m_height(height),
           m_depth(depth),
-          m_pixelWidth(pixelWidth),
-          m_pixelHeight(pixelHeight),
           m_precompWidth(),
           m_precompHeight(),
           m_gui()
 {
+    updatePrecomp();
 }
 
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
-    for (int i = 0; i < m_pixelWidth; ++i) {
-        for (int j = 0; j < m_pixelHeight; ++j) {
+    for (int i = 0; i < WINDOW_WIDTH; ++i) {
+        for (int j = 0; j < WINDOW_HEIGHT; ++j) {
             Vector directionTempo(
-                    m_precompWidth * (i - m_pixelWidth / 2.f),
-                    m_precompHeight * (j - m_pixelHeight / 2.f),
+                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
+                    m_precompHeight * (j - WINDOW_HEIGHT / 2.f),
                     m_depth
             );
 
@@ -43,8 +42,8 @@ void RayTracer::draw(Scene const& scene) {
 }
 
 void RayTracer::updatePrecomp() {
-    m_precompWidth = m_width / m_pixelWidth;
-    m_precompHeight = m_height / m_pixelHeight;
+    m_precompWidth = m_width / WINDOW_WIDTH;
+    m_precompHeight = m_height / WINDOW_HEIGHT;
 }
 
 // TODO A changer l'avenir

@@ -73,13 +73,13 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     return true;
 }
 
-void Sphere::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
-
-//    Vector v(ray.getOrigin() + dist*ray.getDirection());
-//    normal = v - m_position;
-//    normal *= 1/(sqrt(normal.norm()));
-    color = this->m_color;
-}
+//void Sphere::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
+//
+////    Vector v(ray.getOrigin() + dist*ray.getDirection());
+////    normal = v - m_position;
+////    normal *= 1/(sqrt(normal.norm()));
+//    color = this->m_color;
+//}
 
 BoundingVolume Sphere::getBoundingVolume() {
     BoundingVolume boundingVolume(m_position, m_scale.x());

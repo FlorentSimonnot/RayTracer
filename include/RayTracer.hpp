@@ -21,10 +21,6 @@ private:
     float m_depth;
     ///////////////////////
 
-    /// Resolution ///
-    float m_pixelWidth;
-    float m_pixelHeight;
-
     /// Precalcule afin d'optimiser ///
     float m_precompWidth;
     float m_precompHeight;
@@ -35,7 +31,7 @@ private:
     void updatePrecomp();
 
 public:
-    RayTracer(float width, float height, float depth, float pixelWidth, float pixelHeight);
+    RayTracer(float width, float height, float depth);
     ~RayTracer();
 
     void draw(Scene const& scene);

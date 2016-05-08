@@ -60,6 +60,6 @@ BoundingVolume Triangle::getBoundingVolume() {
     return boundingVolume;
 }
 
-void Triangle::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
-    
-}
+//void Triangle::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
+//
+//}

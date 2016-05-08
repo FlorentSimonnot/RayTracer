@@ -23,7 +23,7 @@ public:
 
     float getHeight();
 
-    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
+//    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 
     BoundingVolume getBoundingVolume();
 };
