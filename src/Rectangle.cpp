@@ -77,3 +77,11 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
 
     return true;
 }
+
+// TODO Changer les valeurs
+// Ne pas utiliser actuellement
+// Evite juste que le compilateur rale
+BoundingVolume Rectangle::getBoundingVolume() {
+    BoundingVolume boundingVolume(m_position, m_scale.x());
+    return boundingVolume;
+}

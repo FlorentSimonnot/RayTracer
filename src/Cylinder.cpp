@@ -166,3 +166,11 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 
     return true;
 }
+
+// TODO Changer les valeurs
+// Ne pas utiliser actuellement
+// Evite juste que le compilateur rale
+BoundingVolume Cylinder::getBoundingVolume() {
+    BoundingVolume boundingVolume(m_position, m_scale.x());
+    return boundingVolume;
+}

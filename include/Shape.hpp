@@ -3,6 +3,7 @@
 #include "Object.hpp"
 #include "Vector.hpp"
 #include "Ray.hpp"
+#include <BoundingVolume.hpp>
 
 class Shape : public Object {
 protected:
@@ -25,4 +26,6 @@ public:
     bool operator==(Shape const& o);
 
     bool operator!=(Shape const& o);
+
+    virtual BoundingVolume getBoundingVolume() = 0;
 };
