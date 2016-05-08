@@ -3,6 +3,7 @@
 #include "Sphere.hpp"
 #include "Rectangle.hpp"
 #include "Cylinder.hpp"
+#include "Camera.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -26,6 +27,8 @@ static bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr
 static bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 static bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 static bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+
+static bool parseCamera(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 
 Parser::Parser(std::string const& path)
 :	m_path(path), m_stream(path)
@@ -77,6 +80,8 @@ bool parseInstruction(std::string const& content, size_t& pos, std::unique_ptr<O
 			return parseRectangle(content, pos, object);
 		} else if (type == "cylinder") {
 			return parseCylinder(content, pos, object);
+		} else if (type == "camera"){
+			parseCamera(content,pos,object);
 		}
 	}
 
@@ -189,6 +194,18 @@ bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Obje
 		return true;
 	}
 
+	return false;
+}
+
+static bool parseCamera(std::string const& content, size_t& pos, std::unique_ptr<Object>& object){
+//	m_depth(10), m_position(0, 0, 0), m_orientation(1, 1, 1)
+	float depth;
+	Vector position, orientation;
+
+	if (parseScalar(content, pos, depth) && parseVector(content, pos, position) && parseVector(content, pos, orientation)) {
+		object.reset(new Camera(depth, position, orientation));
+		return true;
+	}
 	return false;
 }
 
