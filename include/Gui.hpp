@@ -1,5 +1,8 @@
 #pragma once
 
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 480
+
 struct SDL_Window;
 struct SDL_Renderer;
 class Vector;

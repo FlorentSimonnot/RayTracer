@@ -11,7 +11,7 @@ Gui::Gui()
 		return;
 	}
 
-	m_window = SDL_CreateWindow("Projet Synthese", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+	m_window = SDL_CreateWindow("Projet Synthese", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
 	if (m_window == nullptr) {
 		std::cerr << "Could not create window: " << SDL_GetError() << std::endl;
 	}

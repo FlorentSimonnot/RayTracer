@@ -8,7 +8,9 @@
 
 static bool parseType(std::string const& content, size_t& pos, std::string& type);
 static bool parseScalar(std::string const& content, size_t& pos, float& scalar);
+static bool parseInt( std::string const& content, size_t& pos, int& var);
 
+static bool parseColor(std::string const& content, size_t& pos, Vector& vector);
 static bool parseVector(std::string const& content, size_t& pos, Vector& vector);
 static bool parsePoint(std::string const& content, size_t& pos, Point& point);
 static bool parseEnd(std::string const& content, size_t& pos);
@@ -150,10 +152,9 @@ bool isBlank(char c) {
 }
 
 bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Vector position, rotation, scale;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) &&
-		parseVector(content, pos, scale)) {
-		object.reset(new Sphere(position, rotation, scale));
+	Vector position, rotation, scale, color;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
+		object.reset(new Sphere(position, rotation, scale, color));
 		return true;
 	}
 
@@ -162,8 +163,9 @@ bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object
 
 bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
 	Point p1, p2, p3;
-	if (parsePoint(content, pos, p1) && parsePoint(content, pos, p2) && parsePoint(content, pos, p3)) {
-		object.reset(new Triangle(p1, p2, p3));
+	Vector color;
+	if (parsePoint(content, pos, p1) && parsePoint(content, pos, p2) && parsePoint(content, pos, p3) && parseColor(content, pos, color)) {
+		object.reset(new Triangle(p1, p2, p3, color));
 		return true;
 	}
 
@@ -171,10 +173,9 @@ bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Obje
 }
 
 bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Vector position, rotation, scale;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) &&
-		parseVector(content, pos, scale)) {
-		object.reset(new Rectangle(position, rotation, scale));
+	Vector position, rotation, scale, color;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
+		object.reset(new Rectangle(position, rotation, scale, color));
 		return true;
 	}
 
@@ -182,12 +183,37 @@ bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Obj
 }
 
 bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
-	Vector position, rotation, scale;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) &&
-		parseVector(content, pos, scale)) {
-		object.reset(new Cylinder(position, rotation, scale));
+	Vector position, rotation, scale, color;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
+		object.reset(new Cylinder(position, rotation, scale, color));
 		return true;
 	}
 
 	return false;
+}
+
+bool parseInt( std::string const& content, size_t& pos, int& var){
+	consumeBlank(content, pos);
+	size_t size;
+	var = std::stoi(content.substr(pos), &size);
+	pos += size;
+	return size != 0;
+}
+
+bool parseColor(std::string const& content, size_t& pos, Vector& color) {
+	int r, g, b;
+	consumeBlank(content, pos);
+	if (content[pos] == '(') {
+		++ pos;
+		if ((parseInt(content, pos, r) && r<=255 && r>=0) && (parseInt(content, pos, g) && g<=255 && g>=0) && (parseInt(content, pos, b) && b<=255 && b>=0)) {
+			consumeBlank(content, pos);
+			if (content[pos] == ')') {
+				++ pos;
+				color = Vector(r, g, b);
+				return true;
+			}
+		}
+	}
+
+	return false; 
 }
