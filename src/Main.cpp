@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Parser.hpp"
 #include "Scene.hpp"
-#include "Gui.hpp"
+#include "RayTracer.hpp"
 
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
@@ -22,7 +22,9 @@ int main(int argc, char *argv[]) {
 
 	Scene scene(objects);
 
+	RayTracer rayTracer(6.4, 4.8, 40);
 
+	rayTracer.draw(scene);
 
 //    if (argc != 7) {
 //        usage();
