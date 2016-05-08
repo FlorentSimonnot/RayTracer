@@ -28,7 +28,7 @@ void RayTracer::draw(Scene const& scene) {
                     m_precompHeight * (j - m_pixelHeight / 2.f),
                     m_depth
             );
-            
+
             Ray ray(m_position, directionTempo);
 
             // Calcul de la couleur a afficher
