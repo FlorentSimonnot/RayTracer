@@ -5,9 +5,15 @@
 #ifndef SYNTHESE_IMAGE_BOUNDINGVOLUME_HPP
 #define SYNTHESE_IMAGE_BOUNDINGVOLUME_HPP
 
-
+#include <Point.hpp>
 class BoundingVolume {
-
+private:
+    Point m_center;
+    float m_radius;
+public:
+    BoundingVolume();
+    BoundingVolume(Point center,float radius);
+    ~BoundingVolume();
 };
 
 

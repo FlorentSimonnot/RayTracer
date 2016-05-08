@@ -7,6 +7,7 @@
 #include <limits>
 
 
+
 Sphere::Sphere()
         : Shape() {
 }
@@ -78,4 +79,9 @@ void Sphere::computeColorNormal(const Ray& ray, float dist, Vector& color, Vecto
 //    normal = v - m_position;
 //    normal *= 1/(sqrt(normal.norm()));
     color = this->m_color;
+}
+
+BoundingVolume Sphere::getBoundingVolume() {
+    BoundingVolume boundingVolume(m_position, m_scale.x());
+    return boundingVolume;
 }

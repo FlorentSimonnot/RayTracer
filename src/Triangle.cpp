@@ -51,3 +51,11 @@ bool Triangle::intersect(const Ray& ray, float& dist) {
     }
     return false;
 }
+
+// TODO Changer les valeurs
+// Ne pas utiliser actuellement
+// Evite juste que le compilateur rale
+BoundingVolume Triangle::getBoundingVolume() {
+    BoundingVolume boundingVolume(m_position, m_scale.x());
+    return boundingVolume;
+}

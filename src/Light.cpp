@@ -11,7 +11,7 @@ Light::Light()
 Light::Light(Point const& position, Vector const& rotation, Vector const& color)
         : m_position(position), m_rotation(rotation), m_color(color) { }
 
-std::string Light::operator std::string() const {
+Light::operator std::string() const {
     return "position : " + std::string(m_position) + "\t rotation : " + std::string(m_rotation) +
            "\t color : " + std::string(m_color);
 }
