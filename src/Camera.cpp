@@ -20,6 +20,10 @@ Camera::Camera(float fov, float depth, Point const& position, Vector const& orie
 
 Camera::~Camera() { }
 
+Camera::operator std::string() const {
+    return "camera";
+}
+
 float Camera::getFov() {
     return m_fov;
 }

@@ -24,6 +24,8 @@ public:
     Camera(float fov, float depth, Point const& position, Vector const& orientation);
     virtual ~Camera();
 
+    virtual operator std::string() const;
+
     float getFov();
 
 //    float width();
