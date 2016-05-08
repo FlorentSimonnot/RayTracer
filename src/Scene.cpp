@@ -9,8 +9,6 @@
 #include <iostream>
 #include "Scene.hpp"
 
-Scene::Scene() : m_shapes() { }
-
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
 :   m_objects(std::move(objects)), m_shapes()
 {
@@ -25,8 +23,8 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
 Scene::~Scene() {
 }
 
-Shape const* Scene::getFirstCollision(Ray const& ray, float& dist) const {
-    float min_dist;
+Shape const* Scene::getFirstCollision(Ray const& ray) const {
+    float min_dist, dist;
     Shape const *shape = nullptr;
 
     for (auto const& s: m_shapes) {
@@ -39,12 +37,6 @@ Shape const* Scene::getFirstCollision(Ray const& ray, float& dist) const {
     }
 
     return shape;
-}
-
-void Scene::test() {
-    for (auto const& s: m_shapes) {
-        std::cout << std::string(*s) << std::endl;
-    }
 }
 
 void Scene::constructionArbreSpherEnglobant() {

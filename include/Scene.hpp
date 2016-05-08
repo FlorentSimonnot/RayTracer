@@ -19,15 +19,11 @@ private:
     std::vector<Shape*> m_shapes;
 
 public:
-    Scene();
     Scene(std::vector<std::unique_ptr<Object>>& objects);
     ~Scene();
 
-
-void test();
-
     // Return color of the pixel.
-    Shape const* getFirstCollision(Ray const& ray,float& dist) const;
+    Shape const* getFirstCollision(Ray const& ray) const;
 
     void constructionArbreSpherEnglobant();
 
