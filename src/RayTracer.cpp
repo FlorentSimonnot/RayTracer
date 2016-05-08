@@ -22,13 +22,14 @@ RayTracer::~RayTracer() { }
 void RayTracer::draw(Scene const& scene) {
     for (int i = 0; i < WINDOW_WIDTH; ++i) {
         for (int j = 0; j < WINDOW_HEIGHT; ++j) {
-            Vector directionTempo(
-                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
-                    m_precompHeight * (j - WINDOW_HEIGHT / 2.f),
-                    m_depth
-            );
+//            Vector directionTempo(
+//                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
+//                    m_precompHeight * (j - WINDOW_HEIGHT / 2.f),
+//                    m_depth
+//            );
 
-            Ray ray(m_position, directionTempo);
+//            Ray ray(m_position, directionTempo);
+            Ray ray(m_position, m_orientation);
 
             // Calcul de la couleur a afficher
             Shape const *shape = scene.getFirstCollision(ray);
