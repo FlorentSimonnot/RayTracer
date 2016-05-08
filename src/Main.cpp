@@ -3,15 +3,26 @@
 //
 
 #include <iostream>
+#include "Parser.hpp"
+#include "Scene.hpp"
+#include "Gui.hpp"
 
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
-
 }
 
-#include "Parser.hpp"
 
 int main(int argc, char *argv[]) {
+	std::string exec = argv[0];
+	std::string dir = exec.substr(0, exec.find_last_of('/') + 1);
+	Parser parser(dir + "data/test_parser.scn");
+
+	std::vector<std::unique_ptr<Object>> objects;
+	parser.parse(objects);
+
+	Scene scene(objects);
+
+
 
 //    if (argc != 7) {
 //        usage();
