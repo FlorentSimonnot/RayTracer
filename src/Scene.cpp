@@ -6,53 +6,45 @@
 
 #include <limits>
 #include <Shape.hpp>
+#include <iostream>
 #include "Scene.hpp"
 
-Scene::Scene() : m_Shapes() { }
+Scene::Scene() : m_shapes() { }
 
-Scene::Scene(std::vector<Shape>& shapes) :
-        m_Shapes(shapes) { }
+Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
+:   m_objects(std::move(objects)), m_shapes()
+{
+    for (auto& o: m_objects) {
+        Shape *s = dynamic_cast<Shape*>(o.get());
+        if (s != nullptr) {
+            m_shapes.emplace_back(s);
+        }
+    }
+}
 
 Scene::~Scene() {
-    for (std::vector<Shape>::const_iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it)
-        delete *it;
 }
 
-//
-float Scene::getFirstCollision(Ray const& ray, float& dist) {
+Shape const* Scene::getFirstCollision(Ray const& ray, float& dist) const {
+    float min_dist;
+    Shape const *shape = nullptr;
 
-    float min_dist = std::numeric_limits<float>::max();
-    float min_shape = -1;
-
-    for (std::vector<Shape>::iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it) {
-        if ((*it).intersect(ray, dist)) {
-            min_shape = it - m_Shapes.begin();
-            min_dist = dist;
+    for (auto const& s: m_shapes) {
+        if (s->intersect(ray, dist)) {
+            if (!shape || min_dist > dist) {
+                min_dist = dist;
+                shape = s;
+            }
         }
     }
 
-    if (min_shape == -1)
-        return -1;
-    else {
-        dist = min_dist;
-        return min_shape;
-    }
-
+    return shape;
 }
 
-bool Scene::addShape(Shape const& shape) {
-
-    for (std::vector<Shape>::iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it) {
-        if ((*it) == shape) {
-            return false;
-        }
+void Scene::test() {
+    for (auto const& s: m_shapes) {
+        std::cout << std::string(*s) << std::endl;
     }
-    m_Shapes.push_back(shape);
-    return true;
-}
-
-Shape& Scene::getShape(float index) {
-    return m_Shapes[index];
 }
 
 void Scene::constructionArbreSpherEnglobant() {
