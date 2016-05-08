@@ -11,7 +11,7 @@
 
 class Camera: public Object {
 private:
-    float m_fov; // Angle d'ouverture
+//    float m_fov; // Angle d'ouverture
 
 //    float m_width,m_height;
     float m_depth; // Profondeur de vue <=> distance max jusqu'a laquel les objets apparaissent
@@ -21,7 +21,7 @@ private:
 public:
     Camera();
     Camera(Point const& position, Vector const& orientation);
-    Camera(float fov, float depth, Point const& position, Vector const& orientation);
+    Camera(float depth, Point const& position, Vector const& orientation);
     virtual ~Camera();
 
     virtual operator std::string() const;
