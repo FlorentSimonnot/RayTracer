@@ -3,33 +3,42 @@
 //
 
 #include <Shape.hpp>
+#include <stdio.h>
 
 #include "RayTracer.hpp"
 
 RayTracer::RayTracer(float width, float height, float depth)
-        : m_width(width),
+        : m_position(0, 0, 0),
+          m_orientation(1, 0, 0),
+          m_width(width),
           m_height(height),
           m_depth(depth),
           m_precompWidth(),
           m_precompHeight(),
-          m_gui()
-{
+          m_gui() {
     updatePrecomp();
 }
 
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
-    for (int i = 0; i < WINDOW_WIDTH; ++i) {
-        for (int j = 0; j < WINDOW_HEIGHT; ++j) {
-//            Vector directionTempo(
-//                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
-//                    m_precompHeight * (j - WINDOW_HEIGHT / 2.f),
-//                    m_depth
-//            );
+    for (int j = 0; j < WINDOW_HEIGHT; ++j) {
+        for (int i = 0; i < WINDOW_WIDTH; ++i) {
 
-//            Ray ray(m_position, directionTempo);
-            Ray ray(m_position, m_orientation);
+            // TODO Changer les valeurs pour prendre en compte la camera
+            Vector directionTempo(
+                    1,
+                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
+                    -m_precompHeight * (j - WINDOW_HEIGHT / 2.f)
+
+            );
+//            std::cout <<
+            directionTempo *= 1. / directionTempo.norm();
+
+            Ray ray(m_position, directionTempo);
+//            Point p(i,j,50);
+//            std::cout << "p " << std::string(p) << std::endl;
+//            Ray ray(m_position, m_orientation);
 
             // Calcul de la couleur a afficher
             Shape const *shape = scene.getFirstCollision(ray);
@@ -40,6 +49,9 @@ void RayTracer::draw(Scene const& scene) {
     }
 
     m_gui.render();
+    // TODO A supprimer plus tard
+    // Met le programme en pause et attent une saisie
+    scanf("%*c");
 }
 
 void RayTracer::updatePrecomp() {

@@ -7,7 +7,6 @@
 #include <limits>
 
 
-
 Sphere::Sphere()
         : Shape() {
 }
@@ -37,16 +36,16 @@ float Sphere::getRadius() {
 
 // TODO A tester
 bool Sphere::intersect(Ray const& ray, float& dist) {
-    Vector d1 = ray.getDirection() - ray.getOrigin();
+    Vector d1 = ray.getDirection(); //- ray.getOrigin();
     Vector d2 = ray.getOrigin() - m_position;
-    Vector ray_dir = ray.getDirection();
-    Vector center = m_position;
+//    Vector ray_dir = ray.getDirection();
+//    Vector center = m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
-    float gamma =
-            ray_dir.produitScalaire(ray_dir) + center.produitScalaire(center) - 2 * ray_dir.produitScalaire(center) -
-            getRadius() * getRadius();
+    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+    //ray_dir.produitScalaire(ray_dir) + center.produitScalaire(center) - 2 * ray_dir.produitScalaire(center) -
+
 
     float delta = (beta * beta - 4 * alpha * gamma);
 
@@ -59,17 +58,34 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     float t2 = (float) (-beta - sqrt(delta)) / alpha;
     float t = 0;
 
-    if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
-        (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
-        t = t1;
-    } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
-               (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
+    if (t1 < std::numeric_limits<float>::epsilon()) {
         t = t2;
     }
+    else if (t2 < std::numeric_limits<float>::epsilon()) {
+        t = t1;
+    }
+    else if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
+        return false;
+    }
+    else {
+        t = (float) fmin(t1, t2);
+    }
+    dist = t;
+//
+//    if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
+//        (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
+//        t = t1;
+//    } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
+//               (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
+//        t = t2;
+//    }
+//    else if(t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon() ){
+//        return false;
+//    }
 
     //TODO Peut etre A changer
-    Point p = t * ray.getDirection() + ray.getOrigin();
-    dist = p.distance(ray.getOrigin());
+//    Point p = t * ray.getDirection() + ray.getOrigin();
+//    dist = p.distance(ray.getOrigin());
     return true;
 }
 

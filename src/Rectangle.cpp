@@ -75,7 +75,7 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
     }
 
 
-    return true;
+    return false;
 }
 
 // TODO Changer les valeurs
