@@ -6,24 +6,28 @@
 #define PROJECT_SCENE_HPP
 
 #include "Camera.hpp"
-#include "Object.hpp"
 #include <vector>
-#include <Ray.hpp>
+#include <memory>
+
+class Ray;
+class Shape;
+class Object;
+
 class Scene {
 private:
-    std::vector<Shape>& m_Shapes;
+	std::vector<std::unique_ptr<Object>> m_objects;
+    std::vector<Shape*> m_shapes;
 
 public:
     Scene();
-
-    Scene(std::vector<Shape>& shapes);
+    Scene(std::vector<std::unique_ptr<Object>>& objects);
     ~Scene();
 
-    float getFirstCollision(Ray const& ray,float& dist);
 
-    bool addShape(Shape const& shape);
+void test();
 
-    Shape& getShape(float index);
+    // Return color of the pixel.
+    Shape const* getFirstCollision(Ray const& ray,float& dist) const;
 
     void constructionArbreSpherEnglobant();
 
