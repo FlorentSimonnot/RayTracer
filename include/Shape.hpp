@@ -11,12 +11,14 @@ protected:
 
 public:
     Shape();
-
+    Shape(Vector const& color);
     Shape(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color);
 
     virtual ~Shape();
 
     virtual operator std::string() const;
+
+    Vector const& getColor() const;
 
     virtual bool intersect(Ray const& ray, float& dist) = 0;
 

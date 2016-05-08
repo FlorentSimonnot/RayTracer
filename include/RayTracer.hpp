@@ -7,10 +7,10 @@
 
 #include "Scene.hpp"
 #include <Gui.hpp>
+
 class RayTracer {
 private:
     // Ajouter dimension
-
 //    Camera camera;
 
     // Concerne celui qui regarde
@@ -25,32 +25,21 @@ private:
     float m_pixelWidth;
     float m_pixelHeight;
 
-
-
-    Scene m_scene;
-
-    Gui m_gui;
-
     /// Precalcule afin d'optimiser ///
     float m_precompWidth;
     float m_precompHeight;
 
+    // The window used to render the scene.
+    Gui m_gui;
+
     void updatePrecomp();
 
 public:
-    RayTracer();
-
-    RayTracer(float width, float heigth, float depth, float pixelWidth, float pixelHeight, Scene scene,Gui gui);
-
+    RayTracer(float width, float height, float depth, float pixelWidth, float pixelHeight);
     ~RayTracer();
 
-    void draw();
-
-    void computColor(Ray const& ray, Vector color);
-
+    void draw(Scene const& scene);
     void updateCamera(float width, float height, Point const& origin, Vector const& direction);
-
-
 };
 
 
