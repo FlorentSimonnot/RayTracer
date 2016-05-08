@@ -4,6 +4,7 @@
 
 #include "Vector.hpp"
 #include <cmath>
+#include <Matrice.hpp>
 
 #define FLOAT_EQ(a, b) (fabs(a - b) < 0.00001f)
 #define FLOAT_NOT_EQ(a, b) (fabs(a - b) > 0.00001f)
@@ -115,4 +116,15 @@ Vector Vector::crossProduct(Vector const &o) {
     return Vector(m_y * o.z() - m_z * o.y(),
                   m_z * o.x() - m_x * o.z(),
                   m_x * o.y() - m_y * o.x());
+}
+
+//TODO
+Vector Vector::rotationVector(Matrice const& rotation, Vector const& o) {
+
+    float x;
+    float y;
+    float z;
+
+    return Vector();
+
 }
