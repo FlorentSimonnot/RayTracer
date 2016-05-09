@@ -7,6 +7,8 @@
 
 #include <ostream>
 
+class Matrice;
+
 class Vector {    
 private:
     float m_x, m_y, m_z;
@@ -39,9 +41,9 @@ public:
     bool operator!=(Vector const &o) const;
     operator std::string() const;
 
-    Vector crossProduct(Vector const& o);
+    Vector crossProduct(Vector const& o) const;
 
-//    Vector rotationVector(Matrice const& rotation,Vector const& o);
+    Vector rotationVector(float angle, Vector const& axe) const;
 };
 
 Vector operator*(float f, Vector const& v);

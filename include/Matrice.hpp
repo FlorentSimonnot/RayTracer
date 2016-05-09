@@ -8,16 +8,21 @@
 #include "Vector.hpp"
 class Matrice {
 private:
-    Vector m_col1,m_col2,m_col3;
+    Vector m_ligne1, m_ligne2, m_ligne3;
 
 public:
-    Matrice();
-    Matrice(Vector const& v1,Vector const& v2,Vector const& v3);
+    Matrice(float angle, Vector const& axe) ;
+
     ~Matrice();
 
-    Matrice createMatriceRotation(float angle,Vector const& axe);
+    Matrice& inverseMatrix();
 
-    Matrice getRotationMatrix(Vector const& axe) const;
+    Vector getLigne1() const;
+
+    Vector getLigne2() const;
+
+    Vector getLigne3() const;
+
 
 };
 
