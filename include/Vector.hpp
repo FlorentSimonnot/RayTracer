@@ -41,7 +41,7 @@ public:
 
     Vector crossProduct(Vector const& o);
 
-    Vector rotationVector(Matrice const& rotation,Vector const& o);
+//    Vector rotationVector(Matrice const& rotation,Vector const& o);
 };
 
 Vector operator*(float f, Vector const& v);
