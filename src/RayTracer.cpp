@@ -9,8 +9,8 @@
 
 RayTracer::RayTracer(float width, float height, float depth, Point const& pos, Vector const& orientation)
         : Camera(depth, pos, orientation),
-          m_position(0, 0, 0),
-          m_orientation(1, 0, 0),
+          m_position(pos),
+          m_orientation(orientation),
           m_width(width),
           m_height(height),
           m_depth(depth),
