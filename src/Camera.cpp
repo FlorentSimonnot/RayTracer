@@ -16,7 +16,25 @@ Camera::Camera(Point const& position, Vector const& orientation)
 Camera::Camera(float depth, Point const& position, Vector const& orientation)
         : m_depth(depth),
           m_position(position),
-          m_orientation(orientation) { }
+          m_orientation(orientation),
+          m_orientation_down(),
+          m_orientation_right() {
+
+    if (m_orientation.x() || m_orientation.y()) {
+        m_orientation_right = Vector(-m_orientation.y(), m_orientation.x(), 0);
+    } else {
+        m_orientation_right = Vector(1, 0, 0);
+    }
+    m_orientation_down = m_orientation.crossProduct(m_orientation_right);
+    if (m_orientation_down.z() < 0) {
+        m_orientation_down = -m_orientation_down;
+        m_orientation_right = -m_orientation_right;
+    }
+    // TODO eventuellement ajouter operateur unaire -
+    // Vector& operator-();
+
+    // TODO
+}
 
 Camera::~Camera() { }
 

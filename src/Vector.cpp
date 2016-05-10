@@ -129,3 +129,10 @@ Vector Vector::rotationVector(float angle, Vector const& axe) const {
 
     return Vector(x, y, z);
 }
+
+Vector& Vector::operator-() {
+    this->m_x = -m_x;
+    this->m_y = -m_y;
+    this->m_z = -m_z;
+    return (*this);
+}

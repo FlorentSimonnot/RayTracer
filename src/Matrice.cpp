@@ -16,17 +16,29 @@ Matrice::Matrice(float angle, Vector const& axe)
         float s = (float) sin(angle);
         float c = (float) cos(angle);
 
-        Vector v1(axe.x() * axe.x() + (1 - axe.x() * axe.x()) * c,
-                  axe.x() * axe.y() + (1 - c) - axe.z() * s,
-                  axe.z() * axe.x() * (1 - c) + axe.y() * s);
+//        Vector v1(axe.x() * axe.x() + (1 - axe.x() * axe.x()) * c,
+//                  axe.x() * axe.y() + (1 - c) - axe.z() * s,
+//                  axe.z() * axe.x() * (1 - c) + axe.y() * s);
+//
+//        Vector v2(axe.x() * axe.y() * (1 - c) + axe.z() * s,
+//                  axe.y() * axe.y() + (1 - axe.y() * axe.y()) * c,
+//                  axe.y() * axe.z() + (1 - c) - axe.x() * s);
+//
+//        Vector v3(axe.z() * axe.x() * (1 - c) - axe.y() * s,
+//                  axe.y() * axe.z() * (1 - c) + axe.x() * s,
+//                  axe.z() * axe.z() + (1 - axe.z() * axe.z()) * c);
 
-        Vector v2(axe.x() * axe.y() * (1 - c) + axe.z() * s,
-                  axe.y() * axe.y() + (1 - axe.y() * axe.y()) * c,
-                  axe.y() * axe.z() + (1 - c) - axe.x() * s);
+        Vector v1(c + (1 - c) * axe.x() * axe.x(),
+                  (1 - c) * axe.x() * axe.y() - s * axe.z(),
+                  (1 - c) * axe.x() * axe.z() + axe.y() * s);
 
-        Vector v3(axe.z() * axe.x() * (1 - c) - axe.y() * s,
-                  axe.y() * axe.z() * (1 - c) + axe.x() * s,
-                  axe.z() * axe.z() + (1 - axe.z() * axe.z()) * c);
+        Vector v2((1 - c) * axe.x() * axe.y() + s * axe.z(),
+                  c + (1 - c) * axe.y() * axe.y(),
+                  (1 - c) * axe.y() * axe.z() - s * axe.x());
+
+        Vector v3((1 - c) * axe.x() * axe.z() - s * axe.y(),
+                  (1 - c) * axe.y() * axe.z() + s * axe.x(),
+                  c + (1 - c) * axe.z() * axe.z());
 
         m_ligne1 = v1;
         m_ligne2 = v2;

@@ -37,7 +37,7 @@ float Sphere::getRadius() {
 // TODO A tester
 bool Sphere::intersect(Ray const& ray, float& dist) {
     Vector d1 = ray.getDirection(); //- ray.getOrigin();
-    Vector d2 = ray.getOrigin() - m_position;
+    Vector d2 = m_position - ray.getOrigin();
 //    Vector ray_dir = ray.getDirection();
 //    Vector center = m_position;
 

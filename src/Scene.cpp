@@ -24,16 +24,14 @@ Scene::~Scene() {
 }
 
 Shape const* Scene::getFirstCollision(Ray const& ray) const {
-    float min_dist = std::numeric_limits<float>::min(), dist;
+    float min_dist = std::numeric_limits<float>::max(), dist;
     Shape const *shape = nullptr;
 
     for (auto const& s: m_shapes) {
         if (s->intersect(ray, dist)) {
-            if (!shape || min_dist > dist) {
+            if (!shape || (min_dist > dist && (dist > std::numeric_limits<float>::epsilon()))) {
                 min_dist = dist;
                 shape = s;
-//                std::cout << " s " << std::string(*shape) << std::endl;
-//                std::cout << " dist " << dist << std::endl;
             }
         }
     }
