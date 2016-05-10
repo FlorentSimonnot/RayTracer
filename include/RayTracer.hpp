@@ -28,10 +28,11 @@ private:
     // The window used to render the scene.
     Gui m_gui;
 
+    Camera camera;
     void updatePrecomp();
 
 public:
-    RayTracer(float width, float height, float depth);
+    RayTracer(float width, float height, float depth, Point const& pos, Vector const& orientation);
     ~RayTracer();
 
     void draw(Scene const& scene);

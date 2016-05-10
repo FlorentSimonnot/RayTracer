@@ -1,7 +1,7 @@
 //
 // Created by Narex on 08/05/2016.
 //
-// TODO finir le fichier
+
 #include <math.h>
 #include "Matrice.hpp"
 

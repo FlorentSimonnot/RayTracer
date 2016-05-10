@@ -7,8 +7,9 @@
 
 #include "RayTracer.hpp"
 
-RayTracer::RayTracer(float width, float height, float depth)
-        : m_position(0, 0, 0),
+RayTracer::RayTracer(float width, float height, float depth, Point const& pos, Vector const& orientation)
+        : Camera(depth, pos, orientation),
+          m_position(0, 0, 0),
           m_orientation(1, 0, 0),
           m_width(width),
           m_height(height),
@@ -26,13 +27,18 @@ void RayTracer::draw(Scene const& scene) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
 
             // TODO Changer les valeurs pour prendre en compte la camera
+//            Vector directionTempo(
+//                    1,
+//                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
+//                    -m_precompHeight * (j - WINDOW_HEIGHT / 2.f)
+//
+//            );
+            // bidouille de test
             Vector directionTempo(
-                    1,
-                    m_precompWidth * (i - WINDOW_WIDTH / 2.f),
-                    -m_precompHeight * (j - WINDOW_HEIGHT / 2.f)
-
+                    m_orientation.x(),
+                    m_orientation.y() + m_precompWidth * (i - WINDOW_WIDTH / 2.f),
+                    m_orientation.z() - m_precompHeight * (j - WINDOW_HEIGHT / 2.f)
             );
-//            std::cout <<
             directionTempo *= 1. / directionTempo.norm();
 
             Ray ray(m_position, directionTempo);
