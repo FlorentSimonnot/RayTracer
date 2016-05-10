@@ -12,7 +12,7 @@ class RayTracer {
 private:
     // Ajouter dimension
 //    Camera camera;
-
+    Camera camera;
     // Concerne celui qui regarde
     // A remplacer par la camera après
     Point m_position; // Position de la camera
@@ -28,7 +28,7 @@ private:
     // The window used to render the scene.
     Gui m_gui;
 
-    Camera camera;
+
     void updatePrecomp();
 
 public:
