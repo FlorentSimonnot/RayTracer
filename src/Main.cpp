@@ -22,10 +22,7 @@ int main(int argc, char *argv[]) {
 
 	Scene scene(objects);
 
-	// 6.4 et 4.8 servent à calculer le pas qui sera de 6.4 / 640 ( width de la fenetre )
-	// Idem pour le 4.8 avec la height de la fenetre
-	// Peut etre ameliorer
-	RayTracer rayTracer(40, Point(-5, 0, 0), Vector(1, 0, 0));
+	RayTracer rayTracer(40, Point(-5, 0, 0), Vector(1, 0.5, 0));
 
 	rayTracer.draw(scene);
 
