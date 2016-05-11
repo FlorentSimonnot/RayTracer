@@ -10,14 +10,8 @@
 
 class RayTracer {
 private:
-    // Ajouter dimension
 //    Camera camera;
     Camera camera;
-    // Concerne celui qui regarde
-    // A remplacer par la camera après
-    Point m_position; // Position de la camera
-    Vector m_orientation; // Orientation de la camera
-    float m_depth;
     ///////////////////////
 
     /// Precalcule afin d'optimiser ///
@@ -26,12 +20,15 @@ private:
     // The window used to render the scene.
     Gui m_gui;
 
+    int m_nbRayons;
+
 public:
-    RayTracer(float depth, Point const& pos, Vector const& orientation);
+    RayTracer(float depth, Point const& pos, Vector const& orientation,int nbRayons);
     ~RayTracer();
 
     void draw(Scene const& scene);
-    void updateCamera(Point const& origin, Vector const& direction);
+
+    Vector moyenneColor(Vector const &colors) const;
 };
 
 

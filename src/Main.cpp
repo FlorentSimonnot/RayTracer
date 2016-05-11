@@ -3,6 +3,8 @@
 //
 
 #include <iostream>
+#include <time.h>
+#include <stdlib.h>
 #include "Parser.hpp"
 #include "Scene.hpp"
 #include "RayTracer.hpp"
@@ -16,13 +18,15 @@ int main(int argc, char *argv[]) {
 	std::string exec = argv[0];
 	std::string dir = exec.substr(0, exec.find_last_of('/') + 1);
 	Parser parser(dir + "data/test_parser.scn");
+	srand(time(NULL));
 
 	std::vector<std::unique_ptr<Object>> objects;
 	parser.parse(objects);
 
 	Scene scene(objects);
 
-	RayTracer rayTracer(40, Point(-5, 0, 0), Vector(1, 0.5, 0));
+	// Profondeur de vue , Position de la camera , orientation de la camera , anti aliasing
+	RayTracer rayTracer(100, Point(-5, 0, 0), Vector(1, 0, 0), 2);
 
 	rayTracer.draw(scene);
 

@@ -5,13 +5,14 @@
 #include "Ray.hpp"
 #include <BoundingVolume.hpp>
 #include "Matrice.hpp"
-
+#include "Materiaux.hpp"
 
 
 class Shape : public Object {
 protected:
     Vector m_position, m_direction, m_scale, m_color;
     Matrice m_Mat_rotation;
+    Materiaux m_Materiau;
 
 public:
     Shape();
