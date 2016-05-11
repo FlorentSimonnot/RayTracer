@@ -13,6 +13,8 @@ private:
 public:
     Matrice(float angle, Vector const& axe) ;
 
+    Matrice(Vector const& v1,Vector const& v2);
+
     ~Matrice();
 
     Matrice& inverseMatrix();

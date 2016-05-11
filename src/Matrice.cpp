@@ -46,6 +46,9 @@ Matrice::Matrice(float angle, Vector const& axe)
     }
 }
 
+Matrice::Matrice(Vector const& v1, Vector const& v2)
+        : Matrice(v1.calculAngle(v2), v1.crossProduct(v2)) { }
+
 Matrice& Matrice::inverseMatrix() {
 
     Vector v1(m_ligne2.y() * m_ligne3.z() - m_ligne2.z() * m_ligne3.y(),

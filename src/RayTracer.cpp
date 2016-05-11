@@ -49,7 +49,7 @@ void RayTracer::draw(Scene const& scene) {
                             .rotationVector((float) (angle_x * cos(angle_y)),
                                             camera.orientation_down())
                             .rotationVector(angle_y,
-                                            camera.orientation_right())
+                                            -camera.orientation_right())
             );
             directionTempo *= 1. / directionTempo.norm();
 

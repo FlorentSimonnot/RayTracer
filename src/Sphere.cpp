@@ -45,11 +45,11 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     float delta = (beta * beta - 4 * alpha * gamma);
 
     if (delta < 0) {
-        dist = std::numeric_limits<float>::max();;
+        dist = std::numeric_limits<float>::max();
         return false;
     }
-    float t1 = (float) (-beta + sqrt(delta)) / alpha;
-    float t2 = (float) (-beta - sqrt(delta)) / alpha;
+    float t1 = (float) (-beta + sqrt(delta)) / (2 * alpha);
+    float t2 = (float) (-beta - sqrt(delta)) / (2 * alpha);
     float t = 0;
 
     if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {

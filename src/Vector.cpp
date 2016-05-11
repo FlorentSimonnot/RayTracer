@@ -136,3 +136,7 @@ Vector& Vector::operator-() {
     this->m_z = -m_z;
     return (*this);
 }
+
+float Vector::calculAngle(Vector const& o) const {
+    return acosf(this->produitScalaire(o) / (this->norm() * o.norm()));
+}

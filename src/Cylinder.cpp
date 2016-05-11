@@ -7,7 +7,6 @@
 #include <limits>
 
 
-
 Cylinder::Cylinder()
         : Shape() {
 }
@@ -37,134 +36,43 @@ Cylinder::operator std::string() const {
 // Cylindre avec sa hauteur sur l'axe des X
 // TODO A finir
 bool Cylinder::intersect(const Ray& ray, float& dist) {
-    Vector ray_dir(0, ray.getDirection().y(), ray.getDirection().x());
-    Vector ray_or(0, ray.getOrigin().y(), ray.getOrigin().x());
 
-    float a = ray_dir.produitScalaire(ray_dir);
-    float b = ray_dir.produitScalaire(ray_or);
-    float c = ray_or.produitScalaire(ray_or) - getRadius() * getRadius();
+//    Vector d1 = ray.getDirection(); //
+//    Vector d2 = ray.getOrigin() - m_position;
 
-    float delta = b * b - 4 * a * c;
+    // Cylindre infini
+    Vector d1(ray.getDirection().x(), ray.getDirection().y(), 0);
+    Vector d2(ray.getOrigin().x() - m_position.x(), ray.getOrigin().y() - m_position.y(), 0);
+
+    float alpha = d1.produitScalaire(d1);
+    float beta = 2 * d1.produitScalaire(d2);
+    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+
+    float delta = (beta * beta - 4 * alpha * gamma);
 
     if (delta < 0) {
-        dist = std::numeric_limits<float>::max();;// TODO Mettre une grande valeur ou rien du tout
+        dist = std::numeric_limits<float>::max();
+        return false;
     }
-    else if (delta == 0) {
+    float t1 = (float) (-beta + sqrt(delta)) / (2 * alpha);
+    float t2 = (float) (-beta - sqrt(delta)) / (2 * alpha);
+    float t = 0;
 
+    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
+        return false;
     }
-
+    else if (t1 < std::numeric_limits<float>::epsilon()) {
+        t = t2;
+    }
+    else if (t2 < std::numeric_limits<float>::epsilon()) {
+        t = t1;
+    }
     else {
-        float t1 = (float) (-b + sqrt(delta)) / a;
-        float t2 = (float) (-b - sqrt(delta)) / a;
-        float t = 0;
-
-        if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
-            (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
-            t = t1;
-        } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
-                   (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
-            t = t2;
-        }
-
-        //TODO Peut etre A changer
-        Point p = t * ray.getDirection() + ray.getOrigin();
-        dist = p.distance(ray.getOrigin());
+        t = (float) fmin(t1, t2);
     }
-
-
-    // Code source trouve en ligne
-//    if (delta < 0)    {
-//        d = MAXDOUBLE;
-//        if ((pos2[1] * pos2[1] + pos2[2] * pos2[2]) < (leRayon * leRayon))	{
-//            if (((longueur != 0.0))&& (pos2[0] > longueur || (pos2[0] >= 0.0 && pos2[0] < longueur))) {
-//                if (dir2[0] != 0){
-//                    t = (longueur - pos2[0]) / dir2[0];
-//                    p[0] = longueur;
-//                    p[1] = t * dir2[1] + pos2[1];
-//                    p[2] = t * dir2[2] + pos2[2];
-//                    p[3] = 1.0;
-//                    if ((t > epsilon)&& ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
-//                        d = distance (p, pos2);
-//                    }
-//                    else
-//                        d = MAXDOUBLE;
-//                }
-//                else
-//                    d = MAXDOUBLE;
-//            }
-//            if (((longueur != 0.0))&& (pos2[0] < 0.0 || (pos2[0] > 0.0 && pos2[0] <= longueur))){
-//                if (dir2[0] != 0){
-//                    t = (0.0 - pos2[0]) / dir2[0];
-//                    p[0] = 0.0;
-//                    p[1] = t * dir2[1] + pos2[1];
-//                    p[2] = t * dir2[2] + pos2[2];
-//                    p[3] = 1.0;
-//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
-//                        d = distance (p, pos2);
-//                    }
-//                    else
-//                        d = MAXDOUBLE;
-//                }
-//                else
-//                    d = MAXDOUBLE;
-//            }
-//        }
-//    }
-//    else{
-//        t1 = (-b + sqrt (delta)) / a;
-//        t2 = (-b - sqrt (delta)) / a;
-//        if (t1 <= epsilon && t2 <= epsilon)
-//            d = MAXDOUBLE;
-//        else{
-//            if ((t1 <= t2 && t1 > epsilon) || (t2 < t1 && t2 < epsilon))
-//                t = t1;
-//            else if ((t2 < t1 && t2 > epsilon) || (t1 < t2 && t1 < epsilon))
-//                t = t2;
-//
-//            p[0] = t * dir2[0] + pos2[0];
-//            p[1] = t * dir2[1] + pos2[1];
-//            p[2] = t * dir2[2] + pos2[2];
-//            p[3] = 1.0;
-//            d = distance (p, pos2);
-//
-//            if (((longueur != 0.0)) && (p[0] > longueur)|| (pos2[0] > longueur && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <= (leRayon * leRayon))){
-//                if (dir2[0] != 0){
-//                    t = (longueur - pos2[0]) / dir2[0];
-//                    p[0] = longueur;
-//                    p[1] = t * dir2[1] + pos2[1];
-//                    p[2] = t * dir2[2] + pos2[2];
-//                    p[3] = 1.0;
-//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
-//                        d = distance (p, pos2);
-//                    }
-//                    else
-//                        d = MAXDOUBLE;
-//                }
-//                else
-//                    d = MAXDOUBLE;
-//            }
-//
-//            if (((longueur != 0.0)) && (p[0] < 0.0) || (pos2[0] < 0  && (pos2[1] * pos2[1] + pos2[2] * pos2[2]) <=  (leRayon * leRayon)))	{
-//                if (dir2[0] != 0){
-//                    t = (0.0 - pos2[0]) / dir2[0];
-//                    p[0] = 0.0;
-//                    p[1] = t * dir2[1] + pos2[1];
-//                    p[2] = t * dir2[2] + pos2[2];
-//                    p[3] = 1.0;
-//                    if ((t > epsilon) && ((p[1] * p[1] + p[2] * p[2]) <= leRayon * leRayon)){
-//                        d = distance (p, pos2);
-//                    }
-//                    else
-//                        d = MAXDOUBLE;
-//                }
-//                else
-//                    d = MAXDOUBLE;
-//            }
-//        }
-//    }
-
-
+    dist = t;
     return true;
+
 }
 
 // TODO Changer les valeurs

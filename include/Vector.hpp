@@ -45,6 +45,8 @@ public:
     Vector crossProduct(Vector const& o) const;
 
     Vector rotationVector(float angle, Vector const& axe) const;
+
+    float calculAngle(Vector const& o) const;
 };
 
 Vector operator*(float f, Vector const& v);
