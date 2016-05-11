@@ -149,3 +149,15 @@ float Vector::calculAngle(Vector const& o) const {
     }
     return acosf(this->produitScalaire(o) / (this->norm() * o.norm()));
 }
+
+void Vector::setX(float v) {
+    this->m_x = v;
+}
+
+void Vector::setY(float v) {
+    this->m_y = v;
+}
+
+void Vector::setZ(float v) {
+    this->m_z = v;
+}

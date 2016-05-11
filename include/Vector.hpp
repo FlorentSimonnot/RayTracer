@@ -49,6 +49,10 @@ public:
     Vector rotationVector(Matrice const& rotation) const;
 
     float calculAngle(Vector const& o) const;
+
+    void setX(float v);
+    void setY(float v);
+    void setZ(float v);
 };
 
 Vector operator*(float f, Vector const& v);

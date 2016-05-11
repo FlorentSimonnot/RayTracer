@@ -37,12 +37,11 @@ Cylinder::operator std::string() const {
 // TODO A finir
 bool Cylinder::intersect(const Ray& ray, float& dist) {
 
-//    Vector d1 = ray.getDirection(); //
-//    Vector d2 = ray.getOrigin() - m_position;
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
 
-    // Cylindre infini
-    Vector d1(ray.getDirection().x(), ray.getDirection().y(), 0);
-    Vector d2(ray.getOrigin().x() - m_position.x(), ray.getOrigin().y() - m_position.y(), 0);
+    d1.setZ(0);
+    d2.setZ(0);
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
