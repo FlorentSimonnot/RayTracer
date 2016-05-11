@@ -144,5 +144,8 @@ Vector& Vector::operator-() {
 }
 
 float Vector::calculAngle(Vector const& o) const {
+    if (*this == Vector(0, 0, 0) || o == Vector(0, 0, 0)) {
+        return 0;
+    }
     return acosf(this->produitScalaire(o) / (this->norm() * o.norm()));
 }
