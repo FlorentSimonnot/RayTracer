@@ -46,6 +46,8 @@ public:
 
     Vector rotationVector(float angle, Vector const& axe) const;
 
+    Vector rotationVector(Matrice const& rotation) const;
+
     float calculAngle(Vector const& o) const;
 };
 

@@ -124,9 +124,16 @@ Vector Vector::rotationVector(float angle, Vector const& axe) const {
 
     Matrice rotation(angle, axe);
     float x = this->produitScalaire(rotation.getLigne1());
-    float y = this->produitScalaire(rotation.getLigne2());;
-    float z = this->produitScalaire(rotation.getLigne3());;
+    float y = this->produitScalaire(rotation.getLigne2());
+    float z = this->produitScalaire(rotation.getLigne3());
 
+    return Vector(x, y, z);
+}
+
+Vector Vector::rotationVector(Matrice const& rotation) const {
+    float x = this->produitScalaire(rotation.getLigne1());
+    float y = this->produitScalaire(rotation.getLigne2());
+    float z = this->produitScalaire(rotation.getLigne3());
     return Vector(x, y, z);
 }
 
