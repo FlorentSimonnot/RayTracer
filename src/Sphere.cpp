@@ -5,6 +5,7 @@
 #include "Sphere.hpp"
 #include <cmath>
 #include <limits>
+#include <iostream>
 
 
 Sphere::Sphere()
@@ -35,7 +36,7 @@ float Sphere::getRadius() {
 
 bool Sphere::intersect(Ray const& ray, float& dist) {
     Vector d1 = ray.getDirection(); //- ray.getOrigin();
-    Vector d2 = m_position - ray.getOrigin();
+    Vector d2 = ray.getOrigin() - m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
@@ -51,14 +52,14 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     float t2 = (float) (-beta - sqrt(delta)) / alpha;
     float t = 0;
 
-    if (t1 < std::numeric_limits<float>::epsilon()) {
+    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
+        return false;
+    }
+    else if (t1 < std::numeric_limits<float>::epsilon()) {
         t = t2;
     }
     else if (t2 < std::numeric_limits<float>::epsilon()) {
         t = t1;
-    }
-    else if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
-        return false;
     }
     else {
         t = (float) fmin(t1, t2);

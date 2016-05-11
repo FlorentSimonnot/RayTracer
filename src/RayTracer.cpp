@@ -4,6 +4,7 @@
 
 #include <Shape.hpp>
 #include <stdio.h>
+#include <math.h>
 
 #include "RayTracer.hpp"
 
@@ -40,11 +41,14 @@ void RayTracer::draw(Scene const& scene) {
 //                            .rotationVector(-m_pas * (j - WINDOW_HEIGHT / 2.f),
 //                                            Vector(0, -1, 0))
 //            );
+            float angle_x = m_pas * (i - WINDOW_WIDTH / 2.f);
+            float angle_y = -m_pas * (j - WINDOW_HEIGHT / 2.f);
+
             Vector directionTempo(
                     camera.orientation()
-                            .rotationVector(m_pas * (i - WINDOW_WIDTH / 2.f),
+                            .rotationVector((float) (angle_x * cos(angle_y)),
                                             camera.orientation_down())
-                            .rotationVector(-m_pas * (j - WINDOW_HEIGHT / 2.f),
+                            .rotationVector(angle_y,
                                             camera.orientation_right())
             );
             directionTempo *= 1. / directionTempo.norm();
