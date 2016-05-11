@@ -12,8 +12,8 @@ Sphere::Sphere()
         : Shape() {
 }
 
-Sphere::Sphere(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color)
-        : Shape(position, rotation, scale, color) {
+Sphere::Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
+        : Shape(position, direction, scale, color) {
 }
 
 Sphere::~Sphere() {
@@ -25,7 +25,7 @@ Sphere::operator std::string() const {
 
 Sphere& Sphere::operator=(Sphere const& o) {
     m_position = o.m_position;
-    m_rotation = o.m_rotation;
+    m_direction = o.m_direction;
     m_scale = o.m_scale;
     return *this;
 }

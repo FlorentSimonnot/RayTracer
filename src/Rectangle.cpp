@@ -9,8 +9,8 @@ Rectangle::Rectangle()
         : Shape() {
 }
 
-Rectangle::Rectangle(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color)
-        : Shape(position, rotation, scale, color) {
+Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
+        : Shape(position, direction, scale, color) {
 }
 
 Rectangle::~Rectangle() {

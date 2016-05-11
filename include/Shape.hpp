@@ -4,15 +4,19 @@
 #include "Vector.hpp"
 #include "Ray.hpp"
 #include <BoundingVolume.hpp>
+#include "Matrice.hpp"
+
+
 
 class Shape : public Object {
 protected:
-    Vector m_position, m_rotation, m_scale, m_color;
+    Vector m_position, m_direction, m_scale, m_color;
+    Matrice m_Mat_rotation;
 
 public:
     Shape();
     Shape(Vector const& color);
-    Shape(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color);
+    Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
 
     virtual ~Shape();
 

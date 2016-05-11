@@ -119,7 +119,6 @@ Vector Vector::crossProduct(Vector const& o) const {
                   m_x * o.y() - m_y * o.x());
 }
 
-// TODO -> a tester
 Vector Vector::rotationVector(float angle, Vector const& axe) const {
 
     Matrice rotation(angle, axe);

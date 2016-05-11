@@ -13,7 +13,7 @@ class Sphere : public Shape {
 public:
     Sphere();
 
-    Sphere(Vector const& position, Vector const& rotation, Vector const& scale, Vector const& color);
+    Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
 
     virtual ~Sphere();
 
