@@ -33,19 +33,27 @@ void RayTracer::draw(Scene const& scene) {
 //            );
             // Ne fonctionne pas si rotation de la camera
             // Changer les vecteur 0,0,1 et 0,-1,0 par camera right et down
+//            Vector directionTempo(
+//                    camera.getOrientation()
+//                            .rotationVector(m_pas * (i - WINDOW_WIDTH / 2.f),
+//                                            Vector(0, 0, 1))
+//                            .rotationVector(-m_pas * (j - WINDOW_HEIGHT / 2.f),
+//                                            Vector(0, -1, 0))
+//            );
             Vector directionTempo(
-                    camera.getOrientation()
+                    camera.orientation()
                             .rotationVector(m_pas * (i - WINDOW_WIDTH / 2.f),
-                                            Vector(0, 0, 1))
+                                            camera.orientation_down())
                             .rotationVector(-m_pas * (j - WINDOW_HEIGHT / 2.f),
-                                            Vector(0, -1, 0))
+                                            camera.orientation_right())
             );
             directionTempo *= 1. / directionTempo.norm();
 
-            Ray ray(m_position, directionTempo);
+            Point p = camera.position();
+            Ray ray(p, directionTempo);
 
             // Calcul de la couleur a afficher
-            Shape const *shape = scene.getFirstCollision(ray);
+            Shape const *shape = scene.getFirstCollision(ray, camera.depth());
             if (shape) {
                 m_gui.setPixel(i, j, shape->getColor());
             }

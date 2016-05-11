@@ -9,7 +9,7 @@
 #include "Point.hpp"
 #include "Object.hpp"
 
-class Camera: public Object {
+class Camera : public Object {
 private:
 //    float m_fov; // Angle d'ouverture
 
@@ -20,31 +20,36 @@ private:
     Vector m_orientation_down;
     Vector m_orientation_right;
 
+    void updateOrientation();
 public:
     Camera();
+
     Camera(Point const& position, Vector const& orientation);
+
     Camera(float depth, Point const& position, Vector const& orientation);
+
     virtual ~Camera();
 
     virtual operator std::string() const;
 
-    float getFov();
+
+//    float getFov() const ;
 
 //    float width();
 //
 //    float height();
 
-    float depth();
+    float depth() const;
 
-    Point getPosition();
+    Point position() const;
 
-    Vector getOrientation();
+    Vector orientation() const;
 
-    void setFov(float val);
+    Vector orientation_down() const;
 
-//    void setWidth(float val);
-//
-//    void setHeight(float val);
+    Vector orientation_right() const;
+
+//    void setFov(float val);
 
     void setDepth(float val);
 

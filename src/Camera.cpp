@@ -6,12 +6,22 @@
 #include "Camera.hpp"
 
 Camera::Camera()
-        : m_depth(10), m_position(0, 0, 0), m_orientation(1, 1, 1) { }
+        : m_depth(10),
+          m_position(0, 0, 0),
+          m_orientation(1, 0, 0),
+          m_orientation_down(),
+          m_orientation_right() {
+    updateOrientation();
+}
 
 Camera::Camera(Point const& position, Vector const& orientation)
         : m_depth(10),
           m_position(position),
-          m_orientation(orientation) { }
+          m_orientation(orientation),
+          m_orientation_down(),
+          m_orientation_right() {
+    updateOrientation();
+}
 
 Camera::Camera(float depth, Point const& position, Vector const& orientation)
         : m_depth(depth),
@@ -20,6 +30,17 @@ Camera::Camera(float depth, Point const& position, Vector const& orientation)
           m_orientation_down(),
           m_orientation_right() {
 
+    updateOrientation();
+
+}
+
+Camera::~Camera() { }
+
+Camera::operator std::string() const {
+    return "camera";
+}
+
+void Camera::updateOrientation() {
     if (m_orientation.x() || m_orientation.y()) {
         m_orientation_right = Vector(-m_orientation.y(), m_orientation.x(), 0);
     } else {
@@ -30,18 +51,8 @@ Camera::Camera(float depth, Point const& position, Vector const& orientation)
         m_orientation_down = -m_orientation_down;
         m_orientation_right = -m_orientation_right;
     }
-    // TODO eventuellement ajouter operateur unaire -
-    // Vector& operator-();
-
-    // TODO
+    // TODO Ajouter la possibilite de voir en biais
 }
-
-Camera::~Camera() { }
-
-Camera::operator std::string() const {
-    return "camera";
-}
-
 //float Camera::getFov() {
 //    return m_fov;
 //}
@@ -54,18 +65,26 @@ Camera::operator std::string() const {
 //    return m_height;
 //}
 
-float Camera::depth() {
+float Camera::depth() const {
     return m_depth;
 }
 
-Point Camera::getPosition() {
+Point Camera::position() const {
     return m_position;
 }
 
-Vector Camera::getOrientation() {
+Vector Camera::orientation() const {
     return m_orientation;
 }
 
+Vector Camera::orientation_down() const {
+    return m_orientation_down;
+}
+
+
+Vector Camera::orientation_right() const {
+    return m_orientation_right;
+}
 //void Camera::setFov(float val) {
 //    m_fov = val;
 //}

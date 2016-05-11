@@ -33,26 +33,19 @@ float Sphere::getRadius() {
     return m_scale.x();
 }
 
-
-// TODO A tester
 bool Sphere::intersect(Ray const& ray, float& dist) {
     Vector d1 = ray.getDirection(); //- ray.getOrigin();
     Vector d2 = m_position - ray.getOrigin();
-//    Vector ray_dir = ray.getDirection();
-//    Vector center = m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
     float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
-    //ray_dir.produitScalaire(ray_dir) + center.produitScalaire(center) - 2 * ray_dir.produitScalaire(center) -
-
 
     float delta = (beta * beta - 4 * alpha * gamma);
 
     if (delta < 0) {
         dist = std::numeric_limits<float>::max();;
         return false;
-
     }
     float t1 = (float) (-beta + sqrt(delta)) / alpha;
     float t2 = (float) (-beta - sqrt(delta)) / alpha;
@@ -71,21 +64,6 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
         t = (float) fmin(t1, t2);
     }
     dist = t;
-//
-//    if ((t1 <= t2 && t1 > std::numeric_limits<float>::epsilon()) ||
-//        (t2 < t1 && t2 < std::numeric_limits<float>::epsilon())) {
-//        t = t1;
-//    } else if ((t2 < t1 && t2 > std::numeric_limits<float>::epsilon()) ||
-//               (t1 < t2 && t1 < std::numeric_limits<float>::epsilon())) {
-//        t = t2;
-//    }
-//    else if(t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon() ){
-//        return false;
-//    }
-
-    //TODO Peut etre A changer
-//    Point p = t * ray.getDirection() + ray.getOrigin();
-//    dist = p.distance(ray.getOrigin());
     return true;
 }
 

@@ -211,6 +211,54 @@ src/Geometry.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Geometry.cpp.s
 .PHONY : src/Geometry.cpp.s
 
+src/Gui.o: src/Gui.cpp.o
+.PHONY : src/Gui.o
+
+# target to build an object file
+src/Gui.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Gui.cpp.o
+.PHONY : src/Gui.cpp.o
+
+src/Gui.i: src/Gui.cpp.i
+.PHONY : src/Gui.i
+
+# target to preprocess a source file
+src/Gui.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Gui.cpp.i
+.PHONY : src/Gui.cpp.i
+
+src/Gui.s: src/Gui.cpp.s
+.PHONY : src/Gui.s
+
+# target to generate assembly for a file
+src/Gui.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Gui.cpp.s
+.PHONY : src/Gui.cpp.s
+
+src/Light.o: src/Light.cpp.o
+.PHONY : src/Light.o
+
+# target to build an object file
+src/Light.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Light.cpp.o
+.PHONY : src/Light.cpp.o
+
+src/Light.i: src/Light.cpp.i
+.PHONY : src/Light.i
+
+# target to preprocess a source file
+src/Light.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Light.cpp.i
+.PHONY : src/Light.cpp.i
+
+src/Light.s: src/Light.cpp.s
+.PHONY : src/Light.s
+
+# target to generate assembly for a file
+src/Light.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Light.cpp.s
+.PHONY : src/Light.cpp.s
+
 src/Main.o: src/Main.cpp.o
 .PHONY : src/Main.o
 
@@ -259,6 +307,30 @@ src/Materiaux.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Materiaux.cpp.s
 .PHONY : src/Materiaux.cpp.s
 
+src/Matrice.o: src/Matrice.cpp.o
+.PHONY : src/Matrice.o
+
+# target to build an object file
+src/Matrice.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Matrice.cpp.o
+.PHONY : src/Matrice.cpp.o
+
+src/Matrice.i: src/Matrice.cpp.i
+.PHONY : src/Matrice.i
+
+# target to preprocess a source file
+src/Matrice.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Matrice.cpp.i
+.PHONY : src/Matrice.cpp.i
+
+src/Matrice.s: src/Matrice.cpp.s
+.PHONY : src/Matrice.s
+
+# target to generate assembly for a file
+src/Matrice.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Matrice.cpp.s
+.PHONY : src/Matrice.cpp.s
+
 src/Object.o: src/Object.cpp.o
 .PHONY : src/Object.o
 
@@ -282,6 +354,30 @@ src/Object.s: src/Object.cpp.s
 src/Object.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
+
+src/ObjectGenerator.o: src/ObjectGenerator.cpp.o
+.PHONY : src/ObjectGenerator.o
+
+# target to build an object file
+src/ObjectGenerator.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.o
+.PHONY : src/ObjectGenerator.cpp.o
+
+src/ObjectGenerator.i: src/ObjectGenerator.cpp.i
+.PHONY : src/ObjectGenerator.i
+
+# target to preprocess a source file
+src/ObjectGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.i
+.PHONY : src/ObjectGenerator.cpp.i
+
+src/ObjectGenerator.s: src/ObjectGenerator.cpp.s
+.PHONY : src/ObjectGenerator.s
+
+# target to generate assembly for a file
+src/ObjectGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.s
+.PHONY : src/ObjectGenerator.cpp.s
 
 src/Parser.o: src/Parser.cpp.o
 .PHONY : src/Parser.o
@@ -544,15 +640,27 @@ help:
 	@echo "... src/Geometry.o"
 	@echo "... src/Geometry.i"
 	@echo "... src/Geometry.s"
+	@echo "... src/Gui.o"
+	@echo "... src/Gui.i"
+	@echo "... src/Gui.s"
+	@echo "... src/Light.o"
+	@echo "... src/Light.i"
+	@echo "... src/Light.s"
 	@echo "... src/Main.o"
 	@echo "... src/Main.i"
 	@echo "... src/Main.s"
 	@echo "... src/Materiaux.o"
 	@echo "... src/Materiaux.i"
 	@echo "... src/Materiaux.s"
+	@echo "... src/Matrice.o"
+	@echo "... src/Matrice.i"
+	@echo "... src/Matrice.s"
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/ObjectGenerator.o"
+	@echo "... src/ObjectGenerator.i"
+	@echo "... src/ObjectGenerator.s"
 	@echo "... src/Parser.o"
 	@echo "... src/Parser.i"
 	@echo "... src/Parser.s"

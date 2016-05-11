@@ -23,7 +23,7 @@ public:
     ~Scene();
 
     // Return color of the pixel.
-    Shape const* getFirstCollision(Ray const& ray) const;
+    Shape const* getFirstCollision(Ray const& ray,float depth) const;
 
     void constructionArbreSpherEnglobant();
 

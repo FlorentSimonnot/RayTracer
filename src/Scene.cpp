@@ -10,10 +10,9 @@
 #include "Scene.hpp"
 
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
-:   m_objects(std::move(objects)), m_shapes()
-{
+        : m_objects(std::move(objects)), m_shapes() {
     for (auto& o: m_objects) {
-        Shape *s = dynamic_cast<Shape*>(o.get());
+        Shape *s = dynamic_cast<Shape *>(o.get());
         if (s != nullptr) {
             m_shapes.emplace_back(s);
         }
@@ -23,15 +22,17 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
 Scene::~Scene() {
 }
 
-Shape const* Scene::getFirstCollision(Ray const& ray) const {
+Shape const *Scene::getFirstCollision(Ray const& ray, float depth) const {
     float min_dist = std::numeric_limits<float>::max(), dist;
     Shape const *shape = nullptr;
 
     for (auto const& s: m_shapes) {
         if (s->intersect(ray, dist)) {
-            if (!shape || (min_dist > dist && (dist > std::numeric_limits<float>::epsilon()))) {
+            if ((!shape || (min_dist > dist && (dist > std::numeric_limits<float>::epsilon())))
+                && dist <= depth) {
                 min_dist = dist;
                 shape = s;
+//                std::cout << "type ID = " << typeid(s).name() << std::endl;
             }
         }
     }
