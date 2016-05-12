@@ -29,6 +29,8 @@ public:
     void draw(Scene const& scene);
 
     Vector moyenneColor(Vector const &colors) const;
+
+    void updateCamera(float depth, Point const& pos, Vector const& orientation);
 };
 
 

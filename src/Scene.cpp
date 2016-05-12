@@ -10,7 +10,8 @@
 #include "Scene.hpp"
 
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
-        : m_objects(std::move(objects)), m_shapes() {
+        : m_objects(std::move(objects)),
+          m_shapes() {
     for (auto& o: m_objects) {
         Shape *s = dynamic_cast<Shape *>(o.get());
         if (s != nullptr) {
@@ -38,6 +39,10 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth) const {
     }
 
     return shape;
+}
+
+std::vector<Shape *> Scene::getShapes() const {
+    return m_shapes;
 }
 
 void Scene::constructionArbreSpherEnglobant() {

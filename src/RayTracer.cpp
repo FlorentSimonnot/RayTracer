@@ -18,6 +18,11 @@ RayTracer::RayTracer(float depth, Point const& pos, Vector const& orientation, i
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
+
+    for (auto const& s:scene.getShapes()) {
+        s->setCamera_Pos(camera.position());
+        s->calculD2(); // sert à sphere / cylindre / sphere englobante
+    }
     // Optimisation de calcul
     float winHeightTemp = WINDOW_HEIGHT / 2.f;
     float winWidthTemp = WINDOW_WIDTH / 2.f;
@@ -75,4 +80,10 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
     return Vector((float) round(colors.x() * divide),
                   (float) round(colors.y() * divide),
                   (float) round(colors.z() * divide));
+}
+
+void RayTracer::updateCamera(float depth, Point const& pos, Vector const& orientation) {
+    camera.setDepth(depth);
+    camera.setPosition(pos);
+    camera.setOrientation(orientation);
 }

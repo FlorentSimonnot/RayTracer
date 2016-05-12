@@ -14,6 +14,8 @@ protected:
     Matrice m_Mat_rotation;
     Materiaux m_Materiau;
 
+    Point m_Camera_Pos;
+    Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
 public:
     Shape();
     Shape(Vector const& color);
@@ -35,4 +37,8 @@ public:
     bool operator!=(Shape const& o);
 
     virtual BoundingVolume getBoundingVolume() = 0;
+
+    void setCamera_Pos(Point const& p);
+
+    void calculD2();
 };

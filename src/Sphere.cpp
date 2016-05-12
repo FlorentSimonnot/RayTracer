@@ -37,7 +37,8 @@ float Sphere::getRadius() {
 bool Sphere::intersect(Ray const& ray, float& dist) {
     Vector d1 = ray.getDirection();
     // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
-    Vector d2 = ray.getOrigin() - m_position;
+    // Champs m_d2 d'une shape
+    Vector d2 = m_d2;//ray.getOrigin() - m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);

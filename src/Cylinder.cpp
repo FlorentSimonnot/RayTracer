@@ -11,7 +11,6 @@ Cylinder::Cylinder()
         : Shape() {
 }
 
-
 Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
         : Shape(position, direction, scale, color) {
 
@@ -37,7 +36,8 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
     // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
-    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
+    // m_d2 = ray.getOrigin() - m_position
+    Vector d2 = (m_d2).rotationVector(m_Mat_rotation);
 
     d1.setZ(0);
     d2.setZ(0);

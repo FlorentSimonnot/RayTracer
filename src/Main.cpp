@@ -30,8 +30,10 @@ int main(int argc, char *argv[]) {
 	Scene scene(objects);
 
 	// Profondeur de vue , Position de la camera , orientation de la camera , anti aliasing
-	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 16);
+	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 1);
 
+	// Toujours faire updateCamera avant de draw si jamais on bouge la camera
+//	rayTracer.updateCamera(50, Point(-5, 0, 0), Vector(1, 0, 0));
 	rayTracer.draw(scene);
 
 	gettimeofday(&tend, NULL);

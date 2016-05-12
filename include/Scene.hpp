@@ -27,6 +27,8 @@ public:
 
     void constructionArbreSpherEnglobant();
 
+    std::vector<Shape *> getShapes() const ;
+
 };
 
 

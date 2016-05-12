@@ -7,7 +7,10 @@ Shape::Shape()
           m_direction(0.f, 0.f, 0.f),
           m_scale(1.f, 1.f, 1.f),
           m_color(255, 0, 0),
-          m_Mat_rotation(Vector(0, 0, 1), m_direction) {
+          m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_Materiau(),
+          m_Camera_Pos(),
+          m_d2() {
 }
 
 Shape::Shape(Vector const& color)
@@ -16,7 +19,10 @@ Shape::Shape(Vector const& color)
           m_direction(0.f, 0.f, 0.f),
           m_scale(1.f, 1.f, 1.f),
           m_color(color),
-          m_Mat_rotation(Vector(0, 0, 1), m_direction) {
+          m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_Materiau(),
+          m_Camera_Pos(),
+          m_d2() {
 }
 
 Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color)
@@ -25,7 +31,10 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
           m_direction(direction),
           m_scale(scale),
           m_color(color),
-          m_Mat_rotation(Vector(0, 0, 1), m_direction) {
+          m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_Materiau(),
+          m_Camera_Pos(),
+          m_d2() {
 }
 
 Shape::~Shape() {
@@ -52,4 +61,12 @@ bool Shape::operator!=(Shape const& o) {
            || m_direction != o.m_direction
            || m_scale != o.m_scale
            || m_color != o.m_color;
+}
+
+void Shape::setCamera_Pos(Point const& p) {
+    m_Camera_Pos = p;
+}
+
+void Shape::calculD2() {
+    m_d2 = m_Camera_Pos - m_position;
 }
