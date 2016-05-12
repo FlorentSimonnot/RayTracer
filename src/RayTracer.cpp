@@ -18,15 +18,15 @@ RayTracer::RayTracer(float depth, Point const& pos, Vector const& orientation, i
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
-
+    Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
-        s->setCamera_Pos(camera.position());
+        s->setCamera_Pos(p);
         s->calculD2(); // sert à sphere / cylindre / sphere englobante
     }
     // Optimisation de calcul
     float winHeightTemp = WINDOW_HEIGHT / 2.f;
     float winWidthTemp = WINDOW_WIDTH / 2.f;
-    Point p = camera.position();
+
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
         // Optimisation de calcul
