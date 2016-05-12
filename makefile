@@ -187,30 +187,6 @@ src/Cylinder.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Cylinder.cpp.s
 .PHONY : src/Cylinder.cpp.s
 
-src/Geometry.o: src/Geometry.cpp.o
-.PHONY : src/Geometry.o
-
-# target to build an object file
-src/Geometry.cpp.o:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Geometry.cpp.o
-.PHONY : src/Geometry.cpp.o
-
-src/Geometry.i: src/Geometry.cpp.i
-.PHONY : src/Geometry.i
-
-# target to preprocess a source file
-src/Geometry.cpp.i:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Geometry.cpp.i
-.PHONY : src/Geometry.cpp.i
-
-src/Geometry.s: src/Geometry.cpp.s
-.PHONY : src/Geometry.s
-
-# target to generate assembly for a file
-src/Geometry.cpp.s:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Geometry.cpp.s
-.PHONY : src/Geometry.cpp.s
-
 src/Gui.o: src/Gui.cpp.o
 .PHONY : src/Gui.o
 
@@ -637,9 +613,6 @@ help:
 	@echo "... src/Cylinder.o"
 	@echo "... src/Cylinder.i"
 	@echo "... src/Cylinder.s"
-	@echo "... src/Geometry.o"
-	@echo "... src/Geometry.i"
-	@echo "... src/Geometry.s"
 	@echo "... src/Gui.o"
 	@echo "... src/Gui.i"
 	@echo "... src/Gui.s"

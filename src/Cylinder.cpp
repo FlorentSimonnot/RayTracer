@@ -33,11 +33,10 @@ Cylinder::operator std::string() const {
     return "cylinder => " + Shape::operator std::string();
 }
 
-// Cylindre avec sa hauteur sur l'axe des X
-// TODO A finir
 bool Cylinder::intersect(const Ray& ray, float& dist) {
 
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
     Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
 
     d1.setZ(0);
@@ -53,23 +52,21 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
         dist = std::numeric_limits<float>::max();
         return false;
     }
-    float t1 = (float) (-beta + sqrt(delta)) / (2 * alpha);
-    float t2 = (float) (-beta - sqrt(delta)) / (2 * alpha);
-    float t = 0;
+    float sqr = (float) sqrt(delta);
+    float alpha2 = 2 * alpha;
 
-    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
+    float t1 = (-beta + sqr) / alpha2;
+    float t2 = (-beta - sqr) / alpha2;
+
+    if (t1 < std::numeric_limits<float>::epsilon()) {
         return false;
     }
-    else if (t1 < std::numeric_limits<float>::epsilon()) {
-        t = t2;
-    }
     else if (t2 < std::numeric_limits<float>::epsilon()) {
-        t = t1;
+        dist = t1;
     }
     else {
-        t = (float) fmin(t1, t2);
+        dist = t2;
     }
-    dist = t;
     return true;
 
 }

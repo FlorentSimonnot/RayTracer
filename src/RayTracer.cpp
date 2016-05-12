@@ -3,7 +3,6 @@
 //
 
 #include <Shape.hpp>
-#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -19,15 +18,27 @@ RayTracer::RayTracer(float depth, Point const& pos, Vector const& orientation, i
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
+    // Optimisation de calcul
+    float winHeightTemp = WINDOW_HEIGHT / 2.f;
+    float winWidthTemp = WINDOW_WIDTH / 2.f;
+    Point p = camera.position();
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
+
+        // Optimisation de calcul
+        float angle_y = m_pas * (j - winHeightTemp);
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
-            float angle_x = m_pas * (i - WINDOW_WIDTH / 2.f);
-            float angle_y = m_pas * (j - WINDOW_HEIGHT / 2.f);
+            float angle_x = m_pas * (i - winWidthTemp);
+
 
             Vector color(0, 0, 0);
             for (int k = 0; k < m_nbRayons; k++) {
-                float off_x = (float) ((rand() / RAND_MAX) - 0.5) * m_pas;
-                float off_y = (float) ((rand() / RAND_MAX) - 0.5) * m_pas;
+                float off_x = 0;
+                float off_y = 0;
+                if (m_nbRayons > 3) {
+                    off_x = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
+                    off_y = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
+                }
+
                 camera.orientation() *= 1. / camera.orientation().norm();
                 Vector directionTempo(
                         camera.orientation()
@@ -38,7 +49,6 @@ void RayTracer::draw(Scene const& scene) {
                 );
                 directionTempo *= 1. / directionTempo.norm();
 
-                Point p = camera.position();
                 Ray ray(p, directionTempo);
                 // Calcul de la couleur a afficher
                 Shape const *shape = scene.getFirstCollision(ray, camera.depth());
@@ -57,7 +67,7 @@ void RayTracer::draw(Scene const& scene) {
     m_gui.render();
     // TODO A supprimer plus tard
     // Met le programme en pause et attent une saisie
-    scanf("%*c");
+//    scanf("%*c");
 }
 
 Vector RayTracer::moyenneColor(Vector const& colors) const {

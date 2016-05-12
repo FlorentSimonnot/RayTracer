@@ -8,13 +8,16 @@
 #include "Parser.hpp"
 #include "Scene.hpp"
 #include "RayTracer.hpp"
-
+#include <sys/time.h>
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
 }
 
 
 int main(int argc, char *argv[]) {
+	struct timeval tbegin, tend;
+	gettimeofday(&tbegin, NULL);
+
 	std::string exec = argv[0];
 	std::string dir = exec.substr(0, exec.find_last_of('/') + 1);
 	Parser parser(dir + "data/test_parser.scn");
@@ -23,13 +26,17 @@ int main(int argc, char *argv[]) {
 	std::vector<std::unique_ptr<Object>> objects;
 	parser.parse(objects);
 
+
 	Scene scene(objects);
 
 	// Profondeur de vue , Position de la camera , orientation de la camera , anti aliasing
-	RayTracer rayTracer(100, Point(-5, 0, 0), Vector(1, 0, 0), 2);
+	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 16);
 
 	rayTracer.draw(scene);
 
+	gettimeofday(&tend, NULL);
+	double texec = ((double) (1000 * (tend.tv_sec - tbegin.tv_sec) + ((tend.tv_usec - tbegin.tv_usec) / 1000))) / 1000.;
+	std::cout << "Execution time : " << texec << std::endl;
 //    if (argc != 7) {
 //        usage();
 //        return 0;

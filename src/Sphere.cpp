@@ -35,7 +35,8 @@ float Sphere::getRadius() {
 }
 
 bool Sphere::intersect(Ray const& ray, float& dist) {
-    Vector d1 = ray.getDirection(); //- ray.getOrigin();
+    Vector d1 = ray.getDirection();
+    // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
     Vector d2 = ray.getOrigin() - m_position;
 
     float alpha = d1.produitScalaire(d1);
@@ -48,23 +49,21 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
         dist = std::numeric_limits<float>::max();
         return false;
     }
-    float t1 = (float) (-beta + sqrt(delta)) / (2 * alpha);
-    float t2 = (float) (-beta - sqrt(delta)) / (2 * alpha);
-    float t = 0;
+    float sqr = (float) sqrt(delta);
+    float alpha2 = 2 * alpha;
 
-    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
+    float t1 = (-beta + sqr) / alpha2;
+    float t2 = (-beta - sqr) / alpha2;
+
+    if (t1 < std::numeric_limits<float>::epsilon()) {
         return false;
     }
-    else if (t1 < std::numeric_limits<float>::epsilon()) {
-        t = t2;
-    }
     else if (t2 < std::numeric_limits<float>::epsilon()) {
-        t = t1;
+        dist = t1;
     }
     else {
-        t = (float) fmin(t1, t2);
+        dist = t2;
     }
-    dist = t;
     return true;
 }
 
