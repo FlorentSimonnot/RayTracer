@@ -77,7 +77,7 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
 //}
 
 BoundingVolume Sphere::getBoundingVolume() {
-    BoundingVolume boundingVolume(m_position, m_scale.x());
+    BoundingVolume boundingVolume(m_position, getRadius());
     return boundingVolume;
 }
 

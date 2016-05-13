@@ -26,7 +26,7 @@ Shape::Shape(Vector const& color)
 Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color)
         : Object(),
           m_position(position),
-          m_direction(direction),
+          m_direction(direction * (1.f / direction.norm())),
           m_scale(scale),
           m_color(color),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),

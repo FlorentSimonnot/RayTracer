@@ -10,15 +10,16 @@
 class Matrice {
 private:
     Vector m_ligne1, m_ligne2, m_ligne3;
-
+    Matrice(Vector const& v1, Vector const& v2,Vector const& v3);
 public:
+
     Matrice(float angle, Vector const& axe);
 
     Matrice(Vector const& v1, Vector const& v2);
 
     ~Matrice();
 
-    Matrice& inverseMatrix();
+    Matrice inverseMatrix();
 
     Vector getLigne1() const;
 
