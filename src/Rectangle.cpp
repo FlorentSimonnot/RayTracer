@@ -82,7 +82,9 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
 // Ne pas utiliser actuellement
 // Evite juste que le compilateur rale
 BoundingVolume Rectangle::getBoundingVolume() {
-    BoundingVolume boundingVolume(m_position, m_scale.x());
+    Point center = m_position + (1.f / 2.f) * m_scale;
+    float radius = m_scale.norm() / 2.f;
+    BoundingVolume boundingVolume(center, radius);
     return boundingVolume;
 }
 

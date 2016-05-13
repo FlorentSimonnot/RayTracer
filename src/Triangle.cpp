@@ -1,4 +1,5 @@
 #include <limits>
+#include <math.h>
 #include "Triangle.hpp"
 
 Triangle::Triangle()
@@ -56,7 +57,11 @@ bool Triangle::intersect(const Ray& ray, float& dist) {
 // Ne pas utiliser actuellement
 // Evite juste que le compilateur rale
 BoundingVolume Triangle::getBoundingVolume() {
-    BoundingVolume boundingVolume(m_position, m_scale.x());
+    Point center = (m_p1 + m_p2 + m_p3) * (1.f / 3.f);
+    float tmp = fmaxf(center.distance(m_p1), center.distance(m_p2));
+    float max = fmaxf(tmp, center.distance(m_p3));
+
+    BoundingVolume boundingVolume(center, max);
     return boundingVolume;
 }
 
