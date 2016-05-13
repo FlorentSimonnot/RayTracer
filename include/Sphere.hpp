@@ -9,7 +9,9 @@
 
 // TODO
 class Sphere : public Shape {
-
+private:
+    Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
+    float m_gamma;
 public:
     Sphere();
 
@@ -28,6 +30,8 @@ public:
 //    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 
     BoundingVolume getBoundingVolume();
+
+    void precalcul();
 };
 
 

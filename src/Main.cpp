@@ -30,7 +30,15 @@ int main(int argc, char *argv[]) {
 	Scene scene(objects);
 
 	// Profondeur de vue , Position de la camera , orientation de la camera , anti aliasing
-	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 1);
+	// Temps d'execution de l'AA:
+	//  x1 = 3.1s
+	//  x2 =
+	//  x4 =
+	//  x8 = 20.8s
+	//  x16 = 40.5s
+	// Les valeurs sont des arrondies , elle ne sont la que pour donner un ordre d'idée
+	// Et ne pas s'inquieter en cas de test
+	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 16);
 
 	// Toujours faire updateCamera avant de draw si jamais on bouge la camera
 //	rayTracer.updateCamera(50, Point(-5, 0, 0), Vector(1, 0, 0));

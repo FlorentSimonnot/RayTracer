@@ -21,7 +21,7 @@ void RayTracer::draw(Scene const& scene) {
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
-        s->calculD2(); // sert à sphere / cylindre / sphere englobante
+        s->precalcul(); // sert à sphere / cylindre / sphere englobante
     }
     // Optimisation de calcul
     float winHeightTemp = WINDOW_HEIGHT / 2.f;

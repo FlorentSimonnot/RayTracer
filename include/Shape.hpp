@@ -15,7 +15,7 @@ protected:
     Materiaux m_Materiau;
 
     Point m_Camera_Pos;
-    Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
+
 public:
     Shape();
     Shape(Vector const& color);
@@ -40,5 +40,5 @@ public:
 
     void setCamera_Pos(Point const& p);
 
-    void calculD2();
+    virtual void precalcul() = 0;
 };

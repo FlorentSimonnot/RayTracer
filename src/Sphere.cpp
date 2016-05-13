@@ -9,11 +9,11 @@
 
 
 Sphere::Sphere()
-        : Shape() {
+        : Shape(), m_d2(), m_gamma() {
 }
 
 Sphere::Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
-        : Shape(position, direction, scale, color) {
+        : Shape(position, direction, scale, color), m_d2(), m_gamma() {
 }
 
 Sphere::~Sphere() {
@@ -37,14 +37,14 @@ float Sphere::getRadius() {
 bool Sphere::intersect(Ray const& ray, float& dist) {
     Vector d1 = ray.getDirection();
     // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
-    // Champs m_d2 d'une shape
+    // m_d2 = ray.getOrigin() - m_position
     Vector d2 = m_d2;//ray.getOrigin() - m_position;
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
-    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+//    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
 
-    float delta = (beta * beta - 4 * alpha * gamma);
+    float delta = (beta * beta - 4 * alpha * m_gamma);
 
     if (delta < 0) {
         dist = std::numeric_limits<float>::max();
@@ -79,4 +79,9 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
 BoundingVolume Sphere::getBoundingVolume() {
     BoundingVolume boundingVolume(m_position, m_scale.x());
     return boundingVolume;
+}
+
+void Sphere::precalcul() {
+    m_d2 = m_Camera_Pos - m_position;
+    m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
 }

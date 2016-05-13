@@ -8,11 +8,11 @@
 
 
 Cylinder::Cylinder()
-        : Shape() {
+        : Shape(), m_d2(), m_gamma() {
 }
 
 Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
-        : Shape(position, direction, scale, color) {
+        : Shape(position, direction, scale, color), m_d2(), m_gamma() {
 
 }
 
@@ -44,9 +44,9 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
-    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+//    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
 
-    float delta = (beta * beta - 4 * alpha * gamma);
+    float delta = (beta * beta - 4 * alpha * m_gamma);
 
     if (delta < 0) {
         dist = std::numeric_limits<float>::max();
@@ -77,4 +77,9 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 BoundingVolume Cylinder::getBoundingVolume() {
     BoundingVolume boundingVolume(m_position, m_scale.x());
     return boundingVolume;
+}
+
+void Cylinder::precalcul() {
+    m_d2 = m_Camera_Pos - m_position;
+    m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
 }
