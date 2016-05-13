@@ -11,12 +11,24 @@
 
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
         : m_objects(std::move(objects)),
-          m_shapes() {
+          m_shapes(),
+          m_camera(nullptr) 
+{
     for (auto& o: m_objects) {
         Shape *s = dynamic_cast<Shape *>(o.get());
         if (s != nullptr) {
             m_shapes.emplace_back(s);
+
+        } else {
+            Camera *c = dynamic_cast<Camera*>(o.get());
+            if (c != nullptr) {
+                m_camera = c;
+            }
         }
+    }
+
+    if (!m_camera) {
+        std::cerr << "Warning: no camera has been set." << std::endl;
     }
 }
 
@@ -65,4 +77,16 @@ void Scene::constructionArbreSpherEnglobant() {
 
 int compare(const void *a, const void *b) {
     return (*(int *) a - *(int *) b);
+}
+
+Camera const& Scene::getCamera() const {
+    return *m_camera;
+}
+
+void Scene::moveCamera(Vector const& dv) {
+    m_camera->setPosition(m_camera->position() + dv);
+}
+
+void Scene::rotateCamera() {
+    //TODO
 }

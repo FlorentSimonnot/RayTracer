@@ -12,11 +12,13 @@
 class Ray;
 class Shape;
 class Object;
+class Camera;
 
 class Scene {
 private:
 	std::vector<std::unique_ptr<Object>> m_objects;
     std::vector<Shape*> m_shapes;
+    Camera* m_camera;
 
 public:
     Scene(std::vector<std::unique_ptr<Object>>& objects);
@@ -28,6 +30,11 @@ public:
     void constructionArbreSpherEnglobant();
 
     std::vector<Shape *> getShapes() const ;
+
+    Camera const& getCamera() const;
+
+    void moveCamera(Vector const& dv);
+    void rotateCamera();
 
 };
 
