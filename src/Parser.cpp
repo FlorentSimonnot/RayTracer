@@ -81,7 +81,7 @@ bool parseInstruction(std::string const& content, size_t& pos, std::unique_ptr<O
 		} else if (type == "cylinder") {
 			return parseCylinder(content, pos, object);
 		} else if (type == "camera"){
-			parseCamera(content,pos,object);
+			return parseCamera(content,pos,object);
 		}
 	}
 
