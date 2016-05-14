@@ -331,30 +331,6 @@ src/Object.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
 
-src/ObjectGenerator.o: src/ObjectGenerator.cpp.o
-.PHONY : src/ObjectGenerator.o
-
-# target to build an object file
-src/ObjectGenerator.cpp.o:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.o
-.PHONY : src/ObjectGenerator.cpp.o
-
-src/ObjectGenerator.i: src/ObjectGenerator.cpp.i
-.PHONY : src/ObjectGenerator.i
-
-# target to preprocess a source file
-src/ObjectGenerator.cpp.i:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.i
-.PHONY : src/ObjectGenerator.cpp.i
-
-src/ObjectGenerator.s: src/ObjectGenerator.cpp.s
-.PHONY : src/ObjectGenerator.s
-
-# target to generate assembly for a file
-src/ObjectGenerator.cpp.s:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ObjectGenerator.cpp.s
-.PHONY : src/ObjectGenerator.cpp.s
-
 src/Parser.o: src/Parser.cpp.o
 .PHONY : src/Parser.o
 
@@ -523,6 +499,30 @@ src/Shape.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Shape.cpp.s
 .PHONY : src/Shape.cpp.s
 
+src/ShapeGenerator.o: src/ShapeGenerator.cpp.o
+.PHONY : src/ShapeGenerator.o
+
+# target to build an object file
+src/ShapeGenerator.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ShapeGenerator.cpp.o
+.PHONY : src/ShapeGenerator.cpp.o
+
+src/ShapeGenerator.i: src/ShapeGenerator.cpp.i
+.PHONY : src/ShapeGenerator.i
+
+# target to preprocess a source file
+src/ShapeGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ShapeGenerator.cpp.i
+.PHONY : src/ShapeGenerator.cpp.i
+
+src/ShapeGenerator.s: src/ShapeGenerator.cpp.s
+.PHONY : src/ShapeGenerator.s
+
+# target to generate assembly for a file
+src/ShapeGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/ShapeGenerator.cpp.s
+.PHONY : src/ShapeGenerator.cpp.s
+
 src/Sphere.o: src/Sphere.cpp.o
 .PHONY : src/Sphere.o
 
@@ -631,9 +631,6 @@ help:
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
-	@echo "... src/ObjectGenerator.o"
-	@echo "... src/ObjectGenerator.i"
-	@echo "... src/ObjectGenerator.s"
 	@echo "... src/Parser.o"
 	@echo "... src/Parser.i"
 	@echo "... src/Parser.s"
@@ -655,6 +652,9 @@ help:
 	@echo "... src/Shape.o"
 	@echo "... src/Shape.i"
 	@echo "... src/Shape.s"
+	@echo "... src/ShapeGenerator.o"
+	@echo "... src/ShapeGenerator.i"
+	@echo "... src/ShapeGenerator.s"
 	@echo "... src/Sphere.o"
 	@echo "... src/Sphere.i"
 	@echo "... src/Sphere.s"

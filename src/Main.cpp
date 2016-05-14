@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 	//  x16 = 40.5s
 	// Les valeurs sont des arrondies , elle ne sont la que pour donner un ordre d'idée
 	// Et ne pas s'inquieter en cas de test
-	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 1);
+	RayTracer rayTracer(50, Point(-5, 0, 0), Vector(1, 0, 0), 8);
 
 	// Toujours faire updateCamera avant de draw si jamais on bouge la camera
 //	rayTracer.updateCamera(50, Point(-5, 0, 0), Vector(1, 0, 0));
