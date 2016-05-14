@@ -7,7 +7,7 @@ PPMExporter::PPMExporter(std::string const& path, int width, int height)
 	if (m_stream.fail()) {
 		std::cerr << "Cannot open file named: " << path << std::endl;
 	}
-	m_stream << "P3" << std::endl << width << " " << height << "255" << std::endl; 
+	m_stream << "P3" << std::endl << width << " " << height << " 255" << std::endl;
 }
 
 PPMExporter::~PPMExporter() {
