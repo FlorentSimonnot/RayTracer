@@ -14,12 +14,11 @@ class Ray;
 class Light : public Object {
 private:
     Point m_position;
-    Vector m_rotation;
     Vector m_color;
 
 public:
     Light();
-    Light(Point const& position,Vector const& rotation,Vector const& color);
+    Light(Point const& position,Vector const& color);
     operator std::string() const;
     Vector computColor(const Ray& ray, float dist);
     Vector getCenter();

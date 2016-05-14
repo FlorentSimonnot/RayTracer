@@ -7,6 +7,18 @@
 
 #include "Scene.hpp"
 #include "Gui.hpp"
+#include "PPMExporter.hpp"
+
+
+/// Carateristique d'une primitive en un point donné
+struct MaterialPoint{
+    /// Normale de la primitive en un point
+    Vector m_normal;
+    /// Couleur du point
+    Vector m_color;
+
+    Point m_pointIntersection;
+};
 
 
 class RayTracer {
@@ -19,17 +31,15 @@ private:
 
     int m_nbRayons;
 
-    int m_nbReflexions;
-
 public:
-    RayTracer(int nbRayons,int nbReflexions);
+    RayTracer(int nbRayons);
     ~RayTracer();
 
-    void draw(Scene const& scene);
+    void draw(Scene const& scene,PPMExporter& ppme);
 
     Vector moyenneColor(Vector const &colors) const;
 
-    void computColor(Ray const& ray, Vector& color, int level,Scene const& scene,float cameraDepth);
+    void computColor(Ray const& ray, Vector& color,Scene const& scene,float cameraDepth);
 };
 
 

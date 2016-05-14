@@ -78,33 +78,33 @@ void Scene::test() const{
     }
 }
 
-bool Scene::testCollision(const Ray& ray, float dist) const {
-    float t_dist;
-    for (auto const& s: m_shapes) {
-        if (s->intersect(ray, t_dist) && (t_dist > std::numeric_limits<float>::epsilon()) && t_dist < dist) {
-            return true;
-        }
-    }
-    return false;
-}
-
-Vector Scene::computColor(Point const& p, MaterialPoint& caracteristics) const {
-    Vector t_color(0, 0, 0);
-    for (auto const& l: m_lights) {
-        Vector path = l->getCenter() - p;
-        float pathSize = path.norm();
-        path *= (1.f / pathSize);
-        Ray ray(p, path);
-        if (testCollision(ray, pathSize)) {
-            continue;
-        }
-        float cosphi = path.produitScalaire(caracteristics.m_normal);
-        if (cosphi < 0.)
-            continue;
-        t_color += (caracteristics.m_color * cosphi).crossProduct(l->computColor(ray, pathSize));
-    }
-    return t_color;
-}
+//bool Scene::testCollision(const Ray& ray, float dist) const {
+//    float t_dist;
+//    for (auto const& s: m_shapes) {
+//        if (s->intersect(ray, t_dist) && (t_dist > std::numeric_limits<float>::epsilon()) && t_dist < dist) {
+//            return true;
+//        }
+//    }
+//    return false;
+//}
+//
+//Vector Scene::computColor(Point const& p, MaterialPoint& caracteristics) const {
+//    Vector t_color(0, 0, 0);
+//    for (auto const& l: m_lights) {
+//        Vector path = l->getCenter() - p;
+//        float pathSize = path.norm();
+//        path *= (1.f / pathSize);
+//        Ray ray(p, path);
+//        if (testCollision(ray, pathSize)) {
+//            continue;
+//        }
+//        float cosphi = path.produitScalaire(caracteristics.m_normal);
+//        if (cosphi < 0.)
+//            continue;
+//        t_color += (caracteristics.m_color * cosphi).crossProduct(l->computColor(ray, pathSize));
+//    }
+//    return t_color;
+//}
 
 void Scene::constructionArbreSpherEnglobant() {
 

@@ -15,15 +15,7 @@ class Object;
 class Camera;
 class Light;
 
-/// Carateristique d'une primitive en un point donné
-struct MaterialPoint{
-    /// Normale de la primitive en un point
-    Vector m_normal;
-    /// Couleur du point
-    Vector m_color;
-    /// "Couleur" de la réflexion
-    Vector m_reflect;
-};
+
 
 class Scene {
 private:
@@ -32,14 +24,14 @@ private:
     std::vector<Light*> m_lights;
     Camera* m_camera;
 
-    bool testCollision(const Ray& ray, float dist) const;
+//    bool testCollision(const Ray& ray, float dist) const;
 public:
     Scene(std::vector<std::unique_ptr<Object>>& objects);
     ~Scene();
 
     Shape const *getFirstCollision(Ray const& ray, float depth,float &distHit) const;
 
-    Vector computColor(Point const& p,MaterialPoint &caracteristics) const;
+//    Vector computColor(Point const& p,MaterialPoint &caracteristics) const;
 
     void constructionArbreSpherEnglobant();
 

@@ -115,30 +115,6 @@ Synthese_Image/fast:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/build
 .PHONY : Synthese_Image/fast
 
-src/BoundingVolume.o: src/BoundingVolume.cpp.o
-.PHONY : src/BoundingVolume.o
-
-# target to build an object file
-src/BoundingVolume.cpp.o:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.o
-.PHONY : src/BoundingVolume.cpp.o
-
-src/BoundingVolume.i: src/BoundingVolume.cpp.i
-.PHONY : src/BoundingVolume.i
-
-# target to preprocess a source file
-src/BoundingVolume.cpp.i:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.i
-.PHONY : src/BoundingVolume.cpp.i
-
-src/BoundingVolume.s: src/BoundingVolume.cpp.s
-.PHONY : src/BoundingVolume.s
-
-# target to generate assembly for a file
-src/BoundingVolume.cpp.s:
-	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/BoundingVolume.cpp.s
-.PHONY : src/BoundingVolume.cpp.s
-
 src/Camera.o: src/Camera.cpp.o
 .PHONY : src/Camera.o
 
@@ -330,6 +306,30 @@ src/Object.s: src/Object.cpp.s
 src/Object.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
+
+src/PPMExporter.o: src/PPMExporter.cpp.o
+.PHONY : src/PPMExporter.o
+
+# target to build an object file
+src/PPMExporter.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/PPMExporter.cpp.o
+.PHONY : src/PPMExporter.cpp.o
+
+src/PPMExporter.i: src/PPMExporter.cpp.i
+.PHONY : src/PPMExporter.i
+
+# target to preprocess a source file
+src/PPMExporter.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/PPMExporter.cpp.i
+.PHONY : src/PPMExporter.cpp.i
+
+src/PPMExporter.s: src/PPMExporter.cpp.s
+.PHONY : src/PPMExporter.s
+
+# target to generate assembly for a file
+src/PPMExporter.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/PPMExporter.cpp.s
+.PHONY : src/PPMExporter.cpp.s
 
 src/Parser.o: src/Parser.cpp.o
 .PHONY : src/Parser.o
@@ -604,9 +604,6 @@ help:
 	@echo "... Synthese_Image"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... src/BoundingVolume.o"
-	@echo "... src/BoundingVolume.i"
-	@echo "... src/BoundingVolume.s"
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
@@ -631,6 +628,9 @@ help:
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/PPMExporter.o"
+	@echo "... src/PPMExporter.i"
+	@echo "... src/PPMExporter.s"
 	@echo "... src/Parser.o"
 	@echo "... src/Parser.i"
 	@echo "... src/Parser.s"
