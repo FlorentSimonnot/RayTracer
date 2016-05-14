@@ -7,9 +7,10 @@
 #include <stdlib.h>
 #include <Light.hpp>
 #include <PPMExporter.hpp>
-#include <iostream>
+#include <MaterialPoint.hpp>
 
 #include "RayTracer.hpp"
+
 
 RayTracer::RayTracer(int nbRayon)
         : m_pas((float) 1.57 / WINDOW_WIDTH),
@@ -20,9 +21,9 @@ RayTracer::RayTracer(int nbRayon)
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
-//    Camera camera = scene.getCamera();
+    Camera camera = scene.getCamera();
 //    scene.test();
-    Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
+//    Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -62,23 +63,24 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
                 ////
 
-//                computColor(ray, color, 0, scene, camera.depth());
+                computColor(ray, color, scene, camera.depth());
 
-                float dist;
-                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
-                if (shape) {
-                    color += shape->getColor();
-                }
+//                float dist;
+//                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
+//                if (shape) {
+//                    color += shape->getColor();
+//                }
                 /////
 
             }
             color = moyenneColor(color);
             m_gui.setPixel(i, j, color);
-            std::cout << "color = " << std::string(color) << std::endl;
-            ppme.writePixel(color);
+//            std::cout << "color = " << std::string(color) << std::endl;
+//            ppme.writePixel(color);
         }
     }
     m_gui.render();
+    scanf("%*c");
 }
 
 Vector RayTracer::moyenneColor(Vector const& colors) const {
@@ -94,16 +96,33 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
     Shape const *shape = scene.getFirstCollision(ray, cameraDepth, dist);
     if (shape) {
         MaterialPoint caracteristics;
-        caracteristics.m_pointIntersection = ray.getOrigin() + dist * ray.getDirection();
-        caracteristics.m_normal = shape->getNormalFromPoint(ray, dist);
-        caracteristics.m_color = shape->getColor();
+        caracteristics.setPointIntersection(ray.getOrigin() + dist * ray.getDirection());
+        caracteristics.setNormal(shape->getNormalFromPoint(ray, dist));
+        caracteristics.setColor(shape->getColor());
 
         float facteur = 0;
 
-        for (auto const& l:scene.getLights()) {
-//            float tmp = caracteristics.m_normal.produitScalaire(l->getCenter() -)
-//            facteur +=
-        }
+
+        /// TEST UNIQUEMENT ////
+        Light light(Point(-5, 0, 0), Vector(0, 0, 0));
+        Vector tempo = light.getCenter() - caracteristics.pointIntersection();
+        tempo *= 1. / tempo.norm();
+        facteur += fmaxf(caracteristics.normal().produitScalaire(tempo), 0);
+        facteur = (float) ((0.8 * facteur) / (float) 1.f + 0.2);
+        color += facteur * caracteristics.color();
+
+        ////////FIN TEST UNIQUEMENT ///////////////
+        // TODO BON CODE
+        //        for (auto const& l:scene.getLights()) {
+//            Vector tempo = l->getCenter() - caracteristics.pointIntersection();
+//            tempo *= 1./tempo.norm();
+//            facteur += fmaxf(caracteristics.normal().produitScalaire(tempo),0);
+//        }
+//        facteur = (float)((0.8*facteur) / (float)scene.getLights().size() +0.2);
+//        color += facteur * caracteristics.color();
+
+
+
 //        color = scene.computColor(, caracteristics);
 //        if (level < m_nbReflexions) {
 //            Point p = ray.getOrigin() + dist * ray.getDirection();

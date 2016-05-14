@@ -4,30 +4,19 @@
 
 #include <Triangle.hpp>
 #include <Sphere.hpp>
+#include <limits>
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
         : Shape(),
-          m_p0(),
-          m_p1(),
-          m_p2(),
-          m_p3(),
-          m_p4(),
-          m_p5(),
-          m_p6(),
-          m_p7() {
+          m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
+          m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
 }
 
 Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
         : Shape(position, direction, scale, color),
-          m_p0(),
-          m_p1(),
-          m_p2(),
-          m_p3(),
-          m_p4(),
-          m_p5(),
-          m_p6(),
-          m_p7() {
+          m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
+          m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
 }
 
 Rectangle::~Rectangle() {
@@ -52,31 +41,19 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
 //    |____|/
 //   p0    P1
 
-    Triangle t1(m_p0, m_p1, m_p2, m_color);
-    Triangle t2(m_p0, m_p2, m_p3, m_color);
 
-    Triangle t3(m_p0, m_p1, m_p5, m_color);
-    Triangle t4(m_p0, m_p4, m_p5, m_color);
-
-    Triangle t5(m_p0, m_p3, m_p7, m_color);
-    Triangle t6(m_p0, m_p4, m_p7, m_color);
-
-    Triangle t7(m_p6, m_p1, m_p5, m_color);
-    Triangle t8(m_p6, m_p1, m_p2, m_color);
-
-    Triangle t9(m_p6, m_p3, m_p7, m_color);
-    Triangle t10(m_p6, m_p3, m_p2, m_color);
-
-    Triangle t11(m_p6, m_p4, m_p5, m_color);
-    Triangle t12(m_p6, m_p4, m_p7, m_color);
-
-    Triangle triangles[] = {t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12};
+    Triangle triangles[] = {m_t1, m_t2, m_t3, m_t4, m_t5, m_t6, m_t7, m_t8, m_t9, m_t10, m_t11, m_t12};
+    bool test = false;
+    float tmp_dist;
     for (Triangle t:triangles) {
-        if (t.intersect(ray, dist)) {
-            return true;
+        if (t.intersect(ray, tmp_dist)) {
+            test = true;
+            if (dist > tmp_dist && tmp_dist >= std::numeric_limits<float>::epsilon()) {
+                dist = tmp_dist;
+            }
         }
     }
-    return false;
+    return test;
 }
 
 void Rectangle::calculBoundingVolume() {
@@ -96,8 +73,52 @@ void Rectangle::precalcul() {
     m_p5 = Point(m_position.x() + m_scale.x(), m_position.y(), m_position.z() + m_scale.z());
     m_p6 = Point(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
     m_p7 = Point(m_position.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
+
+    m_t1 = Triangle(m_p0, m_p1, m_p2, m_color);
+    m_t2 = Triangle(m_p0, m_p2, m_p3, m_color);
+
+    m_t3 = Triangle(m_p0, m_p1, m_p5, m_color);
+    m_t4 = Triangle(m_p0, m_p4, m_p5, m_color);
+
+    m_t5 = Triangle(m_p0, m_p3, m_p7, m_color);
+    m_t6 = Triangle(m_p0, m_p4, m_p7, m_color);
+
+    m_t7 = Triangle(m_p6, m_p1, m_p5, m_color);
+    m_t8 = Triangle(m_p6, m_p1, m_p2, m_color);
+
+    m_t9 = Triangle(m_p6, m_p3, m_p7, m_color);
+    m_t10 = Triangle(m_p6, m_p3, m_p2, m_color);
+
+    m_t11 = Triangle(m_p6, m_p4, m_p5, m_color);
+    m_t12 = Triangle(m_p6, m_p4, m_p7, m_color);
 }
 
 Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
-
+    Vector collide(ray.getOrigin() + dist * ray.getDirection());
+    Vector tmp = collide - m_position;
+    Vector normal(0, 0, 0);
+//    float eps = std::numeric_limits<float>::epsilon();
+    float eps = 0.00001;
+    if (tmp.x() <= eps && tmp.x() >= -eps) {
+        normal = Vector(-1, 0, 0);
+    }
+    else if (tmp.x() == m_scale.x()) {
+        normal = Vector(1, 0, 0);
+    }
+    else if (tmp.y() <= eps && tmp.y() >= -eps) {
+        normal = Vector(0, -1, 0);
+    }
+    else if (tmp.y() == m_scale.y()) {
+        normal = Vector(0, 1, 0);
+    }
+    else if (tmp.z() <= eps && tmp.z() >= -eps) {
+        normal = Vector(0, 0, -1);
+    }
+    else if (tmp.z() == m_scale.z()) {
+        normal = Vector(0, 0, 1);
+    }
+    if (ray.getDirection().produitScalaire(normal) > 0) {
+        normal = -normal;
+    }
+    return normal;
 }

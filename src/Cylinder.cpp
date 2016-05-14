@@ -137,7 +137,7 @@ void Cylinder::precalcul() {
 Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
     d1.setZ(0);
-    Vector collide(d1 + dist * m_d2);
+    Vector collide(m_d2 + d1 * dist);
     Vector normal = collide * (1.f / collide.norm());
     Matrice inv = m_Mat_rotation.inverseMatrix();
     normal = normal.rotationVector(inv);

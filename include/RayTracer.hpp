@@ -9,18 +9,6 @@
 #include "Gui.hpp"
 #include "PPMExporter.hpp"
 
-
-/// Carateristique d'une primitive en un point donné
-struct MaterialPoint{
-    /// Normale de la primitive en un point
-    Vector m_normal;
-    /// Couleur du point
-    Vector m_color;
-
-    Point m_pointIntersection;
-};
-
-
 class RayTracer {
 private:
     /// Precalcule afin d'optimiser ///
