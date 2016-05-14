@@ -83,9 +83,3 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
                   (float) round(colors.y() * divide),
                   (float) round(colors.z() * divide));
 }
-
-void RayTracer::updateCamera(float depth, Point const& pos, Vector const& orientation) {
-    camera.setDepth(depth);
-    camera.setPosition(pos);
-    camera.setOrientation(orientation);
-}
