@@ -15,6 +15,8 @@ class ShapeGenerator {
 private:
     float m_numberObjects;
 
+    std::vector<Shape *> m_shapes;
+
     /// Position ///
     float m_minPosX;
     float m_minPosY;
@@ -23,8 +25,6 @@ private:
     float m_maxPosX;
     float m_maxPosY;
     float m_maxPosZ;
-
-    std::vector<Shape *> m_shapes;
 
     void generateCylinder();
 

@@ -235,6 +235,30 @@ src/Main.cpp.s:
 	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/Main.cpp.s
 .PHONY : src/Main.cpp.s
 
+src/MaterialPoint.o: src/MaterialPoint.cpp.o
+.PHONY : src/MaterialPoint.o
+
+# target to build an object file
+src/MaterialPoint.cpp.o:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/MaterialPoint.cpp.o
+.PHONY : src/MaterialPoint.cpp.o
+
+src/MaterialPoint.i: src/MaterialPoint.cpp.i
+.PHONY : src/MaterialPoint.i
+
+# target to preprocess a source file
+src/MaterialPoint.cpp.i:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/MaterialPoint.cpp.i
+.PHONY : src/MaterialPoint.cpp.i
+
+src/MaterialPoint.s: src/MaterialPoint.cpp.s
+.PHONY : src/MaterialPoint.s
+
+# target to generate assembly for a file
+src/MaterialPoint.cpp.s:
+	$(MAKE) -f CMakeFiles/Synthese_Image.dir/build.make CMakeFiles/Synthese_Image.dir/src/MaterialPoint.cpp.s
+.PHONY : src/MaterialPoint.cpp.s
+
 src/Materiaux.o: src/Materiaux.cpp.o
 .PHONY : src/Materiaux.o
 
@@ -619,6 +643,9 @@ help:
 	@echo "... src/Main.o"
 	@echo "... src/Main.i"
 	@echo "... src/Main.s"
+	@echo "... src/MaterialPoint.o"
+	@echo "... src/MaterialPoint.i"
+	@echo "... src/MaterialPoint.s"
 	@echo "... src/Materiaux.o"
 	@echo "... src/Materiaux.i"
 	@echo "... src/Materiaux.s"
