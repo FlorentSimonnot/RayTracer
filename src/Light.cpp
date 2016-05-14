@@ -15,3 +15,11 @@ Light::operator std::string() const {
     return "position : " + std::string(m_position) + "\t rotation : " + std::string(m_rotation) +
            "\t color : " + std::string(m_color);
 }
+
+Vector Light::computColor(const Ray& ray, float dist) {
+    return m_color * (1./ SQR(dist));
+}
+
+Vector Light::getCenter() {
+    return m_position;
+}

@@ -76,7 +76,7 @@ Matrice::Matrice(Vector const& v1, Vector const& v2, Vector const& v3)
         : m_ligne1(v1), m_ligne2(v2), m_ligne3(v3) {
 }
 
-Matrice Matrice::inverseMatrix() {
+Matrice Matrice::inverseMatrix() const {
 
 //    Vector v1(m_ligne2.y() * m_ligne3.z() - m_ligne2.z() * m_ligne3.y(),
 //              m_ligne2.z() * m_ligne3.x() - m_ligne3.z() * m_ligne2.x(),

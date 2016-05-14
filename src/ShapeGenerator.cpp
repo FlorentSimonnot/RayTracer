@@ -81,7 +81,6 @@ void ShapeGenerator::generateRectangle() {
 }
 
 void ShapeGenerator::generateSphere() {
-//    Shape *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
     Point position = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
     Vector color = randomVector(0, 255, 0, 255, 0, 255);
     Vector scale = randomVector(0, 2, 0, 0, 0, 0);
@@ -91,6 +90,7 @@ void ShapeGenerator::generateSphere() {
     m_shapes.emplace_back(s);
 }
 
+// TODO
 void ShapeGenerator::generateTriangle() {
 //    Vector color = randomVector(0,255,0,255,0,255);
 //    Shape *s;// = new Triangle();

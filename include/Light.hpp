@@ -21,7 +21,8 @@ public:
     Light();
     Light(Point const& position,Vector const& rotation,Vector const& color);
     operator std::string() const;
-//    Vector computColor();
+    Vector computColor(const Ray& ray, float dist);
+    Vector getCenter();
 };
 
 

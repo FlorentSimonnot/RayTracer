@@ -42,4 +42,6 @@ public:
     void setCamera_Pos(Point const& p);
 
     virtual void precalcul() = 0;
+
+    virtual Vector getNormalFromPoint(const Ray& ray, float dist) const;
 };

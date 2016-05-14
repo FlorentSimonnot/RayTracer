@@ -27,6 +27,8 @@ public:
     void calculBoundingVolume();
 
     void precalcul();
+
+    Vector getNormalFromPoint(const Ray& ray, float dist) const;
 };
 
 #endif //PROJECT_RECTANGLE_HPP

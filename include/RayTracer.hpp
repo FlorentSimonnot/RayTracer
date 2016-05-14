@@ -8,12 +8,18 @@
 #include "Scene.hpp"
 #include <Gui.hpp>
 
+/// Carateristique d'une primitive en un point donné
+struct MaterialPoint{
+    /// Normale de la primitive en un point
+    Vector m_normal;
+    /// Couleur du point
+    Vector m_color;
+    /// "Couleur" de la réflexion
+    Vector m_reflect;
+};
+
 class RayTracer {
 private:
-//    Camera camera;
-    Camera camera;
-    ///////////////////////
-
     /// Precalcule afin d'optimiser ///
     float m_pas;
 
@@ -23,7 +29,7 @@ private:
     int m_nbRayons;
 
 public:
-    RayTracer(float depth, Point const& pos, Vector const& orientation,int nbRayons);
+    RayTracer(int nbRayons);
     ~RayTracer();
 
     void draw(Scene const& scene);
@@ -31,6 +37,8 @@ public:
     Vector moyenneColor(Vector const &colors) const;
 
     void updateCamera(float depth, Point const& pos, Vector const& orientation);
+
+//    void computColor
 };
 
 

@@ -133,3 +133,13 @@ void Cylinder::precalcul() {
     m_f2p1 = Triangle(p4, p5, p6, m_color);
     m_f2p2 = Triangle(p4, p6, p7, m_color);
 }
+
+Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    d1.setZ(0);
+    Vector collide(d1 + dist * m_d2);
+    Vector normal = collide * (1.f / collide.norm());
+    Matrice inv = m_Mat_rotation.inverseMatrix();
+    normal = normal.rotationVector(inv);
+    return normal;
+}

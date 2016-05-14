@@ -87,3 +87,10 @@ void Sphere::precalcul() {
     m_d2 = m_Camera_Pos - m_position;
     m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
 }
+
+Vector Sphere::getNormalFromPoint(const Ray& ray, float dist) const {
+    Vector collide(ray.getOrigin() + dist * ray.getDirection());
+    Vector normal = collide - m_position;
+    normal *= 1.f / normal.norm();
+    return normal;
+}

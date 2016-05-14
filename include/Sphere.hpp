@@ -32,6 +32,8 @@ public:
     void calculBoundingVolume();
 
     void precalcul();
+
+    Vector getNormalFromPoint(const Ray& ray, float dist) const;
 };
 
 

@@ -97,3 +97,7 @@ void Rectangle::precalcul() {
     m_p6 = Point(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
     m_p7 = Point(m_position.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
 }
+
+Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
+
+}

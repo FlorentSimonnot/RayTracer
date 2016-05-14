@@ -19,7 +19,7 @@ public:
 
     ~Matrice();
 
-    Matrice inverseMatrix();
+    Matrice inverseMatrix() const;
 
     Vector getLigne1() const;
 

@@ -105,6 +105,10 @@ void Triangle::calculBoundingVolume() {
 
 void Triangle::precalcul() { }
 
+Vector Triangle::getNormalFromPoint(const Ray& ray, float dist) const {
+
+}
+
 //void Triangle::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
 //
 //}

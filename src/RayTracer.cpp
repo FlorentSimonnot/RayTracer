@@ -9,9 +9,8 @@
 
 #include "RayTracer.hpp"
 
-RayTracer::RayTracer(float depth, Point const& pos, Vector const& orientation, int nbRayon)
-        : camera(depth, pos, orientation),
-          m_pas((float) 1.57 / WINDOW_WIDTH),
+RayTracer::RayTracer(int nbRayon)
+        : m_pas((float) 1.57 / WINDOW_WIDTH),
           m_gui(),
           m_nbRayons(nbRayon) {
 }
@@ -19,6 +18,7 @@ RayTracer::RayTracer(float depth, Point const& pos, Vector const& orientation, i
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
+    Camera camera = scene.getCamera();
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -34,7 +34,6 @@ void RayTracer::draw(Scene const& scene) {
         float angle_y = -m_pas * (j - winHeightTemp);
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
             float angle_x = -m_pas * (i - winWidthTemp);
-
 
             Vector color(0, 0, 0);
             for (int k = 0; k < m_nbRayons; k++) {
@@ -59,6 +58,8 @@ void RayTracer::draw(Scene const& scene) {
                 // Calcul de la couleur a afficher
                 Shape const *shape = scene.getFirstCollision(ray, camera.depth());
                 if (shape) {
+                    MaterialPoint caracteristics;
+
                     color += shape->getColor();
                 }
 
