@@ -16,9 +16,6 @@ void usage() {
 // lray -n 1 -i <mon_fichier.format> -o image.ppm
 // lray -n 2 -ps 16 -i <mon_fichier.format> -o image.ppm
 // lray -n 3 -i <mon_fichier.format>
-// int getOpt(int argc, char *argv[], char *options){
-
-// }
 
 static bool getOptions(int argc, char **argv, int& level, std::string& input, std::string& output, int& aaParam) {
 	char opt;
@@ -83,17 +80,17 @@ int main(int argc, char *argv[]) {
 	std::string input, output;
 
 
-	if ( ! getOptions( argc, argv, level, input,  output,  aaParam) ){
+	if ( ! getOptions( argc, argv, level, input, output, aaParam) ){
 		return 0;	
 	}
-
 
 	struct timeval tbegin, tend;
 	gettimeofday(&tbegin, NULL);
 
 	std::string exec = argv[0];
 	std::string dir = exec.substr(0, exec.find_last_of('/') + 1);
-	Parser parser(dir + "data/test_parser.scn");
+	//Parser parser(dir + "data/test_parser.scn");
+	Parser parser(input);
 	srand(time(NULL));
 
 	std::vector<std::unique_ptr<Object>> objects;
