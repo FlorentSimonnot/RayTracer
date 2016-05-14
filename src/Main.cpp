@@ -95,7 +95,9 @@ int main(int argc, char *argv[]) {
 
 	if (level == 1 || level == 2) {
 		PPMExporter ppme(output, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+		if (level == 1) {
+			aaParam = 1;
+		}
 		RayTracer rayTracer(aaParam);
 
 		rayTracer.draw(scene, ppme);
