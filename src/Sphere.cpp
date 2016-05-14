@@ -68,14 +68,6 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     return true;
 }
 
-//void Sphere::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
-//
-////    Vector v(ray.getOrigin() + dist*ray.getDirection());
-////    normal = v - m_position;
-////    normal *= 1/(sqrt(normal.norm()));
-//    color = this->m_color;
-//}
-
 void Sphere::calculBoundingVolume() {
     Point center = m_position;
     float radius = getRadius();
@@ -92,5 +84,8 @@ Vector Sphere::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector collide(ray.getOrigin() + dist * ray.getDirection());
     Vector normal = collide - m_position;
     normal *= 1.f / normal.norm();
+    if (ray.getDirection().produitScalaire(normal) > 0) {
+        normal = -normal;
+    }
     return normal;
 }

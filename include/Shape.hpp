@@ -43,5 +43,5 @@ public:
 
     virtual void precalcul() = 0;
 
-    virtual Vector getNormalFromPoint(const Ray& ray, float dist) const;
+    virtual Vector getNormalFromPoint(const Ray& ray, float dist) const = 0;
 };

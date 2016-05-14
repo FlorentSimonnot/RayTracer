@@ -6,7 +6,7 @@
 
 // TODO
 
-Ray::Ray(Point& origin, Vector& direction)
+Ray::Ray(Point const& origin, Vector const& direction)
         : origin(origin),
           direction(direction) { }
 

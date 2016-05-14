@@ -141,5 +141,8 @@ Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector normal = collide * (1.f / collide.norm());
     Matrice inv = m_Mat_rotation.inverseMatrix();
     normal = normal.rotationVector(inv);
+    if(ray.getDirection().produitScalaire(normal) > 0){
+        normal = -normal;
+    }
     return normal;
 }

@@ -8,10 +8,12 @@
 #include <Shape.hpp>
 #include <iostream>
 #include "Scene.hpp"
+#include "Light.hpp"
 
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
         : m_objects(std::move(objects)),
           m_shapes(),
+          m_lights(),
           m_camera(nullptr) 
 {
     for (auto& o: m_objects) {
@@ -35,7 +37,7 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
 Scene::~Scene() {
 }
 
-Shape const *Scene::getFirstCollision(Ray const& ray, float depth) const {
+Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHit) const {
     float min_dist = std::numeric_limits<float>::max(), dist;
     Shape const *shape = nullptr;
 
@@ -44,17 +46,43 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth) const {
             if ((!shape || (min_dist > dist && (dist > std::numeric_limits<float>::epsilon())))
                 && dist <= depth) {
                 min_dist = dist;
+                distHit = min_dist;
                 shape = s;
-//                std::cout << "type ID = " << typeid(s).name() << std::endl;
             }
         }
     }
-
     return shape;
 }
 
 std::vector<Shape *> Scene::getShapes() const {
     return m_shapes;
+}
+
+bool Scene::testCollision(const Ray& ray, float dist) const {
+    float t_dist;
+    for (auto const& s: m_shapes) {
+        if (s->intersect(ray, t_dist) && (t_dist > std::numeric_limits<float>::epsilon()) && t_dist < dist) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Vector Scene::computColor(Point const& p, MaterialPoint& caracteristics) const {
+    Vector t_color(0, 0, 0);
+    for (auto const& l: m_lights) {
+        Vector path = l->getCenter() - p;
+        float pathSize = path.norm();
+        path *= (1.f / pathSize);
+        Ray ray(p, path);
+        if (testCollision(ray, pathSize)) {
+            continue;
+        }
+        float cosphi = path.produitScalaire(caracteristics.m_normal);
+        if (cosphi < 0.)
+            continue;
+        t_color += (caracteristics.m_color * cosphi).crossProduct(l->computColor(ray, pathSize));
+    }
 }
 
 void Scene::constructionArbreSpherEnglobant() {

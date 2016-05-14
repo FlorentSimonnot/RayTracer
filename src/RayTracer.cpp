@@ -9,16 +9,18 @@
 
 #include "RayTracer.hpp"
 
-RayTracer::RayTracer(int nbRayon)
+RayTracer::RayTracer(int nbRayon, int nbReflexions)
         : m_pas((float) 1.57 / WINDOW_WIDTH),
           m_gui(),
-          m_nbRayons(nbRayon) {
+          m_nbRayons(nbRayon),
+          m_nbReflexions(nbReflexions) {
 }
 
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene) {
     Camera camera = scene.getCamera();
+//    Camera camera = Camera(50,Point(-5,0,0),Vector(1,0,0));
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -55,18 +57,20 @@ void RayTracer::draw(Scene const& scene) {
                 directionTempo *= 1. / directionTempo.norm();
 
                 Ray ray(p, directionTempo);
-                // Calcul de la couleur a afficher
-                Shape const *shape = scene.getFirstCollision(ray, camera.depth());
-                if (shape) {
-                    MaterialPoint caracteristics;
 
+                ////
+
+//                computColor(ray, color, 0, scene, camera.depth());
+
+                float dist;
+                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
+                if (shape) {
                     color += shape->getColor();
                 }
+                /////
 
             }
-
             color = moyenneColor(color);
-//            std::cout << std::string(color) << std::endl;
             m_gui.setPixel(i, j, color);
         }
     }
@@ -82,4 +86,30 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
     return Vector((float) round(colors.x() * divide),
                   (float) round(colors.y() * divide),
                   (float) round(colors.z() * divide));
+}
+
+void RayTracer::computColor(Ray const& ray, Vector& color, int level, Scene const& scene, float cameraDepth) {
+    float dist;
+
+    Shape const *shape = scene.getFirstCollision(ray, cameraDepth, dist);
+    if (shape) {
+        MaterialPoint caracteristics;
+        caracteristics.m_normal = shape->getNormalFromPoint(ray, dist);
+        caracteristics.m_color = shape->getColor();
+        color = scene.computColor(ray.getOrigin() + dist * ray.getDirection(), caracteristics);
+        if (level < m_nbReflexions) {
+            Point p = ray.getOrigin() + dist * ray.getDirection();
+            Vector dir =
+                    ray.getDirection() - (ray.getDirection() * caracteristics.m_normal) * 2 * caracteristics.m_normal;
+            Ray ray_sec(p, dir);
+            ray_sec.getDirection() *= 1. / ray_sec.getDirection().norm();
+            ray_sec.setDirection(ray_sec.getDirection() * (1.f / ray_sec.getDirection().norm()));
+
+            Vector color_sec(0, 0, 0);
+            computColor(ray_sec, color_sec, level + 1, scene, cameraDepth);
+
+            // color += mult(color_sec, caracteristics.reflect);
+            color += color_sec.crossProduct(caracteristics.m_reflect);
+        }
+    }
 }

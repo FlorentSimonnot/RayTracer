@@ -8,15 +8,15 @@
 #include "Object.hpp"
 #include <Vector.hpp>
 #include <Point.hpp>
-#include "Ray.hpp"
 
-// TODO
+class Ray;
+
 class Light : public Object {
 private:
     Point m_position;
     Vector m_rotation;
     Vector m_color;
-//    Ray *rays; Liste des rayons lumineux du point de lumiere
+
 public:
     Light();
     Light(Point const& position,Vector const& rotation,Vector const& color);

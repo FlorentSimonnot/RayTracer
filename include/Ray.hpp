@@ -7,16 +7,13 @@
 
 #include "Point.hpp"
 
-// TODO
 class Ray {
 private:
     Point origin;
     Vector direction;
 
 public:
-    Ray();
-
-    Ray(Point& origin, Vector& direction);
+    Ray(Point const& origin, Vector const& direction);
 
     ~Ray();
 
