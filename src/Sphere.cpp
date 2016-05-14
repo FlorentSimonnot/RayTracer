@@ -76,9 +76,11 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
 //    color = this->m_color;
 //}
 
-BoundingVolume Sphere::getBoundingVolume() {
-    BoundingVolume boundingVolume(m_position, m_scale.x());
-    return boundingVolume;
+void Sphere::calculBoundingVolume() {
+    Point center = m_position;
+    float radius = getRadius();
+    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
+    m_boundingVolume = s;
 }
 
 void Sphere::precalcul() {

@@ -6,7 +6,7 @@
 #define PROJECT_OBJECT_HPP
 
 #include <string>
-
+#define SQR(a) a*a
 class Object {    
 public:
     Object();

@@ -9,7 +9,8 @@ Shape::Shape()
           m_color(255, 0, 0),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
           m_Materiau(),
-          m_Camera_Pos() {
+          m_Camera_Pos(),
+          m_boundingVolume() {
 }
 
 Shape::Shape(Vector const& color)
@@ -20,21 +21,24 @@ Shape::Shape(Vector const& color)
           m_color(color),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
           m_Materiau(),
-          m_Camera_Pos() {
+          m_Camera_Pos(),
+          m_boundingVolume() {
 }
 
 Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color)
         : Object(),
           m_position(position),
-          m_direction(direction),
+          m_direction(direction * (1.f / direction.norm())),
           m_scale(scale),
           m_color(color),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
           m_Materiau(),
-          m_Camera_Pos() {
+          m_Camera_Pos(),
+          m_boundingVolume() {
 }
 
 Shape::~Shape() {
+    delete (m_boundingVolume);
 }
 
 Shape::operator std::string() const {
@@ -62,4 +66,8 @@ bool Shape::operator!=(Shape const& o) {
 
 void Shape::setCamera_Pos(Point const& p) {
     m_Camera_Pos = p;
+}
+
+Shape *Shape::getBoundingVolume() const {
+    return m_boundingVolume;
 }

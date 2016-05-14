@@ -3,6 +3,7 @@
 //
 
 #include <Triangle.hpp>
+#include <Sphere.hpp>
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
@@ -78,12 +79,11 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
     return false;
 }
 
-// TODO Changer les valeurs
-// Ne pas utiliser actuellement
-// Evite juste que le compilateur rale
-BoundingVolume Rectangle::getBoundingVolume() {
-    BoundingVolume boundingVolume(m_position, m_scale.x());
-    return boundingVolume;
+void Rectangle::calculBoundingVolume() {
+    Point center = m_position + (1.f / 2.f) * m_scale;
+    float radius = m_scale.norm() / 2.f;
+    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
+    m_boundingVolume = s;
 }
 
 void Rectangle::precalcul() {

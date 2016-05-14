@@ -5,6 +5,7 @@
 #include <Shape.hpp>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "RayTracer.hpp"
 
@@ -30,9 +31,9 @@ void RayTracer::draw(Scene const& scene) {
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
         // Optimisation de calcul
-        float angle_y = m_pas * (j - winHeightTemp);
+        float angle_y = -m_pas * (j - winHeightTemp);
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
-            float angle_x = m_pas * (i - winWidthTemp);
+            float angle_x = -m_pas * (i - winWidthTemp);
 
 
             Vector color(0, 0, 0);
@@ -72,7 +73,7 @@ void RayTracer::draw(Scene const& scene) {
     m_gui.render();
     // TODO A supprimer plus tard
     // Met le programme en pause et attent une saisie
-//    scanf("%*c");
+    scanf("%*c");
 }
 
 Vector RayTracer::moyenneColor(Vector const& colors) const {
