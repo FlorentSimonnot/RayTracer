@@ -1,5 +1,6 @@
 #include <limits>
 #include <math.h>
+#include <Sphere.hpp>
 #include "Triangle.hpp"
 
 Triangle::Triangle()
@@ -53,16 +54,53 @@ bool Triangle::intersect(const Ray& ray, float& dist) {
     return false;
 }
 
-// TODO Changer les valeurs
-// Ne pas utiliser actuellement
-// Evite juste que le compilateur rale
-BoundingVolume Triangle::getBoundingVolume() {
-    Point center = (m_p1 + m_p2 + m_p3) * (1.f / 3.f);
-    float tmp = fmaxf(center.distance(m_p1), center.distance(m_p2));
-    float max = fmaxf(tmp, center.distance(m_p3));
+void Triangle::calculBoundingVolume() {
+    float A = m_p1.distance(m_p2);
+    float B = m_p2.distance(m_p3);
+    float C = m_p3.distance(m_p1);
+    float radius;
+    Point center;
 
-    BoundingVolume boundingVolume(center, max);
-    return boundingVolume;
+    Point a = m_p3;
+    Point b = m_p1;
+    Point c = m_p2;
+
+    if (B < C) {
+        float tmp = B;
+        B = C;
+        C = tmp;
+
+        Point ptmp = b;
+        b = c;
+        c = ptmp;
+    }
+    if (A < B) {
+        float tmp = A;
+        A = B;
+        B = tmp;
+
+        Point ptmp = a;
+        a = b;
+        b = ptmp;
+    }
+
+    // If obtuse, just use longest diameter, otherwise circumscribe
+    if ((B * B) + (C * C) <= (A * A)) {
+        radius = A / 2.f;
+        center = (b + c) * (1.f / 2.f);
+    } else {
+        // http://en.wikipedia.org/wiki/Circumscribed_circle
+        float cos_a = (B * B + C * C - A * A) / (B * C * 2);
+        radius = A / (sqrtf(1 - cos_a * cos_a) * 2.f);
+        Vector alpha = a - c,
+                beta = b - c;
+        center = (beta * alpha.produitScalaire(alpha) - alpha * beta.produitScalaire(beta))
+                         .crossProduct(alpha.crossProduct(beta))
+                 * (1.f / (alpha.crossProduct(beta).produitScalaire(alpha.crossProduct(beta)) * 2.f))
+                 + c;
+    }
+    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
+    m_boundingVolume = s;
 }
 
 void Triangle::precalcul() { }

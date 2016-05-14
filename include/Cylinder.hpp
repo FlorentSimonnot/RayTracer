@@ -35,7 +35,7 @@ public:
 
 //    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
 
-    BoundingVolume getBoundingVolume();
+    void calculBoundingVolume();
 
     void precalcul();
 };

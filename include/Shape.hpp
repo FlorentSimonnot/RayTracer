@@ -3,10 +3,8 @@
 #include "Object.hpp"
 #include "Vector.hpp"
 #include "Ray.hpp"
-#include <BoundingVolume.hpp>
 #include "Matrice.hpp"
 #include "Materiaux.hpp"
-
 
 class Shape : public Object {
 protected:
@@ -16,6 +14,7 @@ protected:
 
     Point m_Camera_Pos;
 
+    Shape* m_boundingVolume;
 public:
     Shape();
     Shape(Vector const& color);
@@ -36,7 +35,9 @@ public:
 
     bool operator!=(Shape const& o);
 
-    virtual BoundingVolume getBoundingVolume() = 0;
+    Shape* getBoundingVolume() const;
+
+    virtual void calculBoundingVolume() = 0;
 
     void setCamera_Pos(Point const& p);
 
