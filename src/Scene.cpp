@@ -8,10 +8,11 @@
 #include <Shape.hpp>
 #include <iostream>
 #include "Scene.hpp"
+#include "Light.hpp"
 
 Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
         : m_objects(std::move(objects)),
-          m_shapes(),
+          m_shapes(), m_lights(),
           m_camera(nullptr) 
 {
     for (auto& o: m_objects) {
@@ -23,6 +24,13 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
             Camera *c = dynamic_cast<Camera*>(o.get());
             if (c != nullptr) {
                 m_camera = c;
+
+            } else {
+                Light *l = dynamic_cast<Light *>(o.get());
+                if( l != nullptr ){
+                    m_lights.emplace_back(l);
+                }
+
             }
         }
     }
@@ -53,8 +61,12 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth) const {
     return shape;
 }
 
-std::vector<Shape *> Scene::getShapes() const {
+std::vector<Shape*> const& Scene::getShapes() const {
     return m_shapes;
+}
+
+std::vector<Light*> const& Scene::getLights() const {
+    return m_lights;
 }
 
 void Scene::constructionArbreSpherEnglobant() {

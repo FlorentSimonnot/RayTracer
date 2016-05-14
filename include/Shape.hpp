@@ -2,9 +2,10 @@
 
 #include "Object.hpp"
 #include "Vector.hpp"
-#include "Ray.hpp"
 #include "Matrice.hpp"
 #include "Materiaux.hpp"
+
+class Ray;
 
 class Shape : public Object {
 protected:

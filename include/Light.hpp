@@ -8,7 +8,8 @@
 #include "Object.hpp"
 #include <Vector.hpp>
 #include <Point.hpp>
-#include "Ray.hpp"
+
+class Ray;
 
 // TODO
 class Light : public Object {
