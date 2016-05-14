@@ -15,9 +15,6 @@ void usage() {
 // lray -n 1 -i <mon_fichier.format> -o image.ppm
 // lray -n 2 -ps 16 -i <mon_fichier.format> -o image.ppm
 // lray -n 3 -i <mon_fichier.format>
-// int getOpt(int argc, char *argv[], char *options){
-
-// }
 
 static bool getOptions(int argc, char **argv, int& level, std::string& input, std::string& output, int& aaParam) {
 	char opt;

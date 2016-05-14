@@ -2,7 +2,7 @@
 #include <iostream>
 
 PPMExporter::PPMExporter(std::string const& path, int width, int height)
-: 	m_stream(path)
+: 	m_stream(path, std::ios::out | std::ios::trunc)
 {
 	if (m_stream.fail()) {
 		std::cerr << "Cannot open file named: " << path << std::endl;
