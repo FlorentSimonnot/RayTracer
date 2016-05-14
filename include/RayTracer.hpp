@@ -6,7 +6,7 @@
 #define PROJECT_RAYTRACER_HPP
 
 #include "Scene.hpp"
-#include <Gui.hpp>
+#include "Gui.hpp"
 
 
 class RayTracer {

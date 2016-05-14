@@ -25,6 +25,13 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
             Camera *c = dynamic_cast<Camera*>(o.get());
             if (c != nullptr) {
                 m_camera = c;
+
+            } else {
+                Light *l = dynamic_cast<Light *>(o.get());
+                if( l != nullptr ){
+                    m_lights.emplace_back(l);
+                }
+
             }
         }
     }
@@ -48,14 +55,27 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
                 min_dist = dist;
                 distHit = min_dist;
                 shape = s;
+//                std::cout << "type ID = " << typeid(s).name() << std::endl;
             }
         }
     }
+
     return shape;
 }
 
-std::vector<Shape *> Scene::getShapes() const {
+std::vector<Shape*> const& Scene::getShapes() const {
     return m_shapes;
+}
+
+std::vector<Light*> const& Scene::getLights() const {
+    return m_lights;
+}
+
+void Scene::test() const{
+
+    for(auto const &o: m_objects){
+        std::cout << std::string(*o) <<  std::endl ;
+    }
 }
 
 bool Scene::testCollision(const Ray& ray, float dist) const {
@@ -83,6 +103,7 @@ Vector Scene::computColor(Point const& p, MaterialPoint& caracteristics) const {
             continue;
         t_color += (caracteristics.m_color * cosphi).crossProduct(l->computColor(ray, pathSize));
     }
+    return t_color;
 }
 
 void Scene::constructionArbreSpherEnglobant() {
