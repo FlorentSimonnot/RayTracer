@@ -39,6 +39,8 @@ public:
     void moveCamera(Vector const& dv);
     void rotateCamera();
 
+    void test() const;
+
 };
 
 

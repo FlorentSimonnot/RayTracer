@@ -69,6 +69,13 @@ std::vector<Light*> const& Scene::getLights() const {
     return m_lights;
 }
 
+void Scene::test() const{
+
+    for(auto const &o: m_objects){
+        std::cout << std::string(*o) <<  std::endl ;
+    }
+}
+
 void Scene::constructionArbreSpherEnglobant() {
 
 
