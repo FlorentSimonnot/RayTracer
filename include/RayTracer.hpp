@@ -24,6 +24,7 @@ public:
     ~RayTracer();
 
     void draw(Scene const& scene,PPMExporter& ppme);
+    void draw(Scene const& scene);
 
     Vector moyenneColor(Vector const &colors) const;
 

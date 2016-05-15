@@ -12,12 +12,12 @@ Light::Light(Point const& position, Vector const& color)
         : m_position(position), m_color(color) { }
 
 Light::operator std::string() const {
-    return "position : " + std::string(m_position) + "\t color : " + std::string(m_color);
+    return "Light => position : " + std::string(m_position) + "\t color : " + std::string(m_color);
 }
 
-Vector Light::computColor(const Ray& ray, float dist) {
-    return m_color * (1./ SQR(dist));
-}
+//Vector Light::computColor(const Ray& ray, float dist) {
+//    return m_color * (1./ SQR(dist));
+//}
 
 Vector Light::getCenter() {
     return m_position;

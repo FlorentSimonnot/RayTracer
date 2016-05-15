@@ -106,6 +106,7 @@ void Triangle::calculBoundingVolume() {
 void Triangle::precalcul() { }
 
 Vector Triangle::getNormalFromPoint(const Ray& ray, float dist) const {
+    (void) dist;
     Vector crossNorma = (m_p1 - m_p2).crossProduct(m_p2 - m_p3);
     crossNorma *= 1. / crossNorma.norm();
     Vector normal(crossNorma);

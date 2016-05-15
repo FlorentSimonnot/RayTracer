@@ -29,6 +29,9 @@ public:
     Scene(std::vector<std::unique_ptr<Object>>& objects);
     ~Scene();
 
+	Scene(Scene const& s);
+	Scene& operator=(Scene const& s);
+
     Shape const *getFirstCollision(Ray const& ray, float depth,float &distHit) const;
 
 //    Vector computColor(Point const& p,MaterialPoint &caracteristics) const;

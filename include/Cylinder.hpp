@@ -8,11 +8,13 @@
 #include "Shape.hpp"
 #include "Point.hpp"
 #include "Triangle.hpp"
+#include "Matrice.hpp"
 
 class Cylinder : public Shape {
 private:
     Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
     float m_gamma;
+    Matrice m_inverse;
 
     Triangle m_f1p1;
     Triangle m_f1p2;
@@ -29,11 +31,9 @@ public:
 
     bool intersect(const Ray& ray, float& dist);
 
-    float getRadius();
+    float getRadius() const ;
 
-    float getHeight();
-
-//    void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal);
+    float getHeight() const;
 
     void calculBoundingVolume();
 

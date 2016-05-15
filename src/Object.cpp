@@ -7,8 +7,8 @@
 Object::Object() {
 }
 
-Object::Object(const Object& o) {
-}
+//Object::Object(const Object& o) {
+//}
 
 Object::~Object() {
 }

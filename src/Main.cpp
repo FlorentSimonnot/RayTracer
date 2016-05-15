@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <stdlib.h>
+#include "Light.hpp"
 
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
@@ -38,7 +39,7 @@ static bool getOptions(int argc, char **argv, int& level, std::string& input, st
 	 	case 's' :
 	 		aaParamArg = optarg;
 			aaParam = std::stoi(aaParamArg, &s);
-			if (s != levelArg.size() || aaParam < 1 || aaParam > 16) {
+				if (s != aaParamArg.size() || aaParam < 1 || aaParam > 16) {
 				fail = true;
 			}
 	 		break;
@@ -74,6 +75,9 @@ static bool getOptions(int argc, char **argv, int& level, std::string& input, st
 
 int main(int argc, char *argv[]) {
 
+//	struct timeval tbegin, tend;
+//	gettimeofday(&tbegin, NULL);
+
 	int level = 0;
 	int aaParam = 0;
 	std::string input, output;
@@ -82,28 +86,45 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-//	std::string exec = argv[0];
-//	std::string dir = exec.substr(0, exec.find_last_of('/') + 1);
-//	Parser parser(dir + "data/test_parser.scn");
 	Parser parser(input);
 	srand(time(NULL));
 
 	std::vector<std::unique_ptr<Object>> objects;
 	parser.parse(objects);
 
-	Scene scene(objects);
+	std::unique_ptr<Object> object;
 
+	object.reset(new Light(Vector(-5, 0, 0), Vector(0, 0, 0)));
+	objects.emplace_back(std::move(object));
+
+//	object.reset(new Light(Vector(0,0,3),Vector(0,0,0)));
+//	objects.emplace_back(std::move(object));
+
+//	object.reset(new Light(Vector(5,0,0),Vector(0,0,0)));
+//	objects.emplace_back(std::move(object));
+
+	Scene scene(objects);
 	if (level == 1 || level == 2) {
 		PPMExporter ppme(output, WINDOW_WIDTH, WINDOW_HEIGHT);
-		if (level == 1) {
+		if (aaParam == 0) {
 			aaParam = 1;
 		}
 		RayTracer rayTracer(aaParam);
 
 		rayTracer.draw(scene, ppme);
 	}
-//	scene.test();
+	if (level > 2) {
+		if (aaParam == 0) {
+			aaParam = 1;
+		}
+		RayTracer rayTracer(aaParam);
 
+		rayTracer.draw(scene);
+	}
+
+//	gettimeofday(&tend, NULL);
+//	double texec = ((double) (1000 * (tend.tv_sec - tbegin.tv_sec) + ((tend.tv_usec - tbegin.tv_usec) / 1000))) / 1000.;
+//	std::cout << "Execution time : " << texec << std::endl;
 
 
 

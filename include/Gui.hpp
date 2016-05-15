@@ -11,6 +11,9 @@ class Gui {
 public:
 	// Initialise SDL and create window.
 	Gui();
+	Gui(Gui const& g);
+	Gui& operator=(Gui const& g);
+
 	virtual ~Gui();
 
 	void setPixel(int x, int y, Vector const& color);

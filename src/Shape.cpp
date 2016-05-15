@@ -71,3 +71,27 @@ void Shape::setCamera_Pos(Point const& p) {
 Shape *Shape::getBoundingVolume() const {
     return m_boundingVolume;
 }
+
+Shape::Shape(Shape const& s)
+        : Object(),
+          m_position(s.m_position),
+          m_direction(s.m_direction * (1.f / s.m_direction.norm())),
+          m_scale(s.m_scale),
+          m_color(s.m_color),
+          m_Mat_rotation(s.m_Mat_rotation),
+          m_Materiau(s.m_Materiau),
+          m_Camera_Pos(s.m_Camera_Pos),
+          m_boundingVolume(s.m_boundingVolume) {
+}
+
+Shape& Shape::operator=(Shape const& o) {
+    m_position = o.m_position;
+    m_direction = o.m_direction * (1.f / o.m_direction.norm());
+    m_scale = o.m_scale;
+    m_color = o.m_color;
+    m_Mat_rotation = o.m_Mat_rotation;
+    m_Materiau = o.m_Materiau;
+    m_Camera_Pos = o.m_Camera_Pos;
+    m_boundingVolume = o.m_boundingVolume;
+    return *this;
+}

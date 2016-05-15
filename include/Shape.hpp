@@ -18,8 +18,12 @@ protected:
     Shape* m_boundingVolume;
 public:
     Shape();
+
     Shape(Vector const& color);
     Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
+
+    Shape(Shape const& s);
+    Shape& operator=(Shape const& o);
 
     virtual ~Shape();
 

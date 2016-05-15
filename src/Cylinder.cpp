@@ -13,6 +13,7 @@ Cylinder::Cylinder()
         : Shape(),
           m_d2(),
           m_gamma(),
+          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_f1p1(),
           m_f1p2(),
           m_f2p1(),
@@ -24,6 +25,7 @@ Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const
         : Shape(position, direction, scale, color),
           m_d2(),
           m_gamma(),
+          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_f1p1(),
           m_f1p2(),
           m_f2p1(),
@@ -35,11 +37,11 @@ Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const
 Cylinder::~Cylinder() {
 }
 
-float Cylinder::getRadius() {
+float Cylinder::getRadius() const {
     return m_scale.x();
 }
 
-float Cylinder::getHeight() {
+float Cylinder::getHeight() const {
     return m_scale.y();
 }
 
@@ -53,10 +55,8 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 //    m_d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
     float d1Z = d1.z();
     Vector d2 = m_d2;
-
     d1.setZ(0);
 //    d2.setZ(0);
-
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
 //    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
@@ -112,9 +112,9 @@ void Cylinder::precalcul() {
     m_d2.setZ(0);
     m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
 
-    Matrice tmp = m_Mat_rotation.inverseMatrix();
-    Vector v1 = Vector(1, 0, 0).rotationVector(tmp) * getRadius() * 2;
-    Vector v2 = Vector(0, 1, 0).rotationVector(tmp) * getRadius() * 2;
+//    Matrice tmp = m_Mat_rotation.inverseMatrix();
+    Vector v1 = Vector(1, 0, 0).rotationVector(m_inverse) * getRadius() * 2;
+    Vector v2 = Vector(0, 1, 0).rotationVector(m_inverse) * getRadius() * 2;
 
     Point pos_up = m_position + getHeight() * m_direction;
 
@@ -136,11 +136,23 @@ void Cylinder::precalcul() {
 
 Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    float d1Z = d1.z();
     d1.setZ(0);
     Vector collide(m_d2 + d1 * dist);
     Vector normal = collide * (1.f / collide.norm());
-    Matrice inv = m_Mat_rotation.inverseMatrix();
-    normal = normal.rotationVector(inv);
+//    Matrice inv = m_Mat_rotation.inverseMatrix();
+    normal = normal.rotationVector(m_inverse);
+
+    float interZ = m_d2Z + dist * d1Z;
+
+    float eps = 0.00001;
+    if (interZ <= eps && interZ >= -eps) {
+        normal = m_f2p2.getNormalFromPoint(ray, dist);
+    }
+    if (interZ >= getHeight() - eps || interZ <= eps - getHeight()) {
+        normal = m_f1p2.getNormalFromPoint(ray, dist);
+    }
+
     if(ray.getDirection().produitScalaire(normal) > 0){
         normal = -normal;
     }

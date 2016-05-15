@@ -97,7 +97,7 @@ Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector collide(ray.getOrigin() + dist * ray.getDirection());
     Vector tmp = collide - m_position;
     Vector normal(0, 0, 0);
-//    float eps = std::numeric_limits<float>::epsilon();
+
     float eps = 0.00001;
     if (tmp.x() <= eps && tmp.x() >= -eps) {
         normal = Vector(-1, 0, 0);

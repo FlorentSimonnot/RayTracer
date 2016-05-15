@@ -14,21 +14,20 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
         : m_objects(std::move(objects)),
           m_shapes(),
           m_lights(),
-          m_camera(nullptr) 
-{
+          m_camera(nullptr) {
     for (auto& o: m_objects) {
         Shape *s = dynamic_cast<Shape *>(o.get());
         if (s != nullptr) {
             m_shapes.emplace_back(s);
 
         } else {
-            Camera *c = dynamic_cast<Camera*>(o.get());
+            Camera *c = dynamic_cast<Camera *>(o.get());
             if (c != nullptr) {
                 m_camera = c;
 
             } else {
                 Light *l = dynamic_cast<Light *>(o.get());
-                if( l != nullptr ){
+                if (l != nullptr) {
                     m_lights.emplace_back(l);
                 }
 
@@ -55,7 +54,6 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
                 min_dist = dist;
                 distHit = min_dist;
                 shape = s;
-//                std::cout << "type ID = " << typeid(s).name() << std::endl;
             }
         }
     }
@@ -63,18 +61,18 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
     return shape;
 }
 
-std::vector<Shape*> const& Scene::getShapes() const {
+std::vector<Shape *> const& Scene::getShapes() const {
     return m_shapes;
 }
 
-std::vector<Light*> const& Scene::getLights() const {
+std::vector<Light *> const& Scene::getLights() const {
     return m_lights;
 }
 
-void Scene::test() const{
+void Scene::test() const {
 
-    for(auto const &o: m_objects){
-        std::cout << std::string(*o) <<  std::endl ;
+    for (auto const& o: m_objects) {
+        std::cout << std::string(*o) << std::endl;
     }
 }
 
@@ -139,3 +137,18 @@ void Scene::moveCamera(Vector const& dv) {
 void Scene::rotateCamera() {
     //TODO
 }
+
+//Scene::Scene(Scene const& s)
+//        : m_objects(std::move(s.m_objects)),
+//          m_shapes(s.m_shapes),
+//          m_lights(s.m_lights),
+//          m_camera(s.m_camera) {
+//}
+//
+//Scene& Scene::operator=(Scene const& s) {
+////    m_objects = std::move(s.m_objects);
+//    m_shapes = s.m_shapes;
+//    m_lights = s.m_lights;
+//    m_camera = s.m_camera;
+//    return *this;
+//}

@@ -1,7 +1,7 @@
 //
 // Created by Narex on 07/05/2016.
 //
-
+#pragma once
 #ifndef SYNTHESE_IMAGE_LIGHT_HPP
 #define SYNTHESE_IMAGE_LIGHT_HPP
 
@@ -20,7 +20,7 @@ public:
     Light();
     Light(Point const& position,Vector const& color);
     operator std::string() const;
-    Vector computColor(const Ray& ray, float dist);
+//    Vector computColor(const Ray& ray, float dist);
     Vector getCenter();
 };
 
