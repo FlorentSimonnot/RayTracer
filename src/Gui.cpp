@@ -40,6 +40,15 @@ void Gui::render() {
     SDL_RenderPresent(m_renderer);
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_renderer);
+
+    bool quit = false;
+    SDL_Event event;
+    while (!quit)
+    {
+        SDL_WaitEvent(&event);
+        if (event.type == SDL_QUIT)
+            quit = 1;
+    }
 }
 
 Gui::Gui(Gui const& g)

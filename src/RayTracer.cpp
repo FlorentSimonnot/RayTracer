@@ -82,8 +82,6 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
         }
     }
     m_gui.render();
-    std::cout << "Appuyer sur une touche pour quitter le programme" << std::endl;
-    scanf("%*c");
 }
 
 void RayTracer::draw(Scene const& scene) {
@@ -144,8 +142,6 @@ void RayTracer::draw(Scene const& scene) {
         }
     }
     m_gui.render();
-    std::cout << "Appuyer sur une touche pour quitter le programme" << std::endl;
-    scanf("%*c");
 }
 
 
