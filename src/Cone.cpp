@@ -62,26 +62,36 @@ bool Cone::intersect(const Ray& ray, float& dist) {
 
     float t1 = (-beta + sqr) / alpha2;
     float t2 = (-beta - sqr) / alpha2;
+    float interZ;
 
-    if (t1 < t2) {
-        float tmp;
-        tmp = t2;
-        t2 = t1;
-        t1 = tmp;
-    }
-    if (t1 < std::numeric_limits<float>::epsilon()) {
+    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
         return false;
-    }
-    else if (t2 < std::numeric_limits<float>::epsilon()) {
+    } else if (t2 < std::numeric_limits<float>::epsilon()) {
         dist = t1;
-    }
-    else {
+        interZ = d2.z() + dist * d1.z();
+    } else if (t1 < std::numeric_limits<float>::epsilon()) {
         dist = t2;
+        interZ = d2.z() + dist * d1.z();
+    } else {
+        float t1Z = d2.z() + t1 * d1.z();
+        float t2Z = d2.z() + t2 * d1.z();
+        if (t1Z > 0 && t2Z > 0){
+            return (false);
+        } else if (t2Z > 0) {
+            dist = t1;
+            interZ = t1Z;
+        } else if (t1Z > 0) {
+            dist = t2;
+            interZ = t2Z;
+        } else {
+            dist = fminf(t1, t2);
+            interZ = d2.z() + dist * d1.z();
+        }
     }
 
-    float interZ = d2.z() + dist * d1.z();
-    if (interZ > 0)
+    if (interZ > 0){
         return (false);
+    }
     if (interZ < -getHeight()) {
         Triangle triangles[] = {m_p1, m_p2};
         for (Triangle t:triangles) {
@@ -94,7 +104,6 @@ bool Cone::intersect(const Ray& ray, float& dist) {
         return false;
     }
     return true;
-
 }
 
 void Cone::calculBoundingVolume() {

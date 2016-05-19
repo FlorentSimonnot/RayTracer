@@ -87,9 +87,9 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 }
 
 void RayTracer::draw(Scene const& scene) {
-    Camera camera = scene.getCamera();
+//    Camera camera = scene.getCamera();
 //    scene.test();
-//    Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
+    Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
