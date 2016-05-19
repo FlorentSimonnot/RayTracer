@@ -149,7 +149,7 @@ Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     if (interZ <= eps && interZ >= -eps) {
         normal = m_f2p2.getNormalFromPoint(ray, dist);
     }
-    if (interZ >= getHeight() - eps || interZ <= eps - getHeight()) {
+    if (interZ >= getHeight() - eps && interZ <= getHeight() + eps) {
         normal = m_f1p2.getNormalFromPoint(ray, dist);
     }
 

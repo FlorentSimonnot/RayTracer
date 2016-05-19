@@ -3,6 +3,7 @@
 #include "Sphere.hpp"
 #include "Rectangle.hpp"
 #include "Cylinder.hpp"
+#include "Cone.hpp"
 #include "Camera.hpp"
 #include <iostream>
 #include <sstream>
@@ -27,6 +28,7 @@ static bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr
 static bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 static bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 static bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
+static bool parseCone(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 
 static bool parseCamera(std::string const& content, size_t& pos, std::unique_ptr<Object>& object);
 
@@ -80,6 +82,8 @@ bool parseInstruction(std::string const& content, size_t& pos, std::unique_ptr<O
 			return parseRectangle(content, pos, object);
 		} else if (type == "cylinder") {
 			return parseCylinder(content, pos, object);
+		} else if (type == "cone") {
+			return parseCone(content, pos, object);
 		} else if (type == "camera"){
 			return parseCamera(content,pos,object);
 		}
@@ -191,6 +195,16 @@ bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Obje
 	Vector position, rotation, scale, color;
 	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
 		object.reset(new Cylinder(position, rotation, scale, color));
+		return true;
+	}
+
+	return false;
+}
+
+bool parseCone(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
+	Vector position, rotation, scale, color;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
+		object.reset(new Cone(position, rotation, scale, color));
 		return true;
 	}
 

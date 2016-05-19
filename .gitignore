@@ -31,3 +31,9 @@
 
 # Debug files
 *.dSYM/
+
+# Merdes d'Apple
+.DS_Store
+._.DS_Store
+*~
+raytracer

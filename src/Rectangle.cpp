@@ -102,19 +102,19 @@ Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
     if (tmp.x() <= eps && tmp.x() >= -eps) {
         normal = Vector(-1, 0, 0);
     }
-    else if (tmp.x() == m_scale.x()) {
+    else if (tmp.x() <= m_scale.x() + eps && tmp.x() >= m_scale.x() - eps) {
         normal = Vector(1, 0, 0);
     }
     else if (tmp.y() <= eps && tmp.y() >= -eps) {
         normal = Vector(0, -1, 0);
     }
-    else if (tmp.y() == m_scale.y()) {
+    else if (tmp.y() <= m_scale.y() + eps && tmp.y() >= m_scale.y() - eps) {
         normal = Vector(0, 1, 0);
     }
     else if (tmp.z() <= eps && tmp.z() >= -eps) {
         normal = Vector(0, 0, -1);
     }
-    else if (tmp.z() == m_scale.z()) {
+    else if (tmp.z() <= m_scale.z() + eps && tmp.z() >= m_scale.z() - eps) {
         normal = Vector(0, 0, 1);
     }
     if (ray.getDirection().produitScalaire(normal) > 0) {
