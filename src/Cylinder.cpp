@@ -78,6 +78,52 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
     }
     else if (t2 < std::numeric_limits<float>::epsilon()) {
         dist = t1;
+        float distB = std::numeric_limits<float>::infinity();
+        Triangle triangles[] = {m_f1p1, m_f1p2, m_f2p1, m_f2p2};
+        for (Triangle t:triangles) {
+            float distTmp;
+            if (t.intersect(ray, distTmp)) {
+                if (distTmp < distB) {
+                    distB = distTmp;
+                }
+            }
+        }
+        if (distB > std::numeric_limits<float>::epsilon() && distB < dist) {
+            dist = distB;
+        } else {
+            float interZ = m_d2Z + dist * d1Z;
+            if (interZ < 0 || interZ > getHeight()) {
+                return false;
+            }
+        }
+    }
+    else {
+        dist = t2;
+        float interZ = m_d2Z + dist * d1Z;
+        if (interZ > getHeight() || interZ < 0) {
+            float distB = std::numeric_limits<float>::infinity();
+            Triangle triangles[] = {m_f1p1, m_f1p2, m_f2p1, m_f2p2};
+            for (Triangle t:triangles) {
+                float distTmp;
+                if (t.intersect(ray, distTmp)) {
+                    if (distTmp < distB) {
+                        distB = distTmp;
+                    }
+                }
+            }
+            if (distB < t1 && distB > t2) {
+                dist = distB;
+                return true;
+            }
+            return false;
+        }
+    }
+
+/*    if (t1 < std::numeric_limits<float>::epsilon()) {
+        return false;
+    }
+    else if (t2 < std::numeric_limits<float>::epsilon()) {
+        dist = t1;
     }
     else {
         dist = t2;
@@ -94,9 +140,8 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
             }
         }
         return false;
-    }
+    }*/
     return true;
-
 }
 
 void Cylinder::calculBoundingVolume() {

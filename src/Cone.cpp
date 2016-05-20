@@ -62,46 +62,81 @@ bool Cone::intersect(const Ray& ray, float& dist) {
 
     float t1 = (-beta + sqr) / alpha2;
     float t2 = (-beta - sqr) / alpha2;
-    float interZ;
 
-    if (t1 < std::numeric_limits<float>::epsilon() && t2 < std::numeric_limits<float>::epsilon()) {
-        return false;
-    } else if (t2 < std::numeric_limits<float>::epsilon()) {
+    if (t2 == t1 && t1 < std::numeric_limits<float>::epsilon()) {
         dist = t1;
-        interZ = d2.z() + dist * d1.z();
-    } else if (t1 < std::numeric_limits<float>::epsilon()) {
-        dist = t2;
-        interZ = d2.z() + dist * d1.z();
-    } else {
-        float t1Z = d2.z() + t1 * d1.z();
-        float t2Z = d2.z() + t2 * d1.z();
-        if (t1Z > 0 && t2Z > 0){
-            return (false);
-        } else if (t2Z > 0) {
-            dist = t1;
-            interZ = t1Z;
-        } else if (t1Z > 0) {
-            dist = t2;
-            interZ = t2Z;
-        } else {
-            dist = fminf(t1, t2);
-            interZ = d2.z() + dist * d1.z();
+    } else if (t2 < t1) {
+        if (t1 < std::numeric_limits<float>::epsilon()) {
+            return false;
         }
-    }
-
-    if (interZ > 0){
-        return (false);
-    }
-    if (interZ < -getHeight()) {
-        Triangle triangles[] = {m_p1, m_p2};
-        for (Triangle t:triangles) {
-            if (t.intersect(ray, dist)) {
-                if (dist > t2 && dist < t1) {
-                    return true;
+        else if (t2 < std::numeric_limits<float>::epsilon()) {
+            dist = t1;
+            float distB = std::numeric_limits<float>::infinity();
+            Triangle triangles[] = {m_p1, m_p2};
+            for (Triangle t:triangles) {
+                float distTmp;
+                if (t.intersect(ray, distTmp)) {
+                    distB = distTmp;
+                }
+            }
+            if (distB > std::numeric_limits<float>::epsilon() && distB < dist) {
+                dist = distB;
+            } else {
+                float interZ = d2.z() + dist * d1.z();
+                if (interZ > 0 || interZ < -getHeight()) {
+                    return false;
                 }
             }
         }
-        return false;
+        else {
+            dist = t2;
+            float interZ = d2.z() + dist * d1.z();
+            if (interZ > 0) {
+                return false;
+            } else if (interZ < -getHeight()){
+                Triangle triangles[] = {m_p1, m_p2};
+                for (Triangle t:triangles) {
+                    if (t.intersect(ray, dist)) {
+                        if (dist > t2 && dist < t1) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+    } else {
+        float distB = std::numeric_limits<float>::infinity();
+        Triangle triangles[] = {m_p1, m_p2};
+        for (Triangle t:triangles) {
+            float distTmp;
+            if (t.intersect(ray, distTmp)) {
+                distB = distTmp;
+            }
+        }
+        if (t2 < std::numeric_limits<float>::epsilon()) {
+            if (distB == std::numeric_limits<float>::infinity())
+                return false;
+            else {
+                dist = distB;
+                return true;
+            }
+        }
+        else if (t1 < std::numeric_limits<float>::epsilon()) {
+            dist = t2;
+        }
+        else {
+            if (distB < t1) {
+                dist = distB;
+                return true;
+            }
+            dist = t1;
+        }
+
+        float interZ = d2.z() + dist * d1.z();
+        if (interZ > 0 || interZ < -getHeight())
+            return (false);
+
     }
     return true;
 }
@@ -134,7 +169,6 @@ Vector Cone::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector normal = collide;
     normal.setZ(-normal.z() * SQR(m_tanAngle));
     normal = normal * (1.f / collide.norm());
-//    Matrice inv = m_Mat_rotation.inverseMatrix();
     normal = normal.rotationVector(m_inverse);
 
     float interZ = m_d2.z() + dist * d1.z();
