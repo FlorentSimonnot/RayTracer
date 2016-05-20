@@ -6,7 +6,7 @@
 #include "Light.hpp"
 
 Light::Light()
-        : m_position(), m_color(255, 255, 0) { }
+        : m_position(), m_color(255, 255, 255) { }
 
 Light::Light(Point const& position, Vector const& color)
         : m_position(position), m_color(color) { }
@@ -21,4 +21,8 @@ Light::operator std::string() const {
 
 Vector Light::getCenter() {
     return m_position;
+}
+
+Vector Light::getColor() {
+    return m_color;
 }

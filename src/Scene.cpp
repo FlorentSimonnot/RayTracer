@@ -19,12 +19,10 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
         Shape *s = dynamic_cast<Shape *>(o.get());
         if (s != nullptr) {
             m_shapes.emplace_back(s);
-
         } else {
             Camera *c = dynamic_cast<Camera *>(o.get());
             if (c != nullptr) {
                 m_camera = c;
-
             } else {
                 Light *l = dynamic_cast<Light *>(o.get());
                 if (l != nullptr) {
@@ -37,6 +35,7 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
 
     if (!m_camera) {
         std::cerr << "Warning: no camera has been set." << std::endl;
+        exit(1);
     }
 }
 

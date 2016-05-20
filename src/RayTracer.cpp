@@ -22,10 +22,9 @@ RayTracer::RayTracer(int nbRayon)
 RayTracer::~RayTracer() { }
 
 void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
-//    Camera camera = scene.getCamera();
+    Camera camera = scene.getCamera();
 //    scene.test();
 //	(void)ppme;
-	Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -85,9 +84,8 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 }
 
 void RayTracer::draw(Scene const& scene) {
-//    Camera camera = scene.getCamera();
+    Camera camera = scene.getCamera();
 //    scene.test();
-    Camera camera = Camera(50, Point(-5, 0, 0), Vector(1, 0, 0));
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -163,6 +161,8 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
         caracteristics.setColor(shape->getColor());
 
         float facteur = 0;
+        Vector colorTmp1 (0, 0, 0);
+        Vector colorTmp2 (0, 0, 0);
 
 
         /// TEST UNIQUEMENT ////
@@ -178,10 +178,13 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
         for (auto const& l:scene.getLights()) {
             Vector tempo = l->getCenter() - caracteristics.pointIntersection();
             tempo *= 1. / tempo.norm();
-            facteur += fmaxf(caracteristics.normal().produitScalaire(tempo), 0);
+            facteur = fmaxf(caracteristics.normal().produitScalaire(tempo), 0);
+            colorTmp1 = facteur * caracteristics.color();
+            colorTmp1 = Vector(fminf(colorTmp1.x(), l->getColor().x()), fminf(colorTmp1.y(), l->getColor().y()), fminf(colorTmp1.z(), l->getColor().z()));
+            colorTmp2 += colorTmp1;
         }
-        facteur = (float) ((0.8 * facteur) / (float) scene.getLights().size() + 0.2);
-        color += facteur * caracteristics.color();
+        colorTmp2 *= 1 / scene.getLights().size();
+        color += 0.2 * caracteristics.color() + 0.8 * colorTmp2;
 
 
 

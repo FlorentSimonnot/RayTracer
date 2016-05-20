@@ -22,6 +22,7 @@ public:
     operator std::string() const;
 //    Vector computColor(const Ray& ray, float dist);
     Vector getCenter();
+    Vector getColor();
 };
 
 

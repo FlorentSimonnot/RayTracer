@@ -94,7 +94,6 @@ int main(int argc, char *argv[]) {
 
 	std::unique_ptr<Object> object;
 
-	object.reset(new Light(Vector(-5, 0, 0), Vector(0, 0, 0)));
 	objects.emplace_back(std::move(object));
 
 //	object.reset(new Light(Vector(0,0,3),Vector(0,0,0)));
