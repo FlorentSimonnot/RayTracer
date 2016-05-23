@@ -65,7 +65,7 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
                 Ray ray(p, directionTempo);
 
-                computColor(ray, color, scene, camera.depth());
+                color += computColor(ray, scene, camera.depth());
 
 //                float dist;
 //                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
@@ -126,7 +126,7 @@ void RayTracer::draw(Scene const& scene) {
 
                 Ray ray(p, directionTempo);
 
-                computColor(ray, color, scene, camera.depth());
+                color += computColor(ray, scene, camera.depth());
 
 //                float dist;
 //                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
@@ -150,8 +150,9 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
                   (float) round(colors.z() * divide));
 }
 
-void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, float cameraDepth) {
+Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDepth) {
     float dist;
+    Vector color (0, 0, 0);
 
     Shape const *shape = scene.getFirstCollision(ray, cameraDepth, dist);
     if (shape) {
@@ -160,10 +161,10 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
         caracteristics.setNormal(shape->getNormalFromPoint(ray, dist));
         caracteristics.setColor(shape->getColor());
 
-        float facteur = 0;
-        Vector colorTmp1 (0, 0, 0);
-        Vector colorTmp2 (0, 0, 0);
-
+        float facteur, scalaire;
+        Vector refl = ray.getDirection() - 2 * caracteristics.normal().produitScalaire(ray.getDirection()) * caracteristics.normal();
+        Vector ambient, diffuse, specular;
+        int nbSpot = scene.getLights().size();
 
         /// TEST UNIQUEMENT ////
 //        Light light(Point(-5, 0, 0), Vector(0, 0, 0));
@@ -173,20 +174,32 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
 //        facteur = (float) ((0.8 * facteur) / (float) 1.f + 0.2);
 //        color += facteur * caracteristics.color();
 
+        ambient = 0.2 * caracteristics.color();
+        color += ambient;
         ////////FIN TEST UNIQUEMENT ///////////////
         // TODO BON CODE
         for (auto const& l:scene.getLights()) {
-            Vector tempo = l->getCenter() - caracteristics.pointIntersection();
-            tempo *= 1. / tempo.norm();
-            facteur = fmaxf(caracteristics.normal().produitScalaire(tempo), 0);
-            colorTmp1 = facteur * caracteristics.color();
-            colorTmp1 = Vector(fminf(colorTmp1.x(), l->getColor().x()), fminf(colorTmp1.y(), l->getColor().y()), fminf(colorTmp1.z(), l->getColor().z()));
-            colorTmp2 += colorTmp1;
+            Vector lightDir = l->getCenter() - caracteristics.pointIntersection();
+            lightDir *= 1 / lightDir.norm();
+            scalaire = caracteristics.normal().produitScalaire(lightDir);
+            if (scalaire > 0) {
+                facteur = 0.8 / nbSpot;
+                diffuse = scalaire * caracteristics.color();
+                diffuse.setX(fminf(diffuse.x(), l->getColor().x()));
+                diffuse.setY(fminf(diffuse.y(), l->getColor().y()));
+                diffuse.setZ(fminf(diffuse.z(), l->getColor().z()));
+                color += facteur * diffuse;
+                scalaire = refl.produitScalaire(lightDir);
+                if (scalaire > 0) {
+                    facteur = 0.2 * pow(scalaire, 50);
+                    specular = facteur * l->getColor();
+                    color += specular;
+                }
+            }
         }
-        colorTmp2 *= 1 / scene.getLights().size();
-        color += 0.2 * caracteristics.color() + 0.8 * colorTmp2;
-
-
+        color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
+        color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
+        color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
 
 //        color = scene.computColor(, caracteristics);
 //        if (level < m_nbReflexions) {
@@ -204,4 +217,5 @@ void RayTracer::computColor(Ray const& ray, Vector& color, Scene const& scene, f
 //            color += color_sec.crossProduct(caracteristics.m_reflect);
 //        }
     }
+    return (color);
 }

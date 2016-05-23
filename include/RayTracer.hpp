@@ -28,7 +28,7 @@ public:
 
     Vector moyenneColor(Vector const &colors) const;
 
-    void computColor(Ray const& ray, Vector& color,Scene const& scene,float cameraDepth);
+    Vector computColor(Ray const& ray, Scene const& scene, float cameraDepth);
 };
 
 
