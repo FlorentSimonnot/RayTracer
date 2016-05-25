@@ -164,7 +164,6 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
         float facteur, scalaire;
         Vector refl = ray.getDirection() - 2 * caracteristics.normal().produitScalaire(ray.getDirection()) * caracteristics.normal();
         Vector ambient, diffuse, specular;
-        int nbSpot = scene.getLights().size();
 
         /// TEST UNIQUEMENT ////
 //        Light light(Point(-5, 0, 0), Vector(0, 0, 0));
@@ -176,24 +175,26 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
 
         ambient = 0.2 * caracteristics.color();
         color += ambient;
-        ////////FIN TEST UNIQUEMENT ///////////////
-        // TODO BON CODE
+
         for (auto const& l:scene.getLights()) {
             Vector lightDir = l->getCenter() - caracteristics.pointIntersection();
-            lightDir *= 1 / lightDir.norm();
-            scalaire = caracteristics.normal().produitScalaire(lightDir);
-            if (scalaire > 0) {
-                facteur = 0.8 / nbSpot;
-                diffuse = scalaire * caracteristics.color();
-                diffuse.setX(fminf(diffuse.x(), l->getColor().x()));
-                diffuse.setY(fminf(diffuse.y(), l->getColor().y()));
-                diffuse.setZ(fminf(diffuse.z(), l->getColor().z()));
-                color += facteur * diffuse;
-                scalaire = refl.produitScalaire(lightDir);
+            float lightNorm = lightDir.norm();
+            lightDir *= 1 / lightNorm;
+            Ray lightRay = Ray(caracteristics.pointIntersection(), lightDir);
+            if (!scene.getShadowCollision(lightRay, lightNorm)) {
+                scalaire = caracteristics.normal().produitScalaire(lightDir);
                 if (scalaire > 0) {
-                    facteur = 0.2 * pow(scalaire, 50);
-                    specular = facteur * l->getColor();
-                    color += specular;
+                    diffuse = scalaire * caracteristics.color();
+                    diffuse.setX(fminf(diffuse.x(), l->getColor().x()));
+                    diffuse.setY(fminf(diffuse.y(), l->getColor().y()));
+                    diffuse.setZ(fminf(diffuse.z(), l->getColor().z()));
+                    color += 0.8 * diffuse;
+                    scalaire = refl.produitScalaire(lightDir);
+                    if (scalaire > 0) {
+                        facteur = 0.2 * pow(scalaire, 50);
+                        specular = facteur * l->getColor();
+                        color += specular;
+                    }
                 }
             }
         }

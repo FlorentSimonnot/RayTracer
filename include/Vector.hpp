@@ -36,7 +36,7 @@ public:
     Vector& operator-=(Vector const& o);
     Vector& operator*=(Vector const& o);
     Vector& operator*=(float f);
-    Vector& operator-();
+    Vector operator-();
 
     bool operator==(Vector const& o) const;
     bool operator!=(Vector const &o) const;

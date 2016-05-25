@@ -54,6 +54,10 @@ bool Triangle::intersect(const Ray& ray, float& dist) {
     return false;
 }
 
+bool Triangle::intersect_shadow(const Ray& ray, float& dist) {
+    return intersect(ray, dist);
+}
+
 void Triangle::calculBoundingVolume() {
     float A = m_p1.distance(m_p2);
     float B = m_p2.distance(m_p3);

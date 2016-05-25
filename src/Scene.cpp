@@ -43,21 +43,32 @@ Scene::~Scene() {
 }
 
 Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHit) const {
-    float min_dist = std::numeric_limits<float>::max(), dist;
+    float min_dist = depth, dist;
     Shape const *shape = nullptr;
 
     for (auto const& s: m_shapes) {
         if (s->intersect(ray, dist)) {
-            if ((!shape || (min_dist > dist && (dist > std::numeric_limits<float>::epsilon())))
-                && dist <= depth) {
+            if (dist < min_dist && dist > 0.0001) {
                 min_dist = dist;
                 distHit = min_dist;
                 shape = s;
             }
         }
     }
-
     return shape;
+}
+
+bool Scene::getShadowCollision(Ray const& ray, float depth) const {
+    float dist;
+
+    for (auto const& s: m_shapes) {
+        if (s->intersect_shadow(ray, dist)) {
+            if (dist < depth && dist > 0.0001) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 std::vector<Shape *> const& Scene::getShapes() const {

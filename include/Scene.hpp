@@ -33,6 +33,7 @@ public:
 	Scene& operator=(Scene const& s);
 
     Shape const *getFirstCollision(Ray const& ray, float depth,float &distHit) const;
+    bool getShadowCollision(Ray const& ray, float depth) const;
 
 //    Vector computColor(Point const& p,MaterialPoint &caracteristics) const;
 

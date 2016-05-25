@@ -28,6 +28,7 @@ public:
     operator std::string() const;
 
     bool intersect(const Ray& ray, float& dist);
+    bool intersect_shadow(const Ray& ray, float& dist);
 
     float getRadius() const ;
 

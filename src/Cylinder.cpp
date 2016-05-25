@@ -118,29 +118,6 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
             return false;
         }
     }
-
-/*    if (t1 < std::numeric_limits<float>::epsilon()) {
-        return false;
-    }
-    else if (t2 < std::numeric_limits<float>::epsilon()) {
-        dist = t1;
-    }
-    else {
-        dist = t2;
-    }
-
-    float interZ = m_d2Z + dist * d1Z;
-    if (interZ > getHeight() || interZ < 0) {
-        Triangle triangles[] = {m_f1p1, m_f1p2, m_f2p1, m_f2p2};
-        for (Triangle t:triangles) {
-            if (t.intersect(ray, dist)) {
-                if (dist > t2 && dist < t1) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }*/
     return true;
 }
 
@@ -177,6 +154,78 @@ void Cylinder::precalcul() {
     m_f1p2 = Triangle(p0, p3, p2, m_color);
     m_f2p1 = Triangle(p4, p5, p6, m_color);
     m_f2p2 = Triangle(p4, p6, p7, m_color);
+}
+
+bool Cylinder::intersect_shadow(const Ray& ray, float& dist) {
+
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
+    float d1Z = d1.z();
+    float d2Z = d2.z();
+    d1.setZ(0);
+    d2.setZ(0);
+    float alpha = d1.produitScalaire(d1);
+    float beta = 2 * d1.produitScalaire(d2);
+    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+
+    float delta = (beta * beta - 4 * alpha * gamma);
+
+    if (delta < 0) {
+        dist = std::numeric_limits<float>::max();
+        return false;
+    }
+    float sqr = (float) sqrt(delta);
+    float alpha2 = 2 * alpha;
+
+    float t1 = (-beta + sqr) / alpha2;
+    float t2 = (-beta - sqr) / alpha2;
+
+    if (t1 < std::numeric_limits<float>::epsilon()) {
+        return false;
+    }
+    else if (t2 < std::numeric_limits<float>::epsilon()) {
+        dist = t1;
+        float distB = std::numeric_limits<float>::infinity();
+        Triangle triangles[] = {m_f1p1, m_f1p2, m_f2p1, m_f2p2};
+        for (Triangle t:triangles) {
+            float distTmp;
+            if (t.intersect(ray, distTmp)) {
+                if (distTmp < distB) {
+                    distB = distTmp;
+                }
+            }
+        }
+        if (distB > std::numeric_limits<float>::epsilon() && distB < dist) {
+            dist = distB;
+        } else {
+            float interZ = d2Z + dist * d1Z;
+            if (interZ < 0 || interZ > getHeight()) {
+                return false;
+            }
+        }
+    }
+    else {
+        dist = t2;
+        float interZ = d2Z + dist * d1Z;
+        if (interZ > getHeight() || interZ < 0) {
+            float distB = std::numeric_limits<float>::infinity();
+            Triangle triangles[] = {m_f1p1, m_f1p2, m_f2p1, m_f2p2};
+            for (Triangle t:triangles) {
+                float distTmp;
+                if (t.intersect(ray, distTmp)) {
+                    if (distTmp < distB) {
+                        distB = distTmp;
+                    }
+                }
+            }
+            if (distB < t1 && distB > t2) {
+                dist = distB;
+                return true;
+            }
+            return false;
+        }
+    }
+    return true;
 }
 
 Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {

@@ -68,6 +68,38 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     return true;
 }
 
+bool Sphere::intersect_shadow(Ray const& ray, float& dist) {
+    Vector d1 = ray.getDirection();
+    Vector d2 = ray.getOrigin() - m_position;
+
+    float alpha = d1.produitScalaire(d1);
+    float beta = 2 * d1.produitScalaire(d2);
+    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+
+    float delta = (beta * beta - 4 * alpha * gamma);
+
+    if (delta < 0) {
+        dist = std::numeric_limits<float>::max();
+        return false;
+    }
+    float sqr = (float) sqrt(delta);
+    float alpha2 = 2 * alpha;
+
+    float t1 = (-beta + sqr) / alpha2;
+    float t2 = (-beta - sqr) / alpha2;
+
+    if (t1 < std::numeric_limits<float>::epsilon()) {
+        return false;
+    }
+    else if (t2 < std::numeric_limits<float>::epsilon()) {
+        dist = t1;
+    }
+    else {
+        dist = t2;
+    }
+    return true;
+}
+
 void Sphere::calculBoundingVolume() {
     Point center = m_position;
     float radius = getRadius();

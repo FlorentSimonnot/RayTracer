@@ -56,6 +56,10 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
     return test;
 }
 
+bool Rectangle::intersect_shadow(const Ray& ray, float& dist) {
+    return intersect(ray, dist);
+}
+
 void Rectangle::calculBoundingVolume() {
     Point center = m_position + (1.f / 2.f) * m_scale;
     float radius = m_scale.norm() / 2.f;

@@ -20,6 +20,7 @@ public:
     virtual ~Sphere();
 
     bool intersect(const Ray& ray, float& dist);
+    bool intersect_shadow(Ray const& ray, float &dist);
 
     float getRadius();
 

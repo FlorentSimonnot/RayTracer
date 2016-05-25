@@ -32,6 +32,7 @@ public:
     Vector const& getColor() const;
 
     virtual bool intersect(Ray const& ray, float& dist) = 0;
+    virtual bool intersect_shadow(Ray const& ray, float& dist) = 0;
 
     // A changer la variable color peut etre plus tard
 //    virtual void computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) = 0;

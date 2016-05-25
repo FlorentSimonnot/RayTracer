@@ -136,11 +136,8 @@ Vector Vector::rotationVector(Matrice const& rotation) const {
     return Vector(x, y, z);
 }
 
-Vector& Vector::operator-() {
-    this->m_x = -m_x;
-    this->m_y = -m_y;
-    this->m_z = -m_z;
-    return (*this);
+Vector Vector::operator-() {
+    return (Vector(-m_x, -m_y, -m_z));
 }
 
 float Vector::calculAngle(Vector const& o) const {
