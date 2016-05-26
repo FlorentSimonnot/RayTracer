@@ -5,6 +5,18 @@
 #include <math.h>
 #include "Matrice.hpp"
 
+Matrice::Matrice(void)
+        : m_ligne1(1, 0, 0),
+          m_ligne2(0, 1, 0),
+          m_ligne3(0, 0, 1) {
+}
+
+Matrice::Matrice(Matrice const &m)
+        : m_ligne1(m.m_ligne1),
+          m_ligne2(m.m_ligne2),
+          m_ligne3(m.m_ligne3) {
+}
+
 Matrice::~Matrice() { }
 
 Matrice::Matrice(float angle, Vector const& axe)
@@ -123,3 +135,9 @@ Vector Matrice::getLigne3() const {
     return m_ligne3;
 }
 
+std::ostream& operator<<(std::ostream& out, const Matrice& m) {
+    out << '(' << m.m_ligne1;
+    out << ", " << m.m_ligne2;
+    out << ", " << m.m_ligne3 << ')';
+    return out;
+}

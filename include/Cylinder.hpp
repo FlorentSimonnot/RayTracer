@@ -14,7 +14,6 @@ class Cylinder : public Shape {
 private:
     Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
     float m_gamma;
-    Matrice m_inverse;
 
     Triangle m_f1p1;
     Triangle m_f1p2;

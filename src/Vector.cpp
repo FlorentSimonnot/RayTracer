@@ -18,6 +18,10 @@ Vector::Vector(float x, float y, float z)
         : m_x(x), m_y(y), m_z(z) {
 }
 
+Vector::Vector(Vector const &v)
+        : m_x(v.m_x), m_y(v.m_y), m_z(v.m_z) {
+}
+
 Vector::~Vector() {
 }
 
@@ -158,3 +162,12 @@ void Vector::setY(float v) {
 void Vector::setZ(float v) {
     this->m_z = v;
 }
+
+std::ostream& operator<<(std::ostream& out, const Vector& v)
+{
+    out << '(' << v.m_x;
+    out << ", " << v.m_y;
+    out << ", " << v.m_z << ')';
+    return out;
+}
+

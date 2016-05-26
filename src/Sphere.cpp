@@ -35,14 +35,14 @@ float Sphere::getRadius() {
 }
 
 bool Sphere::intersect(Ray const& ray, float& dist) {
-    Vector d1 = ray.getDirection();
-    // TODO mettre un champs qui calcul ça direct -> optimisation temps calcul
-    // m_d2 = ray.getOrigin() - m_position
-    Vector d2 = m_d2;//ray.getOrigin() - m_position;
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = m_d2;
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
+    d1.setZ(d1.z() / m_scale.z());
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
-//    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
 
     float delta = (beta * beta - 4 * alpha * m_gamma);
 
@@ -69,12 +69,18 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
 }
 
 bool Sphere::intersect_shadow(Ray const& ray, float& dist) {
-    Vector d1 = ray.getDirection();
-    Vector d2 = ray.getOrigin() - m_position;
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
+    d1.setZ(d1.z() / m_scale.z());
+    d2.setX(d2.x() / m_scale.x());
+    d2.setY(d2.y() / m_scale.y());
+    d2.setZ(d2.z() / m_scale.z());
 
     float alpha = d1.produitScalaire(d1);
     float beta = 2 * d1.produitScalaire(d2);
-    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
+    float gamma = d2.produitScalaire(d2) - 1;
 
     float delta = (beta * beta - 4 * alpha * gamma);
 
@@ -108,14 +114,28 @@ void Sphere::calculBoundingVolume() {
 }
 
 void Sphere::precalcul() {
-    m_d2 = m_Camera_Pos - m_position;
-    m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
+    m_d2 = (m_Camera_Pos - m_position).rotationVector(m_Mat_rotation);
+    m_d2.setX(m_d2.x() / m_scale.x());
+    m_d2.setY(m_d2.y() / m_scale.y());
+    m_d2.setZ(m_d2.z() / m_scale.z());
+    m_gamma = m_d2.produitScalaire(m_d2) - 1;
 }
 
 Vector Sphere::getNormalFromPoint(const Ray& ray, float dist) const {
-    Vector collide(ray.getOrigin() + dist * ray.getDirection());
-    Vector normal = collide - m_position;
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
+    d1.setZ(d1.z() / m_scale.z());
+    d2.setX(d2.x() / m_scale.x());
+    d2.setY(d2.y() / m_scale.y());
+    d2.setZ(d2.z() / m_scale.z());
+    Vector normal = d2 + d1 * dist;
+    normal.setX(normal.x() / m_scale.x());
+    normal.setY(normal.y() / m_scale.y());
+    normal.setZ(normal.z() / m_scale.z());
     normal *= 1.f / normal.norm();
+    normal = normal.rotationVector(m_inverse);
     if (ray.getDirection().produitScalaire(normal) > 0) {
         normal = -normal;
     }

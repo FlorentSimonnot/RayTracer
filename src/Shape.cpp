@@ -8,6 +8,7 @@ Shape::Shape()
           m_scale(1.f, 1.f, 1.f),
           m_color(255, 0, 0),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_Materiau(),
           m_Camera_Pos(),
           m_boundingVolume() {
@@ -20,6 +21,7 @@ Shape::Shape(Vector const& color)
           m_scale(1.f, 1.f, 1.f),
           m_color(color),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_Materiau(),
           m_Camera_Pos(),
           m_boundingVolume() {
@@ -32,6 +34,7 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
           m_scale(scale),
           m_color(color),
           m_Mat_rotation(Vector(0, 0, 1), m_direction),
+          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_Materiau(),
           m_Camera_Pos(),
           m_boundingVolume() {
@@ -94,4 +97,12 @@ Shape& Shape::operator=(Shape const& o) {
     m_Camera_Pos = o.m_Camera_Pos;
     m_boundingVolume = o.m_boundingVolume;
     return *this;
+}
+
+std::ostream& operator<<(std::ostream& out, const Shape& s) {
+    out << '(' << s.m_position;
+    out << ", " << s.m_direction;
+    out << ", " << s.m_scale;
+    out << ", " << s.m_color << ')';
+    return out;
 }

@@ -14,7 +14,6 @@ Cone::Cone()
           m_d2(),
           m_gamma(),
           m_tanAngle(),
-          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_p1(),
           m_p2() {
 }
@@ -24,7 +23,6 @@ Cone::Cone(Vector const& position, Vector const& direction, Vector const& scale,
           m_d2(),
           m_gamma(),
           m_tanAngle(),
-          m_inverse(m_Mat_rotation.inverseMatrix()),
           m_p1(),
           m_p2() {
 

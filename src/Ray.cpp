@@ -30,3 +30,7 @@ Vector Ray::getDirection() const {
     return direction;
 }
 
+std::ostream& operator<<(std::ostream& out, const Ray& r) {
+	out << '(' << r.origin << ", " << r.direction << ')';
+	return out;
+}

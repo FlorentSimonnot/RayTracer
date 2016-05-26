@@ -2,8 +2,6 @@
 // Created by Narex on 05/05/2016.
 //
 
-
-
 #include <limits>
 #include <Shape.hpp>
 #include <iostream>
@@ -16,20 +14,12 @@ Scene::Scene(std::vector<std::unique_ptr<Object>>& objects)
           m_lights(),
           m_camera(nullptr) {
     for (auto& o: m_objects) {
-        Shape *s = dynamic_cast<Shape *>(o.get());
-        if (s != nullptr) {
+        if (Shape *s = dynamic_cast<Shape *>(o.get())) {
             m_shapes.emplace_back(s);
-        } else {
-            Camera *c = dynamic_cast<Camera *>(o.get());
-            if (c != nullptr) {
-                m_camera = c;
-            } else {
-                Light *l = dynamic_cast<Light *>(o.get());
-                if (l != nullptr) {
-                    m_lights.emplace_back(l);
-                }
-
-            }
+        } else if (Camera *c = dynamic_cast<Camera *>(o.get())) {
+            m_camera = c;
+        } else if (Light *l = dynamic_cast<Light *>(o.get())) {
+            m_lights.emplace_back(l);
         }
     }
 
@@ -43,16 +33,14 @@ Scene::~Scene() {
 }
 
 Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHit) const {
-    float min_dist = depth, dist;
+    float dist;
     Shape const *shape = nullptr;
 
+    distHit = depth;
     for (auto const& s: m_shapes) {
-        if (s->intersect(ray, dist)) {
-            if (dist < min_dist && dist > 0.0001) {
-                min_dist = dist;
-                distHit = min_dist;
-                shape = s;
-            }
+        if (s->intersect(ray, dist) && dist < distHit && dist > 0.0001) {
+            distHit = dist;
+            shape = s;
         }
     }
     return shape;
@@ -62,10 +50,8 @@ bool Scene::getShadowCollision(Ray const& ray, float depth) const {
     float dist;
 
     for (auto const& s: m_shapes) {
-        if (s->intersect_shadow(ray, dist)) {
-            if (dist < depth && dist > 0.0001) {
-                return true;
-            }
+        if (s->intersect_shadow(ray, dist) && dist < depth && dist > 0.0001) {
+            return true;
         }
     }
     return false;
@@ -80,7 +66,6 @@ std::vector<Light *> const& Scene::getLights() const {
 }
 
 void Scene::test() const {
-
     for (auto const& o: m_objects) {
         std::cout << std::string(*o) << std::endl;
     }

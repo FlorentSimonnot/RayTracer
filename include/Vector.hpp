@@ -16,6 +16,7 @@ private:
 public:
     Vector();
     Vector(float x, float y, float z);
+    Vector(Vector const &v);
     virtual ~Vector();
 
     float x() const;
@@ -53,6 +54,8 @@ public:
     void setX(float v);
     void setY(float v);
     void setZ(float v);
+
+    friend std::ostream& operator<<(std::ostream& out, const Vector& v);
 };
 
 Vector operator*(float f, Vector const& v);

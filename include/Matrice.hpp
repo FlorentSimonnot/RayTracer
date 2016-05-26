@@ -5,6 +5,7 @@
 #ifndef SYNTHESE_IMAGE_MATRICE_HPP
 #define SYNTHESE_IMAGE_MATRICE_HPP
 
+#include <ostream>
 #include "Vector.hpp"
 
 class Matrice {
@@ -13,21 +14,20 @@ private:
     Matrice(Vector const& v1, Vector const& v2,Vector const& v3);
 public:
 
+    Matrice();
     Matrice(float angle, Vector const& axe);
-
     Matrice(Vector const& v1, Vector const& v2);
+    Matrice(Matrice const &m);
 
     ~Matrice();
 
     Matrice inverseMatrix() const;
 
     Vector getLigne1() const;
-
     Vector getLigne2() const;
-
     Vector getLigne3() const;
 
-
+    friend std::ostream& operator<<(std::ostream& out, const Matrice& m);
 };
 
 

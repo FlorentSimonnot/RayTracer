@@ -5,6 +5,7 @@
 #ifndef PROJECT_RAY_HPP
 #define PROJECT_RAY_HPP
 
+#include <ostream>
 #include "Point.hpp"
 
 class Ray {
@@ -24,6 +25,8 @@ public:
     Point getOrigin() const;
 
     Vector getDirection() const;
+
+    friend std::ostream& operator<<(std::ostream& out, const Ray& r);
 };
 
 
