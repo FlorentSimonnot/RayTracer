@@ -40,7 +40,7 @@ float Cylinder::getRadius() const {
 }
 
 float Cylinder::getHeight() const {
-    return m_scale.y();
+    return m_scale.z();
 }
 
 Cylinder::operator std::string() const {
@@ -50,13 +50,14 @@ Cylinder::operator std::string() const {
 bool Cylinder::intersect(const Ray& ray, float& dist) {
 
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
 //    m_d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
     float d1Z = d1.z();
-    Vector d2 = m_d2;
     d1.setZ(0);
 //    d2.setZ(0);
     float alpha = d1.produitScalaire(d1);
-    float beta = 2 * d1.produitScalaire(d2);
+    float beta = 2 * d1.produitScalaire(m_d2);
 //    float gamma = d2.produitScalaire(d2) - getRadius() * getRadius();
 
     float delta = (beta * beta - 4 * alpha * m_gamma);
@@ -130,11 +131,14 @@ void Cylinder::precalcul() {
     m_d2 = (m_Camera_Pos - m_position).rotationVector(m_Mat_rotation);
     m_d2Z = m_d2.z();
     m_d2.setZ(0);
-    m_gamma = m_d2.produitScalaire(m_d2) - getRadius() * getRadius();
+    m_d2.setX(m_d2.x() / m_scale.x());
+    m_d2.setY(m_d2.y() / m_scale.y());
+
+    m_gamma = m_d2.produitScalaire(m_d2) - 1;
 
 //    Matrice tmp = m_Mat_rotation.inverseMatrix();
-    Vector v1 = Vector(1, 0, 0).rotationVector(m_inverse) * getRadius() * 2;
-    Vector v2 = Vector(0, 1, 0).rotationVector(m_inverse) * getRadius() * 2;
+    Vector v1 = Vector(1, 0, 0).rotationVector(m_inverse) * m_scale.x() * 2;
+    Vector v2 = Vector(0, 1, 0).rotationVector(m_inverse) * m_scale.y() * 2;
 
     Point pos_up = m_position + getHeight() * m_direction;
 
@@ -160,6 +164,10 @@ bool Cylinder::intersect_shadow(const Ray& ray, float& dist) {
     Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
     float d1Z = d1.z();
     float d2Z = d2.z();
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
+    d2.setX(d2.x() / m_scale.x());
+    d2.setY(d2.y() / m_scale.y());
     d1.setZ(0);
     d2.setZ(0);
     float alpha = d1.produitScalaire(d1);
@@ -230,8 +238,12 @@ Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
     float d1Z = d1.z();
     d1.setZ(0);
-    Vector collide(m_d2 + d1 * dist);
-    Vector normal = collide * (1.f / collide.norm());
+    d1.setX(d1.x() / m_scale.x());
+    d1.setY(d1.y() / m_scale.y());
+    Vector normal = m_d2 + d1 * dist;
+    normal.setX(normal.x() / m_scale.x());
+    normal.setY(normal.y() / m_scale.y());
+    normal *= 1.f / normal.norm();
 //    Matrice inv = m_Mat_rotation.inverseMatrix();
     normal = normal.rotationVector(m_inverse);
 

@@ -123,14 +123,10 @@ void Sphere::precalcul() {
 
 Vector Sphere::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
-    Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
     d1.setX(d1.x() / m_scale.x());
     d1.setY(d1.y() / m_scale.y());
     d1.setZ(d1.z() / m_scale.z());
-    d2.setX(d2.x() / m_scale.x());
-    d2.setY(d2.y() / m_scale.y());
-    d2.setZ(d2.z() / m_scale.z());
-    Vector normal = d2 + d1 * dist;
+    Vector normal = m_d2 + d1 * dist;
     normal.setX(normal.x() / m_scale.x());
     normal.setY(normal.y() / m_scale.y());
     normal.setZ(normal.z() / m_scale.z());
