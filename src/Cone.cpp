@@ -13,16 +13,18 @@ Cone::Cone()
         : Shape(),
           m_d2(),
           m_gamma(),
-          m_tanAngle(),
+          m_tanX(),
+          m_tanY(),
           m_p1(),
           m_p2() {
 }
 
-Cone::Cone(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
-        : Shape(position, direction, scale, color),
+Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color)
+        : Shape(position, direction, m_scale, color),
           m_d2(),
           m_gamma(),
-          m_tanAngle(),
+          m_tanX(),
+          m_tanY(),
           m_p1(),
           m_p2() {
 
@@ -36,18 +38,20 @@ float Cone::getRadius() const {
 }
 
 float Cone::getHeight() const {
-    return m_scale.y();
+    return m_scale.z();
 }
 
 Cone::operator std::string() const {
-    return "cylinder => " + Shape::operator std::string();
+    return "cone => " + Shape::operator std::string();
 }
 
 bool Cone::intersect(const Ray& ray, float& dist) {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    d1.setX(d1.x() / m_tanX);
+    d1.setY(d1.y() / m_tanY);
     Vector d2 = m_d2;
-    float alpha = SQR(d1.x()) + SQR(d1.y()) - SQR(d1.z() * m_tanAngle);
-    float beta = 2 * (d1.x() * d2.x() + d1.y() * d2.y() - SQR(m_tanAngle) * d1.z() * d2.z());
+    float alpha = SQR(d1.x()) + SQR(d1.y()) - SQR(d1.z());
+    float beta = 2 * (d1.x() * d2.x() + d1.y() * d2.y() - d1.z() * d2.z());
 
     float delta = (beta * beta - 4 * alpha * m_gamma);
 
@@ -129,22 +133,30 @@ bool Cone::intersect(const Ray& ray, float& dist) {
                 return true;
             }
             dist = t1;
+            float interZ = d2.z() + dist * d1.z();
+            if (interZ > 0 || interZ < -getHeight()) {
+                dist = t2;
+            }
+
         }
-
         float interZ = d2.z() + dist * d1.z();
-        if (interZ > 0 || interZ < -getHeight())
-            return (false);
-
+        if (interZ > 0 || interZ < -getHeight()) {
+            return false;
+        }
     }
     return true;
 }
 
 bool Cone::intersect_shadow(const Ray& ray, float& dist) {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    d1.setX(d1.x() / m_tanX);
+    d1.setY(d1.y() / m_tanY);
     Vector d2 = (ray.getOrigin() - m_position).rotationVector(m_Mat_rotation);
-    float alpha = SQR(d1.x()) + SQR(d1.y()) - SQR(d1.z() * m_tanAngle);
-    float beta = 2 * (d1.x() * d2.x() + d1.y() * d2.y() - SQR(m_tanAngle) * d1.z() * d2.z());
-    float gamma = SQR(d2.x()) + SQR(d2.y()) - SQR(d2.z() * m_tanAngle);
+    d2.setX(d2.x() / m_tanX);
+    d2.setY(d2.y() / m_tanY);
+    float alpha = SQR(d1.x()) + SQR(d1.y()) - SQR(d1.z());
+    float beta = 2 * (d1.x() * d2.x() + d1.y() * d2.y() - d1.z() * d2.z());
+    float gamma = SQR(d2.x()) + SQR(d2.y()) - SQR(d2.z());
 
     float delta = (beta * beta - 4 * alpha * gamma);
 
@@ -226,6 +238,10 @@ bool Cone::intersect_shadow(const Ray& ray, float& dist) {
                 return true;
             }
             dist = t1;
+            float interZ = d2.z() + dist * d1.z();
+            if (interZ > 0 || interZ < -getHeight()) {
+                dist = t2;
+            }
         }
 
         float interZ = d2.z() + dist * d1.z();
@@ -241,14 +257,17 @@ void Cone::calculBoundingVolume() {
 }
 
 void Cone::precalcul() {
-    m_tanAngle = getRadius() / getHeight();
+    m_tanX = m_scale.x() / m_scale.z();
+    m_tanY = m_scale.y() / m_scale.z();
     m_d2 = (m_Camera_Pos - m_position).rotationVector(m_Mat_rotation);
-    m_gamma = SQR(m_d2.x()) + SQR(m_d2.y()) - SQR(m_d2.z() * m_tanAngle);
+    m_d2.setX(m_d2.x() / m_tanX);
+    m_d2.setY(m_d2.y() / m_tanY);
+    m_gamma = SQR(m_d2.x()) + SQR(m_d2.y()) - SQR(m_d2.z());
 
-    Vector v1 = Vector(1, 0, 0).rotationVector(m_inverse) * getRadius() * 2;
-    Vector v2 = Vector(0, 1, 0).rotationVector(m_inverse) * getRadius() * 2;
+    Vector v1 = Vector(1, 0, 0).rotationVector(m_inverse) * m_scale.x() * 2;
+    Vector v2 = Vector(0, 1, 0).rotationVector(m_inverse) * m_scale.y() * 2;
 
-    Point pos_down = m_position - getHeight() * m_direction;
+    Point pos_down = m_position - m_scale.z() * m_direction;
 
     Point p0 = pos_down + v1 ;
     Point p1 = pos_down + v2;
@@ -261,10 +280,13 @@ void Cone::precalcul() {
 
 Vector Cone::getNormalFromPoint(const Ray& ray, float dist) const {
     Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
-    Vector collide(m_d2 + d1 * dist);
-    Vector normal = collide;
-    normal.setZ(-normal.z() * SQR(m_tanAngle));
-    normal = normal * (1.f / collide.norm());
+    d1.setX(d1.x() / m_tanX);
+    d1.setY(d1.y() / m_tanY);
+    Vector normal = m_d2 + d1 * dist;
+    normal.setX(normal.x() / m_tanX);
+    normal.setY(normal.y() / m_tanY);
+    normal.setZ(-normal.z());
+    normal = normal * (1.f / normal.norm());
     normal = normal.rotationVector(m_inverse);
 
     float interZ = m_d2.z() + dist * d1.z();

@@ -14,7 +14,8 @@ class Cone : public Shape {
 private:
     Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante
     float m_gamma;
-    float m_tanAngle;
+    float m_tanX;
+    float m_tanY;
 
     Triangle m_p1;
     Triangle m_p2;
