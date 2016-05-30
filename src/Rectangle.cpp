@@ -43,16 +43,17 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
 
 
     Triangle triangles[] = {m_t1, m_t2, m_t3, m_t4, m_t5, m_t6, m_t7, m_t8, m_t9, m_t10, m_t11, m_t12};
+    float tmp_dist1, tmp_dist2 = std::numeric_limits<float>::infinity();
     bool test = false;
-    float tmp_dist;
     for (Triangle t:triangles) {
-        if (t.intersect(ray, tmp_dist)) {
-            test = true;
-            if (dist > tmp_dist && tmp_dist >= std::numeric_limits<float>::epsilon()) {
-                dist = tmp_dist;
+        if (t.intersect(ray, tmp_dist1)) {
+            if (tmp_dist2 > tmp_dist1 && tmp_dist1 >= std::numeric_limits<float>::epsilon()) {
+                test = true;
+                tmp_dist2 = tmp_dist1;
             }
         }
     }
+    dist = tmp_dist2;
     return test;
 }
 
@@ -68,15 +69,21 @@ void Rectangle::calculBoundingVolume() {
 }
 
 void Rectangle::precalcul() {
-    m_p0 = m_position;
-    m_p1 = Point(m_position.x() + m_scale.x(), m_position.y(), m_position.z());
-    m_p2 = Point(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z());
-    m_p3 = Point(m_position.x(), m_position.y() + m_scale.y(), m_position.z());
+    Vector vX, vY, vZ;
 
-    m_p4 = Point(m_position.x(), m_position.y(), m_position.z() + m_scale.z());
-    m_p5 = Point(m_position.x() + m_scale.x(), m_position.y(), m_position.z() + m_scale.z());
-    m_p6 = Point(m_position.x() + m_scale.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
-    m_p7 = Point(m_position.x(), m_position.y() + m_scale.y(), m_position.z() + m_scale.z());
+    vX = Vector(1, 0, 0).rotationVector(m_inverse) * m_scale.x();
+    vY = Vector(0, 1, 0).rotationVector(m_inverse) * m_scale.y();
+    vZ = Vector(0, 0, 1).rotationVector(m_inverse) * m_scale.z();
+
+    m_p0 = m_position;
+    m_p1 = m_position + vX;
+    m_p2 = m_position + vX + vY;
+    m_p3 = m_position + vY;
+
+    m_p4 = m_position + vZ;
+    m_p5 = m_position + vX + vZ;
+    m_p6 = m_position + vX + vY + vZ;
+    m_p7 = m_position + vY + vZ;
 
     m_t1 = Triangle(m_p0, m_p1, m_p2, m_color);
     m_t2 = Triangle(m_p0, m_p2, m_p3, m_color);
@@ -98,28 +105,30 @@ void Rectangle::precalcul() {
 }
 
 Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
-    Vector collide(ray.getOrigin() + dist * ray.getDirection());
+    Vector normal (0, 0, 0);
+    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
+    Vector d2 = ray.getOrigin().rotationVector(m_Mat_rotation);
+    Vector collide = d2 + dist * d1;
     Vector tmp = collide - m_position;
-    Vector normal(0, 0, 0);
 
     float eps = 0.00001;
     if (tmp.x() <= eps && tmp.x() >= -eps) {
-        normal = Vector(-1, 0, 0);
+        normal = Vector(-1, 0, 0).rotationVector(m_inverse);
     }
     else if (tmp.x() <= m_scale.x() + eps && tmp.x() >= m_scale.x() - eps) {
-        normal = Vector(1, 0, 0);
+        normal = Vector(1, 0, 0).rotationVector(m_inverse);
     }
     else if (tmp.y() <= eps && tmp.y() >= -eps) {
-        normal = Vector(0, -1, 0);
+        normal = Vector(0, -1, 0).rotationVector(m_inverse);
     }
     else if (tmp.y() <= m_scale.y() + eps && tmp.y() >= m_scale.y() - eps) {
-        normal = Vector(0, 1, 0);
+        normal = Vector(0, 1, 0).rotationVector(m_inverse);
     }
     else if (tmp.z() <= eps && tmp.z() >= -eps) {
-        normal = Vector(0, 0, -1);
+        normal = Vector(0, 0, -1).rotationVector(m_inverse);
     }
     else if (tmp.z() <= m_scale.z() + eps && tmp.z() >= m_scale.z() - eps) {
-        normal = Vector(0, 0, 1);
+        normal = Vector(0, 0, 1).rotationVector(m_inverse);
     }
     if (ray.getDirection().produitScalaire(normal) > 0) {
         normal = -normal;
