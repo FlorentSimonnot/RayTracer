@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SHAPE_HPP
+#define SHAPE_HPP
 
 #include <ostream>
 #include "Object.hpp"
@@ -54,3 +55,5 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const Shape& s);
 };
+
+#endif //SHAPE_HPP

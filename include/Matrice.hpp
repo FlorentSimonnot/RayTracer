@@ -27,6 +27,9 @@ public:
     Vector getLigne2() const;
     Vector getLigne3() const;
 
+    Matrice& operator=(Matrice const& mat);
+    Matrice operator*(Matrice const& mat) const;
+
     friend std::ostream& operator<<(std::ostream& out, const Matrice& m);
 };
 

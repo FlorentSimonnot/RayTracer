@@ -118,7 +118,6 @@ Matrice Matrice::inverseMatrix() const {
 
     );
 
-
     return Matrice(v1, v2, v3);
 }
 
@@ -141,3 +140,68 @@ std::ostream& operator<<(std::ostream& out, const Matrice& m) {
     out << ", " << m.m_ligne3 << ')';
     return out;
 }
+
+Matrice& Matrice::operator=(Matrice const& mat) {
+    this->m_ligne1 = mat.m_ligne1;
+    this->m_ligne2 = mat.m_ligne2;
+    this->m_ligne3 = mat.m_ligne3;
+    return *this;
+}
+
+Matrice Matrice::operator*(Matrice const& mat) const {
+    Vector v1(this->m_ligne1.x() * mat.m_ligne1.x()
+            + this->m_ligne1.y() * mat.m_ligne2.x()
+            + this->m_ligne1.z() * mat.m_ligne3.x(),
+              this->m_ligne1.x() * mat.m_ligne1.y()
+            + this->m_ligne1.y() * mat.m_ligne2.y()
+            + this->m_ligne1.z() * mat.m_ligne3.y(),
+              this->m_ligne1.x() * mat.m_ligne1.z()
+            + this->m_ligne1.y() * mat.m_ligne2.z()
+            + this->m_ligne1.z() * mat.m_ligne3.z());
+    Vector v2(this->m_ligne2.x() * mat.m_ligne1.x()
+            + this->m_ligne2.y() * mat.m_ligne2.x()
+            + this->m_ligne2.z() * mat.m_ligne3.x(),
+              this->m_ligne2.x() * mat.m_ligne1.y()
+            + this->m_ligne2.y() * mat.m_ligne2.y()
+            + this->m_ligne2.z() * mat.m_ligne3.y(),
+              this->m_ligne2.x() * mat.m_ligne1.z()
+            + this->m_ligne2.y() * mat.m_ligne2.z()
+            + this->m_ligne2.z() * mat.m_ligne3.z());
+    Vector v3(this->m_ligne3.x() * mat.m_ligne1.x()
+            + this->m_ligne3.y() * mat.m_ligne2.x()
+            + this->m_ligne3.z() * mat.m_ligne3.x(),
+              this->m_ligne3.x() * mat.m_ligne1.y()
+            + this->m_ligne3.y() * mat.m_ligne2.y()
+            + this->m_ligne3.z() * mat.m_ligne3.y(),
+              this->m_ligne3.x() * mat.m_ligne1.z()
+            + this->m_ligne3.y() * mat.m_ligne2.z()
+            + this->m_ligne3.z() * mat.m_ligne3.z());
+
+    return Matrice(v1, v2, v3);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
