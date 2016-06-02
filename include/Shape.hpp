@@ -1,11 +1,12 @@
 #ifndef SHAPE_HPP
 #define SHAPE_HPP
 
-#include <ostream>
 #include "Object.hpp"
 #include "Vector.hpp"
 #include "Matrice.hpp"
 #include "Materiaux.hpp"
+#include "BoundingVolume.hpp"
+#include <ostream>
 
 class Ray;
 
@@ -17,7 +18,7 @@ protected:
 
     Point m_Camera_Pos;
 
-    Shape* m_boundingVolume;
+    BoundingVolume m_boundingVolume;
 public:
     Shape();
 
@@ -43,9 +44,7 @@ public:
 
     bool operator!=(Shape const& o);
 
-    Shape* getBoundingVolume() const;
-
-    virtual void calculBoundingVolume() = 0;
+    BoundingVolume getBoundingVolume() const;
 
     void setCamera_Pos(Point const& p);
 

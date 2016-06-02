@@ -11,12 +11,18 @@ Rectangle::Rectangle()
         : Shape(),
           m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
           m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
+    Point center = m_position + (1.f / 2.f) * m_scale;
+    float radius = m_scale.norm() / 2.f;
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
         : Shape(position, direction, scale, color, angle),
           m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
           m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
+    Point center = m_position + (1.f / 2.f) * m_scale;
+    float radius = m_scale.norm() / 2.f;
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Rectangle::~Rectangle() {
@@ -59,13 +65,6 @@ bool Rectangle::intersect(const Ray& ray, float& dist) {
 
 bool Rectangle::intersect_shadow(const Ray& ray, float& dist) {
     return intersect(ray, dist);
-}
-
-void Rectangle::calculBoundingVolume() {
-    Point center = m_position + (1.f / 2.f) * m_scale;
-    float radius = m_scale.norm() / 2.f;
-    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0), 0);
-    m_boundingVolume = s;
 }
 
 void Rectangle::precalcul() {

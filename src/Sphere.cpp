@@ -10,10 +10,16 @@
 
 Sphere::Sphere()
         : Shape(), m_d2(), m_gamma() {
+    Point center = m_position;
+    float radius = fmaxf(m_scale.x(), fmaxf(m_scale.y(), m_scale.z()));
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Sphere::Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
         : Shape(position, direction, scale, color, angle), m_d2(), m_gamma() {
+    Point center = m_position;
+    float radius = fmaxf(m_scale.x(), fmaxf(m_scale.y(), m_scale.z()));
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Sphere::~Sphere() {
@@ -104,13 +110,6 @@ bool Sphere::intersect_shadow(Ray const& ray, float& dist) {
         dist = t2;
     }
     return true;
-}
-
-void Sphere::calculBoundingVolume() {
-    Point center = m_position;
-    float radius = getRadius();
-    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0), 0);
-    m_boundingVolume = s;
 }
 
 void Sphere::precalcul() {

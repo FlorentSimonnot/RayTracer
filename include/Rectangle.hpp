@@ -24,8 +24,6 @@ public:
     bool intersect(Ray const& ray, float& dist);
     bool intersect_shadow(Ray const& ray, float &dist);
 
-    void calculBoundingVolume();
-
     void precalcul();
 
     Vector getNormalFromPoint(const Ray& ray, float dist) const;

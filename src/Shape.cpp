@@ -41,7 +41,6 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
 }
 
 Shape::~Shape() {
-    delete (m_boundingVolume);
 }
 
 Shape::operator std::string() const {
@@ -71,7 +70,7 @@ void Shape::setCamera_Pos(Point const& p) {
     m_Camera_Pos = p;
 }
 
-Shape *Shape::getBoundingVolume() const {
+BoundingVolume Shape::getBoundingVolume() const {
     return m_boundingVolume;
 }
 

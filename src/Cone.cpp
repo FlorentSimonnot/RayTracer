@@ -17,6 +17,59 @@ Cone::Cone()
           m_tanY(),
           m_p1(),
           m_p2() {
+    Point p1, p2, p3;
+    Vector v;
+
+    v = Vector(1, 0, 0).rotationVector(m_inverse) * fmaxf(m_scale.x(), m_scale.y());
+    p1 = m_position;
+    p2 = m_position + v;
+    p3 = m_position - v;
+
+    float A = p1.distance(p2);
+    float B = p2.distance(p3);
+    float C = p3.distance(p1);
+    float radius;
+    Point center;
+
+    Point a = p3;
+    Point b = p1;
+    Point c = p2;
+
+    if (B < C) {
+        float tmp = B;
+        B = C;
+        C = tmp;
+
+        Point ptmp = b;
+        b = c;
+        c = ptmp;
+    }
+    if (A < B) {
+        float tmp = A;
+        A = B;
+        B = tmp;
+
+        Point ptmp = a;
+        a = b;
+        b = ptmp;
+    }
+
+    // If obtuse, just use longest diameter, otherwise circumscribe
+    if ((B * B) + (C * C) <= (A * A)) {
+        radius = A / 2.f;
+        center = (b + c) * (1.f / 2.f);
+    } else {
+        // http://en.wikipedia.org/wiki/Circumscribed_circle
+        float cos_a = (B * B + C * C - A * A) / (B * C * 2);
+        radius = A / (sqrtf(1 - cos_a * cos_a) * 2.f);
+        Vector alpha = a - c,
+                beta = b - c;
+        center = (beta * alpha.produitScalaire(alpha) - alpha * beta.produitScalaire(beta))
+                         .crossProduct(alpha.crossProduct(beta))
+                 * (1.f / (alpha.crossProduct(beta).produitScalaire(alpha.crossProduct(beta)) * 2.f))
+                 + c;
+    }
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color, float angle)
@@ -27,6 +80,59 @@ Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scal
           m_tanY(),
           m_p1(),
           m_p2() {
+    Point p1, p2, p3;
+    Vector v;
+
+    v = Vector(1, 0, 0).rotationVector(m_inverse) * fmaxf(m_scale.x(), m_scale.y());
+    p1 = m_position;
+    p2 = m_position + v;
+    p3 = m_position - v;
+
+    float A = p1.distance(p2);
+    float B = p2.distance(p3);
+    float C = p3.distance(p1);
+    float radius;
+    Point center;
+
+    Point a = p3;
+    Point b = p1;
+    Point c = p2;
+
+    if (B < C) {
+        float tmp = B;
+        B = C;
+        C = tmp;
+
+        Point ptmp = b;
+        b = c;
+        c = ptmp;
+    }
+    if (A < B) {
+        float tmp = A;
+        A = B;
+        B = tmp;
+
+        Point ptmp = a;
+        a = b;
+        b = ptmp;
+    }
+
+    // If obtuse, just use longest diameter, otherwise circumscribe
+    if ((B * B) + (C * C) <= (A * A)) {
+        radius = A / 2.f;
+        center = (b + c) * (1.f / 2.f);
+    } else {
+        // http://en.wikipedia.org/wiki/Circumscribed_circle
+        float cos_a = (B * B + C * C - A * A) / (B * C * 2);
+        radius = A / (sqrtf(1 - cos_a * cos_a) * 2.f);
+        Vector alpha = a - c,
+                beta = b - c;
+        center = (beta * alpha.produitScalaire(alpha) - alpha * beta.produitScalaire(beta))
+                         .crossProduct(alpha.crossProduct(beta))
+                 * (1.f / (alpha.crossProduct(beta).produitScalaire(alpha.crossProduct(beta)) * 2.f))
+                 + c;
+    }
+    m_boundingVolume = BoundingVolume(center, radius);
 
 }
 
@@ -250,10 +356,6 @@ bool Cone::intersect_shadow(const Ray& ray, float& dist) {
 
     }
     return true;
-}
-
-
-void Cone::calculBoundingVolume() {
 }
 
 void Cone::precalcul() {

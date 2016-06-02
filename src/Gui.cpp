@@ -47,7 +47,7 @@ void Gui::render() {
     {
         SDL_WaitEvent(&event);
         if (event.type == SDL_QUIT)
-            quit = 1;
+            quit = true;
     }
 }
 

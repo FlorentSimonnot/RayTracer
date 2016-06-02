@@ -18,6 +18,9 @@ Cylinder::Cylinder()
           m_f2p1(),
           m_f2p2(),
           m_d2Z() {
+    Vector center = m_position + (1.f / 2.f) * (m_direction * getHeight());
+    float radius = sqrtf(SQR((1.f / 2.f) * (getHeight())) + SQR(fmaxf(m_scale.x(), m_scale.y())));
+    m_boundingVolume = BoundingVolume(center, radius);
 }
 
 Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
@@ -29,6 +32,9 @@ Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const
           m_f2p1(),
           m_f2p2(),
           m_d2Z() {
+    Vector center = m_position + (1.f / 2.f) * (m_direction * getHeight());
+    float radius = sqrtf(SQR((1.f / 2.f) * (getHeight())) + SQR(fmaxf(m_scale.x(), m_scale.y())));
+    m_boundingVolume = BoundingVolume(center, radius);
 
 }
 
@@ -118,13 +124,6 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
         }
     }
     return true;
-}
-
-void Cylinder::calculBoundingVolume() {
-    Vector center = m_position + (1.f / 2.f) * (m_direction * getHeight());
-    float radius = sqrtf(SQR((1.f / 2.f) * (getHeight())) + SQR(getRadius()));
-    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0), 0);
-    m_boundingVolume = s;
 }
 
 void Cylinder::precalcul() {
