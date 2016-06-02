@@ -34,8 +34,11 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
     float winHeightTemp = WINDOW_HEIGHT / 2.f;
     float winWidthTemp = WINDOW_WIDTH / 2.f;
 
-    if (m_nbRayons < 4 && m_nbRayons > 1) {
-        m_nbRayons = 1;
+    float off_x[m_nbRayons];
+    float off_y[m_nbRayons];
+    for (int k = 0; k < m_nbRayons; k++) {
+        off_x[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
+        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;        
     }
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
@@ -46,21 +49,13 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
             Vector color(0, 0, 0);
             for (int k = 0; k < m_nbRayons; k++) {
-                float off_x = 0;
-                float off_y = 0;
-                if (m_nbRayons > 3) {
-                    off_x = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-                    off_y = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-                }
-
                 camera.orientation() *= 1. / camera.orientation().norm();
                 Vector directionTempo(
                         camera.orientation()
-                                .rotationVector((angle_x + off_x) * cosf(angle_y + off_y),
+                                .rotationVector((angle_x + off_x[k]) * cosf(angle_y + off_y[k]),
                                                 camera.orientation_down())
-                                .rotationVector(angle_y + off_y,
-                                                camera.orientation_right())
-                );
+                                .rotationVector(angle_y + off_y[k],
+                                                camera.orientation_right()));
                 directionTempo *= 1. / directionTempo.norm();
 
                 Ray ray(p, directionTempo);
@@ -95,8 +90,11 @@ void RayTracer::draw(Scene const& scene) {
     float winHeightTemp = WINDOW_HEIGHT / 2.f;
     float winWidthTemp = WINDOW_WIDTH / 2.f;
 
-    if (m_nbRayons < 4 && m_nbRayons > 1) {
-        m_nbRayons = 1;
+    float off_x[m_nbRayons];
+    float off_y[m_nbRayons];
+    for (int k = 0; k < m_nbRayons; k++) {
+        off_x[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
+        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;        
     }
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
@@ -107,19 +105,12 @@ void RayTracer::draw(Scene const& scene) {
 
             Vector color(0, 0, 0);
             for (int k = 0; k < m_nbRayons; k++) {
-                float off_x = 0;
-                float off_y = 0;
-                if (m_nbRayons > 3) {
-                    off_x = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-                    off_y = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-                }
-
                 camera.orientation() *= 1. / camera.orientation().norm();
                 Vector directionTempo(
                         camera.orientation()
-                                .rotationVector((angle_x + off_x) * cosf(angle_y + off_y),
+                                .rotationVector((angle_x + off_x[k]) * cosf(angle_y + off_y[k]),
                                                 camera.orientation_down())
-                                .rotationVector(angle_y + off_y,
+                                .rotationVector(angle_y + off_y[k],
                                                 camera.orientation_right())
                 );
                 directionTempo *= 1. / directionTempo.norm();
