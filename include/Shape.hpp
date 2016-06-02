@@ -22,7 +22,7 @@ public:
     Shape();
 
     Shape(Vector const& color);
-    Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
+    Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle);
 
     Shape(Shape const& s);
     Shape& operator=(Shape const& o);

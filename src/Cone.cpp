@@ -19,8 +19,8 @@ Cone::Cone()
           m_p2() {
 }
 
-Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color)
-        : Shape(position, direction, m_scale, color),
+Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color, float angle)
+        : Shape(position, direction, m_scale, color, angle),
           m_d2(),
           m_gamma(),
           m_tanX(),

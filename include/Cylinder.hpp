@@ -23,7 +23,7 @@ private:
     float m_d2Z;
 public:
     Cylinder();
-    Cylinder(Vector const& position, Vector const& direction, Vector const& scale,Vector const& color);
+    Cylinder(Vector const& position, Vector const& direction, Vector const& scale,Vector const& color, float angle);
     virtual ~Cylinder();
 
     operator std::string() const;

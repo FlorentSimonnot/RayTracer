@@ -65,7 +65,7 @@ void ShapeGenerator::generateCylinder() {
     Vector orientation = randomVector(-1, 1, -1, 1, -1, 1);
 
 
-    Shape *s = new Cylinder(position, orientation, scale, color);
+    Shape *s = new Cylinder(position, orientation, scale, color, 0);
 
     m_shapes.emplace_back(s);
 }
@@ -76,7 +76,7 @@ void ShapeGenerator::generateRectangle() {
     Vector scale = randomVector(0.1, 2, 0.1, 2, 0.1, 2);
     Vector orientation = randomVector(-1, 1, -1, 1, -1, 1);
 
-    Shape *s = new Rectangle(position, orientation, scale, color);
+    Shape *s = new Rectangle(position, orientation, scale, color, 0);
     m_shapes.emplace_back(s);
 }
 
@@ -86,7 +86,7 @@ void ShapeGenerator::generateSphere() {
     Vector scale = randomVector(0, 2, 0, 0, 0, 0);
     Vector orientation = randomVector(-1, 1, -1, 1, -1, 1);
 
-    Shape *s = new Sphere(position, orientation, scale, color);
+    Shape *s = new Sphere(position, orientation, scale, color, 0);
     m_shapes.emplace_back(s);
 }
 

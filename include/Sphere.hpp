@@ -15,7 +15,7 @@ private:
 public:
     Sphere();
 
-    Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
+    Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle);
 
     virtual ~Sphere();
 

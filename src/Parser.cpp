@@ -166,8 +166,9 @@ bool isBlank(char c) {
 
 bool parseSphere(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
 	Vector position, rotation, scale, color;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
-		object.reset(new Sphere(position, rotation, scale, color));
+	float angle;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color) && parseScalar(content, pos, angle)) {
+		object.reset(new Sphere(position, rotation, scale, color, angle * 0.0175));
 		return true;
 	}
 
@@ -187,8 +188,9 @@ bool parseTriangle(std::string const& content, size_t& pos, std::unique_ptr<Obje
 
 bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
 	Vector position, rotation, scale, color;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
-		object.reset(new Rectangle(position, rotation, scale, color));
+	float angle;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color) && parseScalar(content, pos, angle)) {
+		object.reset(new Rectangle(position, rotation, scale, color, angle * 0.0175));
 		return true;
 	}
 
@@ -197,8 +199,9 @@ bool parseRectangle(std::string const& content, size_t& pos, std::unique_ptr<Obj
 
 bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
 	Vector position, rotation, scale, color;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
-		object.reset(new Cylinder(position, rotation, scale, color));
+	float angle;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color) && parseScalar(content, pos, angle)) {
+		object.reset(new Cylinder(position, rotation, scale, color, angle * 0.0175));
 		return true;
 	}
 
@@ -207,8 +210,9 @@ bool parseCylinder(std::string const& content, size_t& pos, std::unique_ptr<Obje
 
 bool parseCone(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
 	Vector position, rotation, scale, color;
-	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color)) {
-		object.reset(new Cone(position, rotation, scale, color));
+	float angle;
+	if (parseVector(content, pos, position) && parseVector(content, pos, rotation) && parseVector(content, pos, scale) && parseColor(content, pos, color) && parseScalar(content, pos, angle)) {
+		object.reset(new Cone(position, rotation, scale, color, angle));
 		return true;
 	}
 

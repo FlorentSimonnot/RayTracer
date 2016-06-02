@@ -22,7 +22,7 @@ private:
 
 public:
     Cone();
-    Cone(Vector const& position, Vector const& direction, Vector const& scale,Vector const& color);
+    Cone(Vector const& position, Vector const& direction, Vector const& scale,Vector const& color, float angle);
     virtual ~Cone();
 
     operator std::string() const;

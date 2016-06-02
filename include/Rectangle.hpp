@@ -15,7 +15,7 @@ private:
 public:
     Rectangle();
 
-    Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color);
+    Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle);
 
     virtual ~Rectangle();
 

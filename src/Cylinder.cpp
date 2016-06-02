@@ -20,8 +20,8 @@ Cylinder::Cylinder()
           m_d2Z() {
 }
 
-Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color)
-        : Shape(position, direction, scale, color),
+Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
+        : Shape(position, direction, scale, color, angle),
           m_d2(),
           m_gamma(),
           m_f1p1(),
@@ -123,7 +123,7 @@ bool Cylinder::intersect(const Ray& ray, float& dist) {
 void Cylinder::calculBoundingVolume() {
     Vector center = m_position + (1.f / 2.f) * (m_direction * getHeight());
     float radius = sqrtf(SQR((1.f / 2.f) * (getHeight())) + SQR(getRadius()));
-    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
+    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0), 0);
     m_boundingVolume = s;
 }
 

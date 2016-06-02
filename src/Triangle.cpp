@@ -103,7 +103,7 @@ void Triangle::calculBoundingVolume() {
                  * (1.f / (alpha.crossProduct(beta).produitScalaire(alpha.crossProduct(beta)) * 2.f))
                  + c;
     }
-    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0));
+    Sphere *s = new Sphere(center, Vector(0, 0, 0), Vector(radius, radius, radius), Vector(0, 0, 0), 0);
     m_boundingVolume = s;
 }
 
