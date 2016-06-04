@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <iostream>
 #include <stdlib.h>
-#include "Light.hpp"
 
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
@@ -92,15 +91,10 @@ int main(int argc, char *argv[]) {
 	std::vector<std::unique_ptr<Object>> objects;
 	parser.parse(objects);
 
-	std::unique_ptr<Object> object;
-
-	objects.emplace_back(std::move(object));
-
-//	object.reset(new Light(Vector(0,0,3),Vector(0,0,0)));
+//	std::unique_ptr<Object> object;
+//
 //	objects.emplace_back(std::move(object));
 
-//	object.reset(new Light(Vector(5,0,0),Vector(0,0,0)));
-//	objects.emplace_back(std::move(object));
 
 	Scene scene(objects);
 	if (level == 1 || level == 2) {

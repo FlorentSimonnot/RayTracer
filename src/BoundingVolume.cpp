@@ -4,6 +4,7 @@
 
 #include "BoundingVolume.hpp"
 #include <cmath>
+#include <limits>
 
 BoundingVolume::BoundingVolume(Vector center, float radius): m_center(center), m_radius(radius) {
 }
