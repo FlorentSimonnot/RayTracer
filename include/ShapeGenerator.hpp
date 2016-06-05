@@ -7,22 +7,33 @@
 
 
 #include <vector>
+#include <memory>
+#include "Shape.hpp"
 
-// TODO Ajouter borne min / Max pour chacun des valeurs necessaire
+
+enum ObjectType {
+    CYLINDER = 0,
+    RECTANGLE,
+    SPHERE,
+    TRIANGLE,
+    CONE,
+    LIGHT,
+    CAMERA
+};
+
+
 class ShapeGenerator {
 private:
 
-    std::vector<Shape *> m_shapes;
-
     /// Number of each objects ///
-    float m_numberObjects; // Nb objects totaux si le nombre d'objet de chaque type non specifié
+    int m_numberObjects; // Nb objects totaux si le nombre d'objet de chaque type non specifié
 
-    float m_numberCylinder;
-    float m_numberRectangle;
-    float m_numberSphere;
-    float m_numberTriangle;
-    float m_numberCone;
-    float m_numberSpot;
+    int m_numberCylinder;
+    int m_numberRectangle;
+    int m_numberSphere;
+    int m_numberTriangle;
+    int m_numberCone;
+    int m_numberSpot;
 
     /// Position ///
     float m_minPosX;
@@ -43,46 +54,94 @@ private:
     float m_maxScaleZ;
 
     /// Color ///
-    // Color toujours entre 0 et 255 maximum , ou entre ces 2 bornes
-    float m_minColorR;
-    float m_minColorG;
-    float m_minColorB;
+    int m_minColorR;
+    int m_minColorG;
+    int m_minColorB;
 
-    float m_MaxColorR;
-    float m_MaxColorG;
-    float m_MaxColorB;
+    int m_maxColorR;
+    int m_maxColorG;
+    int m_maxColorB;
 
+    /// Camera ///
+    float m_depth;
 
-    /// Fonctions de generation ///
-    Shape* generateCylinder(const Point position, const Vector orientation, const Vector scale, const Vector color);
+private:
+/// Fonctions de generation ///
+    void generateCylinder(const Point position, const Vector orientation, const Vector scale, const Vector color,
+                          std::unique_ptr<Object>& object);
 
-    Shape* generateRectangle(const Point position, const Vector orientation, const Vector scale, const Vector color);
+    void generateRectangle(const Point position, const Vector orientation, const Vector scale, const Vector color,
+                           std::unique_ptr<Object>& object);
 
-    Shape* generateSphere(const Point position, const Vector orientation, const Vector scale, const Vector color);
+    void generateSphere(const Point position, const Vector orientation, const Vector scale, const Vector color,
+                        std::unique_ptr<Object>& object);
 
-    Shape* generateTriangle(const Point position_1,const Point position_2,const Point position_3,const Vector color);
+    void generateTriangle(const Point position_1, const Point position_2, const Point position_3, const Vector color,
+                          std::unique_ptr<Object>& object);
 
-    Shape* generateCone(const Point position, const Vector orientation, const Vector scale, const Vector color);
+    void generateCone(const Point position, const Vector orientation, const Vector scale, const Vector color,
+                      std::unique_ptr<Object>& object);
 
-    void generateShape(const int type);
+    void generateShape(const ObjectType type, std::vector<std::unique_ptr<Object>>& objects);
 
     Vector randomVector(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 
+    void generateSpotLight(const Point position, const Vector color, std::unique_ptr<Object>& object);
+
+    void testInitValues(); // Test des valeurs donné lors de l'initialisation et les change en cas d'incoherence
+
+    void generateRandomObjects(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllCylinder(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllRectangle(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllSphere(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllTriangle(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllCone(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateAllSpots(std::vector<std::unique_ptr<Object>>& objects);
+
+    void generateCamera(const Point position, const Vector orientation, std::unique_ptr<Object>& object);
+
+    void inverseValue(float& a, float& b);
+
 public:
+
     ShapeGenerator();
 
-    ShapeGenerator(float numberObjects, float minPosX, float maxPosX, float minPosY, float maxPosY,
-                   float minPosZ, float maxPosZ);
+    ShapeGenerator(int numberObject);
 
-//    ShapeGenerator(float numberObjects, float minPosX, float maxPosX, float minPosY, float maxPosY,
-//                   float minPosZ, float maxPosZ);
+    /**
+     * Constructeur en indiquant juste le nombre total d'objets et le nombre de spot lumineux
+     */
+    ShapeGenerator(int numberObjects, int numberSpot,
+                   float minPosX, float minPosY, float minPosZ,
+                   float maxPosX, float maxPosY, float maxPosZ,
+                   float minScaleX, float minScaleY, float minScaleZ,
+                   float maxScaleX, float maxScaleY, float maxScaleZ,
+                   int minColorR, int minColorG, int minColorB,
+                   int maxColorR, int maxColorG, int maxColorB,
+                   float depth);
+
+    /**
+     * Constructeur en indiquant le nombre de chacun des objets
+     */
+    ShapeGenerator(int numberCylinder, int numberRectangle, int numberSphere,
+                   int numberTriangle, int numberCone, int numberSpot,
+                   float minPosX, float minPosY, float minPosZ,
+                   float maxPosX, float maxPosY, float maxPosZ,
+                   float minScaleX, float minScaleY, float minScaleZ,
+                   float maxScaleX, float maxScaleY, float maxScaleZ,
+                   int minColorR, int minColorG, int minColorB,
+                   int maxColorR, int maxColorG, int maxColorB,
+                   float depth);
 
     virtual ~ShapeGenerator();
 
-    std::vector<Shape *> getShapes() const;
-
-    void generate();
-
+    void generate(std::vector<std::unique_ptr<Object>>& objects);
 };
 
 

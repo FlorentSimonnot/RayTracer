@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <stdlib.h>
+#include <ShapeGenerator.hpp>
 
 void usage() {
     std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
@@ -84,15 +85,17 @@ int main(int argc, char *argv[]) {
 	if (!getOptions(argc, argv, level, input, output, aaParam)) {
 		return 0;
 	}
-
-	Parser parser(input);
 	srand(time(NULL));
 
+//	Parser parser(input);
+//	std::vector<std::unique_ptr<Object>> objects;
+//	parser.parse(objects);
+
 	std::vector<std::unique_ptr<Object>> objects;
-	parser.parse(objects);
+	ShapeGenerator shapeGenerator(100);
+	shapeGenerator.generate(objects);
 
 //	std::unique_ptr<Object> object;
-//
 //	objects.emplace_back(std::move(object));
 
 
