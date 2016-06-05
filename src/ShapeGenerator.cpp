@@ -25,7 +25,7 @@ ShapeGenerator::ShapeGenerator()
           m_maxScaleX(5), m_maxScaleY(5), m_maxScaleZ(5),
           m_minColorR(0), m_minColorG(0), m_minColorB(0),
           m_maxColorR(255), m_maxColorG(255), m_maxColorB(255),
-          m_depth(100) {
+          m_positionCamera(0, 0, 0), m_orientationCamera(1, 1, 1), m_depth(100) {
     testInitValues();
 }
 
@@ -40,7 +40,7 @@ ShapeGenerator::ShapeGenerator(int numberObjects)
           m_maxScaleX(5), m_maxScaleY(5), m_maxScaleZ(5),
           m_minColorR(0), m_minColorG(0), m_minColorB(0),
           m_maxColorR(255), m_maxColorG(255), m_maxColorB(255),
-          m_depth(100) {
+          m_positionCamera(0, 0, 0), m_orientationCamera(1, 1, 1), m_depth(100) {
     testInitValues();
 }
 
@@ -52,7 +52,7 @@ ShapeGenerator::ShapeGenerator(int numberCylinder, int numberRectangle, int numb
                                float maxScaleX, float maxScaleY, float maxScaleZ,
                                int minColorR, int minColorG, int minColorB,
                                int maxColorR, int maxColorG, int maxColorB,
-                               float depth)
+                               Point positionCamera, Vector orientationCamera, float depth)
         : m_numberObjects(0),
           m_numberCylinder(numberCylinder),
           m_numberRectangle(numberRectangle),
@@ -66,7 +66,7 @@ ShapeGenerator::ShapeGenerator(int numberCylinder, int numberRectangle, int numb
           m_maxScaleX(maxScaleX), m_maxScaleY(maxScaleY), m_maxScaleZ(maxScaleZ),
           m_minColorR(abs(minColorR) % 255), m_minColorG(abs(minColorG) % 255), m_minColorB(abs(minColorB) % 255),
           m_maxColorR(abs(maxColorR) % 255), m_maxColorG(abs(maxColorG) % 255), m_maxColorB(abs(maxColorB) % 255),
-          m_depth(depth) {
+          m_positionCamera(positionCamera), m_orientationCamera(orientationCamera), m_depth(depth) {
     testInitValues();
 }
 
@@ -77,7 +77,7 @@ ShapeGenerator::ShapeGenerator(int numberObjects, int numberSpot,
                                float maxScaleX, float maxScaleY, float maxScaleZ,
                                int minColorR, int minColorG, int minColorB,
                                int maxColorR, int maxColorG, int maxColorB,
-                               float depth)
+                               Point positionCamera, Vector orientationCamera, float depth)
         : m_numberObjects(numberObjects),
           m_numberCylinder(0),
           m_numberRectangle(0),
@@ -91,7 +91,7 @@ ShapeGenerator::ShapeGenerator(int numberObjects, int numberSpot,
           m_maxScaleX(maxScaleX), m_maxScaleY(maxScaleY), m_maxScaleZ(maxScaleZ),
           m_minColorR(abs(minColorR) % 255), m_minColorG(abs(minColorG) % 255), m_minColorB(abs(minColorB) % 255),
           m_maxColorR(abs(maxColorR) % 255), m_maxColorG(abs(maxColorG) % 255), m_maxColorB(abs(maxColorB) % 255),
-          m_depth(depth) {
+          m_positionCamera(positionCamera), m_orientationCamera(orientationCamera), m_depth(depth) {
     testInitValues();
 }
 
@@ -331,15 +331,15 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
             generateCylinder(position, orientation, scale, color, object);
             break;
         case RECTANGLE:
-//            generateRectangle(position, orientation, scale, color, object);
+            generateRectangle(position, orientation, scale, color, object);
             break;
         case SPHERE:
             generateSphere(position, orientation, scale, color, object);
             break;
         case TRIANGLE:
-//            Point position_2 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
-//            Point position_3 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
-//            generateTriangle(position, position_2, position_3, color);
+            Point position_2 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
+            Point position_3 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
+            generateTriangle(position, position_2, position_3, color, object);
             break;
         case CONE:
             generateCone(position, orientation, scale, color, object);
@@ -348,7 +348,7 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
             generateSpotLight(position, color, object);
             break;
         case CAMERA:
-            generateCamera(position, orientation, object);
+            generateCamera(object);
             break;
         default:
             break;
@@ -367,14 +367,14 @@ void ShapeGenerator::generateSpotLight(const Point position, const Vector color,
 
 }
 
-void ShapeGenerator::generateCamera(const Point position, const Vector orientation, std::unique_ptr<Object>& object) {
+void ShapeGenerator::generateCamera(std::unique_ptr<Object>& object) {
 
-//    object.reset(new Camera(m_depth, position, orientation));
-    object.reset(new Camera(m_depth, Vector(0, 0, 0), Vector(1, 1, 1)));
+    object.reset(new Camera(m_depth, m_positionCamera, m_orientationCamera));
+//    object.reset(new Camera(m_depth, Vector(0, 0, 0), Vector(1, 1, 1)));
 
-    std::cout << " Camera " << std::endl
-    << " Position = " << position << std::endl
-    << " Orientation = " << orientation << std::endl;
+//    std::cout << " Camera " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Orientation = " << orientation << std::endl;
 }
 
 

@@ -63,6 +63,8 @@ private:
     int m_maxColorB;
 
     /// Camera ///
+    Point m_positionCamera;
+    Vector m_orientationCamera;
     float m_depth;
 
 private:
@@ -104,7 +106,7 @@ private:
 
     void generateAllSpots(std::vector<std::unique_ptr<Object>>& objects);
 
-    void generateCamera(const Point position, const Vector orientation, std::unique_ptr<Object>& object);
+    void generateCamera(std::unique_ptr<Object>& object);
 
     void inverseValue(float& a, float& b);
 
@@ -124,7 +126,7 @@ public:
                    float maxScaleX, float maxScaleY, float maxScaleZ,
                    int minColorR, int minColorG, int minColorB,
                    int maxColorR, int maxColorG, int maxColorB,
-                   float depth);
+                   Point positionCamera, Vector orientationCamera, float depth);
 
     /**
      * Constructeur en indiquant le nombre de chacun des objets
@@ -137,7 +139,7 @@ public:
                    float maxScaleX, float maxScaleY, float maxScaleZ,
                    int minColorR, int minColorG, int minColorB,
                    int maxColorR, int maxColorG, int maxColorB,
-                   float depth);
+                   Point positionCamera, Vector orientationCamera, float depth);
 
     virtual ~ShapeGenerator();
 
