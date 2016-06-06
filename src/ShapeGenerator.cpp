@@ -209,10 +209,10 @@ void ShapeGenerator::generateRandomObjects(std::vector<std::unique_ptr<Object>>&
     for (int i = 0; i < m_numberObjects; i++) {
         type = static_cast<ObjectType>(rand() % (LIGHT));
         // On exclue les triangle car non implementé
-        if (type == TRIANGLE/* || type == RECTANGLE*/) {
+/*/        if (type == TRIANGLE) {
             i--;
             continue;
-        }
+        }/*/
         generateShape(type, objects);
         std::cout << " -------------------- " << std::endl;
     }
@@ -326,6 +326,8 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
     Vector scale = randomVector(m_minScaleX, m_maxScaleX, m_minScaleY, m_maxScaleY, m_minScaleZ, m_maxScaleZ);
     Vector orientation = randomVector(-1, 1, -1, 1, -1, 1);
     std::unique_ptr<Object> object;
+    Point position_2 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2, position.z() - 2, position.z() + 2);
+    Point position_3 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2, position.z() - 2, position.z() + 2);
     switch (type) {
         case CYLINDER:
             generateCylinder(position, orientation, scale, color, object);
@@ -337,9 +339,7 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
             generateSphere(position, orientation, scale, color, object);
             break;
         case TRIANGLE:
-//            Point position_2 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
-//            Point position_3 = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);
-//            generateTriangle(position, position_2, position_3, color);
+            generateTriangle(position, position_2, position_3, color, object);
             break;
         case CONE:
             generateCone(position, orientation, scale, color, object);
@@ -350,8 +350,8 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
         case CAMERA:
             generateCamera(position, orientation, object);
             break;
-        default:
-            break;
+//        default:
+//            break;
     }
     objects.emplace_back(std::move(object));
 }
