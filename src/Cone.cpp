@@ -22,8 +22,8 @@ Cone::Cone()
 
     v = Vector(1, 0, 0).rotationVector(m_inverse) * fmaxf(m_scale.x(), m_scale.y());
     p1 = m_position;
-    p2 = m_position + v;
-    p3 = m_position - v;
+    p2 = m_position + v - m_direction * m_scale.z();
+    p3 = m_position - v - m_direction * m_scale.z();
 
     float A = p1.distance(p2);
     float B = p2.distance(p3);
@@ -85,8 +85,8 @@ Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scal
 
     v = Vector(1, 0, 0).rotationVector(m_inverse) * fmaxf(m_scale.x(), m_scale.y());
     p1 = m_position;
-    p2 = m_position + v;
-    p3 = m_position - v;
+    p2 = m_position + v - m_direction * m_scale.z();
+    p3 = m_position - v - m_direction * m_scale.z();
 
     float A = p1.distance(p2);
     float B = p2.distance(p3);

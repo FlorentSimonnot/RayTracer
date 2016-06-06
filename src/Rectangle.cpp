@@ -5,13 +5,14 @@
 #include <Triangle.hpp>
 #include <Sphere.hpp>
 #include <limits>
+#include <iostream>
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle()
         : Shape(),
           m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
           m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
-    Point center = m_position + (1.f / 2.f) * m_scale;
+    Point center = m_position + (1.f / 2.f) * m_scale.rotationVector(m_inverse);
     float radius = m_scale.norm() / 2.f;
     m_boundingVolume = BoundingVolume(center, radius);
 }
@@ -20,7 +21,7 @@ Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector con
         : Shape(position, direction, scale, color, angle),
           m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
           m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
-    Point center = m_position + (1.f / 2.f) * m_scale;
+    Point center = m_position + (1.f / 2.f) * m_scale.rotationVector(m_inverse);
     float radius = m_scale.norm() / 2.f;
     m_boundingVolume = BoundingVolume(center, radius);
 }
@@ -104,33 +105,18 @@ void Rectangle::precalcul() {
 }
 
 Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
-    Vector normal (0, 0, 0);
-    Vector d1 = ray.getDirection().rotationVector(m_Mat_rotation);
-    Vector d2 = ray.getOrigin().rotationVector(m_Mat_rotation);
-    Vector collide = d2 + dist * d1;
-    Vector tmp = collide - m_position;
 
-    float eps = 0.00001;
-    if (tmp.x() <= eps && tmp.x() >= -eps) {
-        normal = Vector(-1, 0, 0).rotationVector(m_inverse);
+    Triangle triangles[] = {m_t1, m_t2, m_t3, m_t4, m_t5, m_t6, m_t7, m_t8, m_t9, m_t10, m_t11, m_t12};
+    float tmp_dist1, tmp_dist2 = std::numeric_limits<float>::infinity();
+    Triangle triangle;
+    for (Triangle t:triangles) {
+        if (t.intersect(ray, tmp_dist1)) {
+            if (tmp_dist2 > tmp_dist1) {
+                tmp_dist2 = tmp_dist1;
+                triangle = t;
+            }
+        }
     }
-    else if (tmp.x() <= m_scale.x() + eps && tmp.x() >= m_scale.x() - eps) {
-        normal = Vector(1, 0, 0).rotationVector(m_inverse);
-    }
-    else if (tmp.y() <= eps && tmp.y() >= -eps) {
-        normal = Vector(0, -1, 0).rotationVector(m_inverse);
-    }
-    else if (tmp.y() <= m_scale.y() + eps && tmp.y() >= m_scale.y() - eps) {
-        normal = Vector(0, 1, 0).rotationVector(m_inverse);
-    }
-    else if (tmp.z() <= eps && tmp.z() >= -eps) {
-        normal = Vector(0, 0, -1).rotationVector(m_inverse);
-    }
-    else if (tmp.z() <= m_scale.z() + eps && tmp.z() >= m_scale.z() - eps) {
-        normal = Vector(0, 0, 1).rotationVector(m_inverse);
-    }
-    if (ray.getDirection().produitScalaire(normal) > 0) {
-        normal = -normal;
-    }
-    return normal;
+
+    return triangle.getNormalFromPoint(ray, dist);
 }

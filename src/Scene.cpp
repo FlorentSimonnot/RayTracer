@@ -38,7 +38,7 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
 
     distHit = depth;
     for (auto const& s: m_shapes) {
-        if (s->getBoundingVolume().intersect(ray, depth) && s->intersect(ray, dist) && dist < distHit && dist > 0.0001) {
+        if (s->getBoundingVolume().intersect(ray, distHit) && s->intersect(ray, dist) && dist < distHit && dist > 0.0001) {
             distHit = dist;
             shape = s;
         }
@@ -46,11 +46,11 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
     return shape;
 }
 
-bool Scene::getShadowCollision(Ray const& ray, float depth) const {
+bool Scene::getShadowCollision(Ray const& ray, float depth, Shape const* shape) const {
     float dist;
 
     for (auto const& s: m_shapes) {
-        if (s->getBoundingVolume().intersect(ray, depth) && s->intersect_shadow(ray, dist) && dist < depth && dist > 0.0001) {
+        if (shape != s && s->getBoundingVolume().intersect(ray, depth) && s->intersect_shadow(ray, dist) && dist < depth && dist > 0.0001) {
             return true;
         }
     }

@@ -209,7 +209,7 @@ void ShapeGenerator::generateRandomObjects(std::vector<std::unique_ptr<Object>>&
     for (int i = 0; i < m_numberObjects; i++) {
         type = static_cast<ObjectType>(rand() % (LIGHT));
         // On exclue les triangle car non implementé
-        if (type == TRIANGLE || type == RECTANGLE) {
+        if (type == TRIANGLE/* || type == RECTANGLE*/) {
             i--;
             continue;
         }
@@ -345,7 +345,7 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
             generateCone(position, orientation, scale, color, object);
             break;
         case LIGHT:
-            generateSpotLight(position, color, object);
+            generateSpotLight(position,/* color*/ Vector(255, 255, 255), object);
             break;
         case CAMERA:
             generateCamera(object);
