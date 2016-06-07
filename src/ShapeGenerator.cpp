@@ -326,8 +326,10 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
     Vector scale = randomVector(m_minScaleX, m_maxScaleX, m_minScaleY, m_maxScaleY, m_minScaleZ, m_maxScaleZ);
     Vector orientation = randomVector(-1, 1, -1, 1, -1, 1);
     std::unique_ptr<Object> object;
-    Point position_2 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2, position.z() - 2, position.z() + 2);
-    Point position_3 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2, position.z() - 2, position.z() + 2);
+    Point position_2 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2,
+                                    position.z() - 2, position.z() + 2);
+    Point position_3 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2,
+                                    position.z() - 2, position.z() + 2);
     switch (type) {
         case CYLINDER:
             generateCylinder(position, orientation, scale, color, object);
@@ -358,7 +360,6 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
 
 
 void ShapeGenerator::generateSpotLight(const Point position, const Vector color, std::unique_ptr<Object>& object) {
-//    object.reset(new Light(Vector(0, 0, 0), Vector(255, 255, 255)));
     object.reset(new Light(position, color));
     std::cout << " Light " << std::endl
     << " Position = " << position << std::endl
