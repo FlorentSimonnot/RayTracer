@@ -3,8 +3,7 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
-struct SDL_Window;
-struct SDL_Renderer;
+#include <SDL2/SDL.h>
 class Vector;
 
 class Gui {
@@ -17,9 +16,10 @@ public:
 	virtual ~Gui();
 
 	void setPixel(int x, int y, Vector const& color);
-	void render();
+	void render(int *image);
 	
 private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
+	SDL_Texture* m_texture;
 };

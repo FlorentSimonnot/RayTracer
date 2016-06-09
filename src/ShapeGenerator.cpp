@@ -347,7 +347,7 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
             generateCone(position, orientation, scale, color, object);
             break;
         case LIGHT:
-            generateSpotLight(position,/* color*/ Vector(255, 255, 255), object);
+            generateSpotLight(position, color, object);
             break;
         case CAMERA:
             generateCamera(object);

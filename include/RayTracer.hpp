@@ -15,7 +15,7 @@ private:
     float m_pas;
 
     // The window used to render the scene.
-    Gui m_gui;
+ //   Gui m_gui;
 
     int m_nbRayons;
 
@@ -23,8 +23,8 @@ public:
     RayTracer(int nbRayons);
     ~RayTracer();
 
-    void draw(Scene const& scene,PPMExporter& ppme);
-    void draw(Scene const& scene);
+    int *draw(Scene const& scene,PPMExporter& ppme);
+    int *draw(Scene const& scene);
 
     Vector moyenneColor(Vector const &colors) const;
 

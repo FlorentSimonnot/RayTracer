@@ -21,11 +21,19 @@ Gui::Gui()
         std::cerr << "Could not create renderer: " << SDL_GetError() << std::endl;
     }
 
+    m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC,
+                                   WINDOW_WIDTH, WINDOW_HEIGHT);
+    if (m_texture == nullptr) {
+        std::cerr << "Could not create texture: " << SDL_GetError() << std::endl;
+    }
+
+
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_renderer);
 }
 
 Gui::~Gui() {
+    SDL_DestroyTexture(m_texture);
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
@@ -36,19 +44,12 @@ void Gui::setPixel(int x, int y, Vector const& color) {
     SDL_RenderDrawPoint(m_renderer, x, y);
 }
 
-void Gui::render() {
-    SDL_RenderPresent(m_renderer);
-    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+void Gui::render(int *image) {
+//    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_UpdateTexture(m_texture, NULL, image, WINDOW_WIDTH * sizeof(Uint32));
     SDL_RenderClear(m_renderer);
-
-    bool quit = false;
-    SDL_Event event;
-    while (!quit)
-    {
-        SDL_WaitEvent(&event);
-        if (event.type == SDL_QUIT)
-            quit = true;
-    }
+    SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
+    SDL_RenderPresent(m_renderer);
 }
 
 Gui::Gui(Gui const& g)

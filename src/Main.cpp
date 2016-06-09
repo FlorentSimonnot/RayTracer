@@ -4,6 +4,7 @@
 #include "Parser.hpp"
 #include "Scene.hpp"
 #include "RayTracer.hpp"
+#include "Gui.hpp"
 #include <sys/time.h>
 #include <unistd.h>
 #include <iostream>
@@ -100,6 +101,7 @@ int main(int argc, char *argv[]) {
 
 
 	Scene scene(objects);
+	int *image;
 	if (level == 1 || level == 2) {
 		PPMExporter ppme(output, WINDOW_WIDTH, WINDOW_HEIGHT);
 		if (aaParam == 0) {
@@ -107,7 +109,7 @@ int main(int argc, char *argv[]) {
 		}
 		RayTracer rayTracer(aaParam);
 
-		rayTracer.draw(scene, ppme);
+		image = rayTracer.draw(scene, ppme);
 	}
 	if (level > 2) {
 		if (aaParam == 0) {
@@ -115,8 +117,31 @@ int main(int argc, char *argv[]) {
 		}
 		RayTracer rayTracer(aaParam);
 
-		rayTracer.draw(scene);
+		image = rayTracer.draw(scene);
 	}
+	Gui gui;
+	gui.render(image);
+	delete image;
+    bool quit = false;
+    SDL_Event event;
+    while (!quit)
+    {
+        SDL_WaitEvent(&event);
+        if (event.type == SDL_QUIT) {
+            quit = true;
+        }
+        if (event.type == SDL_KEYDOWN) {
+        	switch (event.key.keysym.sym) { //voir https://wiki.libsdl.org/SDL_Keycode
+        		case SDLK_UP:
+        		case SDLK_DOWN:
+        		case SDLK_LEFT:
+        		case SDLK_RIGHT:
+        		case SDLK_a:
+        		default:
+        			break;
+        	}
+        }
+    }
 
 //	gettimeofday(&tend, NULL);
 //	double texec = ((double) (1000 * (tend.tv_sec - tbegin.tv_sec) + ((tend.tv_usec - tbegin.tv_usec) / 1000))) / 1000.;

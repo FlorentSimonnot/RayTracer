@@ -15,16 +15,17 @@
 
 RayTracer::RayTracer(int nbRayon)
         : m_pas((float) 1.57 / WINDOW_WIDTH),
-          m_gui(),
+//          m_gui(),
           m_nbRayons(nbRayon) {
 }
 
 RayTracer::~RayTracer() { }
 
-void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
+int *RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
     Camera camera = scene.getCamera();
 //    scene.test();
 //	(void)ppme;
+    int *ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -71,16 +72,19 @@ void RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
             }
             color = moyenneColor(color);
-            m_gui.setPixel(i, j, color);
+//            m_gui.setPixel(i, j, color);
+            ret[i + j * WINDOW_WIDTH] = color.x() * 0x10000 + color.y() * 0x100 + color.z();
             ppme.writePixel(color);
         }
     }
-    m_gui.render();
+    return ret;
+//    m_gui.render();
 }
 
-void RayTracer::draw(Scene const& scene) {
+int *RayTracer::draw(Scene const& scene) {
     Camera camera = scene.getCamera();
 //    scene.test();
+    int *ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -127,10 +131,12 @@ void RayTracer::draw(Scene const& scene) {
                 /////
             }
             color = moyenneColor(color);
-            m_gui.setPixel(i, j, color);
+            ret[i + j * WINDOW_WIDTH] = color.x() * 0x10000 + color.y() * 0x100 + color.z();
+//            m_gui.setPixel(i, j, color);
         }
     }
-    m_gui.render();
+//    m_gui.render();
+    return ret;
 }
 
 
@@ -172,7 +178,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
             float lightNorm = lightDir.norm();
             lightDir *= 1 / lightNorm;
             Ray lightRay = Ray(caracteristics.pointIntersection(), lightDir);
-            if (!scene.getShadowCollision(lightRay, lightNorm)) {
+            if (!scene.getShadowCollision(lightRay, lightNorm, shape)) {
                 scalaire = caracteristics.normal().produitScalaire(lightDir);
                 if (scalaire > 0) {
                     diffuse = scalaire * caracteristics.color();

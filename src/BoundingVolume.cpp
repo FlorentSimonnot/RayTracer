@@ -23,6 +23,7 @@ bool BoundingVolume::intersect(Ray const &ray, float depth) const {
 	if (delta < 0) {
 		return false;
 	}
+
 	float t1 = (-beta + sqrt(delta)) / 2;
 	float t2 = (-beta - sqrt(delta)) / 2;
 

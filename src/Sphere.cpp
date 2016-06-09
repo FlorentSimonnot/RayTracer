@@ -56,7 +56,7 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
         dist = std::numeric_limits<float>::max();
         return false;
     }
-    float sqr = (float) sqrt(delta);
+    float sqr = sqrtf(delta);
     float alpha2 = 2 * alpha;
 
     float t1 = (-beta + sqr) / alpha2;
@@ -71,6 +71,7 @@ bool Sphere::intersect(Ray const& ray, float& dist) {
     else {
         dist = t2;
     }
+
     return true;
 }
 
@@ -94,7 +95,7 @@ bool Sphere::intersect_shadow(Ray const& ray, float& dist) {
         dist = std::numeric_limits<float>::max();
         return false;
     }
-    float sqr = (float) sqrt(delta);
+    float sqr = sqrtf(delta);
     float alpha2 = 2 * alpha;
 
     float t1 = (-beta + sqr) / alpha2;
