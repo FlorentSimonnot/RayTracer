@@ -101,27 +101,24 @@ int main(int argc, char *argv[]) {
 
 
 	Scene scene(objects);
+	if (aaParam == 0) {
+		aaParam = 1;
+	}
+	RayTracer rayTracer(aaParam);
 	int *image;
+	Gui gui;
 	if (level == 1 || level == 2) {
 		PPMExporter ppme(output, WINDOW_WIDTH, WINDOW_HEIGHT);
-		if (aaParam == 0) {
-			aaParam = 1;
-		}
-		RayTracer rayTracer(aaParam);
 
 		image = rayTracer.draw(scene, ppme);
+		gui.render(image);
+		delete image;
 	}
 	if (level > 2) {
-		if (aaParam == 0) {
-			aaParam = 1;
-		}
-		RayTracer rayTracer(aaParam);
-
 		image = rayTracer.draw(scene);
+		gui.render(image);
+		delete image;
 	}
-	Gui gui;
-	gui.render(image);
-	delete image;
     bool quit = false;
     SDL_Event event;
     while (!quit)
