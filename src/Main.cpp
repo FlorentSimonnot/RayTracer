@@ -12,7 +12,7 @@
 #include <ShapeGenerator.hpp>
 
 void usage() {
-    std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
+	std::cout << "Format : synthese_image -n [level to load] -i [input file] -o [output file]" << std::endl;
 }
 // lray -n 1 -i <mon_fichier.format> -o image.ppm
 // lray -n 2 -ps 16 -i <mon_fichier.format> -o image.ppm
@@ -119,32 +119,61 @@ int main(int argc, char *argv[]) {
 		gui.render(image);
 		delete image;
 	}
-    bool quit = false;
-    SDL_Event event;
-    while (!quit)
-    {
-        SDL_WaitEvent(&event);
-        if (event.type == SDL_QUIT) {
-            quit = true;
-        }
-        if (event.type == SDL_KEYDOWN) {
-        	switch (event.key.keysym.sym) { //voir https://wiki.libsdl.org/SDL_Keycode
-        		case SDLK_UP:
-        		case SDLK_DOWN:
-        		case SDLK_LEFT:
-        		case SDLK_RIGHT:
-        		case SDLK_a:
-        		default:
-        			break;
-        	}
-        }
-    }
+	bool quit = false;
+	SDL_Event event;
+	while (!quit)
+	{
+		SDL_WaitEvent(&event);
+		if (event.type == SDL_QUIT) {
+			quit = true;
+		}
+		if (event.type == SDL_KEYDOWN) {
+			switch (event.key.keysym.scancode) { //voir https://wiki.libsdl.org/SDL_Keycode
+				case SDL_SCANCODE_E:
+					scene.moveCamera(Camera::Direction::forward);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_D:
+					scene.moveCamera(Camera::Direction::backward);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_S:
+					scene.moveCamera(Camera::Direction::left);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_F:
+					scene.moveCamera(Camera::Direction::right);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_Q:
+					scene.moveCamera(Camera::Direction::up);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_A:
+					scene.moveCamera(Camera::Direction::down);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
 //	gettimeofday(&tend, NULL);
 //	double texec = ((double) (1000 * (tend.tv_sec - tbegin.tv_sec) + ((tend.tv_usec - tbegin.tv_usec) / 1000))) / 1000.;
 //	std::cout << "Execution time : " << texec << std::endl;
 
-
-
-    return 0;
+	return 0;
 }

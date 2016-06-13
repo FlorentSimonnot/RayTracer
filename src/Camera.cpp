@@ -100,3 +100,26 @@ void Camera::setPosition(Point position) {
 void Camera::setOrientation(Vector orientation) {
     m_orientation = orientation;
 }
+
+void Camera::move(Camera::Direction dir) {
+    switch (dir) {
+    case Camera::Direction::up:
+        m_position += 0.1 * m_orientation_down;
+        break;
+    case Camera::Direction::down:
+        m_position -= 0.1 * m_orientation_down;
+        break;
+    case Camera::Direction::left:
+        m_position -= 0.1 * m_orientation_right;
+        break;
+    case Camera::Direction::right:
+        m_position += 0.1 * m_orientation_right;
+        break;
+    case Camera::Direction::backward:
+        m_position -= 0.1 * m_orientation;
+        break;
+    case Camera::Direction::forward:
+        m_position += 0.1 * m_orientation;
+        break;
+    }
+}

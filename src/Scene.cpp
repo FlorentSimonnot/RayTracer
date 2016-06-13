@@ -125,8 +125,8 @@ Camera const& Scene::getCamera() const {
     return *m_camera;
 }
 
-void Scene::moveCamera(Vector const& dv) {
-    m_camera->setPosition(m_camera->position() + dv);
+void Scene::moveCamera(Camera::Direction dir) {
+    m_camera->move(dir);
 }
 
 void Scene::rotateCamera() {

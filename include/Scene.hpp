@@ -44,7 +44,7 @@ public:
 
     Camera const& getCamera() const;
 
-    void moveCamera(Vector const& dv);
+    void moveCamera(Camera::Direction dir);
     void rotateCamera();
 
     void test() const;

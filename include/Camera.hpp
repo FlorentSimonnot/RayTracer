@@ -22,6 +22,15 @@ private:
 
     void updateOrientation();
 public:
+    enum Direction {
+        up,
+        down,
+        left,
+        right,
+        forward,
+        backward
+    };
+
     Camera();
 
     Camera(Point const& position, Vector const& orientation);
@@ -56,6 +65,8 @@ public:
     void setPosition(Point position);
 
     void setOrientation(Vector orientation);
+
+    void move(Direction dir);
 
 };
 
