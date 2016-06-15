@@ -129,8 +129,8 @@ void Scene::moveCamera(Camera::Direction dir) {
     m_camera->move(dir);
 }
 
-void Scene::rotateCamera() {
-    //TODO
+void Scene::rotateCamera(Camera::Direction dir) {
+    m_camera->rotate(dir);
 }
 
 //Scene::Scene(Scene const& s)

@@ -68,6 +68,7 @@ public:
 
     void move(Direction dir);
 
+    void rotate(Direction dir);
 };
 
 

@@ -2,7 +2,7 @@
 // Created by Narex on 07/05/2016.
 //
 
-
+#include "Matrice.hpp"
 #include "Camera.hpp"
 
 Camera::Camera()
@@ -123,3 +123,29 @@ void Camera::move(Camera::Direction dir) {
         break;
     }
 }
+
+
+void Camera::rotate(Camera::Direction dir) {
+    switch (dir) {
+    case Camera::Direction::up:
+        m_orientation = m_orientation.rotationVector(0.13, m_orientation_right);
+        m_orientation_down = m_orientation_down.rotationVector(0.13, m_orientation_right);
+        break;
+    case Camera::Direction::down:
+        m_orientation = m_orientation.rotationVector(-0.13, m_orientation_right);
+        m_orientation_down = m_orientation_down.rotationVector(-0.13, m_orientation_right);
+        break;
+    case Camera::Direction::left:
+        m_orientation = m_orientation.rotationVector(0.13, m_orientation_down);
+        m_orientation_right = m_orientation_right.rotationVector(0.13, m_orientation_down);
+        break;
+    case Camera::Direction::right:
+        m_orientation = m_orientation.rotationVector(-0.13, m_orientation_down);
+        m_orientation_right = m_orientation_right.rotationVector(-0.13, m_orientation_down);
+        break;
+    default:
+        break;
+    }
+}
+
+

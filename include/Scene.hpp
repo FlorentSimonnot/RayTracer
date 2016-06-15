@@ -45,7 +45,7 @@ public:
     Camera const& getCamera() const;
 
     void moveCamera(Camera::Direction dir);
-    void rotateCamera();
+    void rotateCamera(Camera::Direction dir);
 
     void test() const;
 

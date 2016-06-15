@@ -165,6 +165,30 @@ int main(int argc, char *argv[]) {
 					gui.render(image);
 					delete image;
 					break;
+				case SDL_SCANCODE_W:
+					scene.rotateCamera(Camera::Direction::left);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_R:
+					scene.rotateCamera(Camera::Direction::right);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_T:
+					scene.rotateCamera(Camera::Direction::up);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
+				case SDL_SCANCODE_G:
+					scene.rotateCamera(Camera::Direction::down);
+					image = rayTracer.draw(scene);
+					gui.render(image);
+					delete image;
+					break;
 				default:
 					break;
 			}
