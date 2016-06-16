@@ -84,6 +84,13 @@ Matrice::Matrice(Vector const& v1, Vector const& v2)
     }
 }
 
+Matrice::Matrice(Vector const& v1, Vector const& v2, float angle)
+        : Matrice(v1, v2) {
+    Vector vTmp = Vector(0, 0, 1).rotationVector(this->inverseMatrix());
+    Matrice mTmp = Matrice(angle, vTmp);
+    *this = *this * mTmp;
+}
+
 Matrice::Matrice(Vector const& v1, Vector const& v2, Vector const& v3)
         : m_ligne1(v1), m_ligne2(v2), m_ligne3(v3) {
 }

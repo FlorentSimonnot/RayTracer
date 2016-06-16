@@ -17,6 +17,7 @@ public:
     Matrice();
     Matrice(float angle, Vector const& axe);
     Matrice(Vector const& v1, Vector const& v2);
+    Matrice(Vector const& v1, Vector const& v2, float angle);
     Matrice(Matrice const &m);
 
     ~Matrice();
