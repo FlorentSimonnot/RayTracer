@@ -33,11 +33,12 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
           m_direction(direction * (1.f / direction.norm())),
           m_scale(scale),
           m_color(color),
-          m_Mat_rotation(Matrice(Vector(0, 0, 1), m_direction) * Matrice(angle, Vector(0, 0, 1))),
+          m_Mat_rotation(Matrice(Vector(0, 0, 1), m_direction)),
           m_inverse(m_Mat_rotation.inverseMatrix()),
           m_Materiau(),
           m_Camera_Pos(),
           m_boundingVolume() {
+    m_Mat_rotation = m_Mat_rotation * Matrice(angle, Vector(0, 0, 1).rotationVector(m_Mat_rotation.inverseMatrix()));
 }
 
 Shape::~Shape() {
