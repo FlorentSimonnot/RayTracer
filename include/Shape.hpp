@@ -63,6 +63,8 @@ public:
     void setMaterial(Materiaux const& m);
 
     Materiaux const& getMaterial();
+
+    std::string getMaterialName() const;
 };
 
 #endif //SHAPE_HPP

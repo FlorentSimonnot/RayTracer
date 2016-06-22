@@ -119,11 +119,38 @@ int main(int argc, char* argv[]) {
         Parser parser(input);
         parser.parse(objects);
     }
+
+    ////////////////////////////////////////////
+
+
     // TODO Recuperer la liste des materiaux
     // Et après pour chaque objet , on regarde si le materiaux indiqué est dans la liste des materiaux créer
     // Si c'est oui , alors on attribue toutes les caract ,
     // si c'est faux , on met la valeur par default
 
+    // Extraction liste materiaux
+    std::vector<Materiaux> m_materiaux;
+    for (auto& o: objects) {
+        if (Materiaux* m = dynamic_cast<Materiaux*>(o.get())) {
+            m_materiaux.emplace_back(m);
+        }
+    }
+
+    for (auto& o: objects) {
+        if (Shape* s = dynamic_cast<Shape*>(o.get())) {
+            for (Materiaux m:m_materiaux) {
+                if (s->getMaterialName() == m.getName()) {
+                    s->setMaterial(m);
+                }
+                else {
+                    std::cout << "Material doesn't exist , setting default material" << std::endl;
+                    s->setMaterial(Materiaux());
+                }
+            }
+        }
+    }
+
+    ////////////////////////////////////////////
     Scene scene(objects);
     if (aaParam == 0) {
         aaParam = 1;

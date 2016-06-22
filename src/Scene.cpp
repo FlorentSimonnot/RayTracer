@@ -5,6 +5,7 @@
 #include <limits>
 #include <Shape.hpp>
 #include <iostream>
+#include <cstdlib>
 #include "Scene.hpp"
 #include "Light.hpp"
 

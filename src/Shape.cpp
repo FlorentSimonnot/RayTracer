@@ -118,3 +118,7 @@ void Shape::setMaterial(const Materiaux& m) {
 Materiaux const& Shape::getMaterial() {
     return m_Materiaux;
 }
+
+std::string Shape::getMaterialName() const {
+    return m_material_name;
+}

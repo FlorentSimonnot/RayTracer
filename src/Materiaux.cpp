@@ -6,10 +6,10 @@
 
 Materiaux::Materiaux() :
         m_nom("Default"),
-        m_coefReflection(1.0),
-        m_indiceRefraction(1.0),
-        m_brillance(1.0),
-        m_transparence(1.0) { }
+        m_coefReflection(100.0),
+        m_indiceRefraction(100.0),
+        m_brillance(0.0),
+        m_transparence(0.0) { }
 
 Materiaux::Materiaux(Materiaux const& m) :
         m_nom(m.m_nom),
