@@ -7,33 +7,39 @@
 
 #include "Ray.hpp"
 #include "Point.hpp"
+#include "Object.hpp"
 
 /**
  * Pour determiner le type de matiere d'un objet , afin de savoir comment la lumiere va etre reflechis
  */
 
-class Materiaux {
+class Materiaux : public Object {
 
 private:
 
-    float coefReflection;
+    std::string m_nom;
+
+    float m_coefReflection;
     /* coefficient de reflection */
 
-    float coefReflectionInv;
-    /* 1 - coefReflection */
-
-    float indiceRefraction;
+    float m_indiceRefraction;
     /* indice de refraction du materiaux */
 
-    float brillance;
+    float m_brillance;
     /* brillance du materiaux*/
+
+    float m_transparence;
 
 public:
 
     Materiaux();
 
-    ~Materiaux();
+    Materiaux(const Materiaux& m);
 
+    Materiaux(std::string m_nom, float m_coefReflection, float m_indiceRefraction, float m_brillance,
+              float transparence);
+
+    ~Materiaux();
 
     Materiaux& operator=(const Materiaux& m);
 
@@ -41,19 +47,21 @@ public:
 
     bool operator!=(const Materiaux& m);
 
+    void valueVerification();
+
     void setIndiceRefraction(float v);
 
     void setBrillance(float v);
 
-    float getCoefReflection() const;
+    std::string getName() const;
 
-    float getCoefReflectionInv() const;
+    float getCoefReflection() const;
 
     float getIndiceRefraction() const;
 
     float getBrillance() const;
 
-    bool rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi);
+//    bool rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi);
 };
 
 
