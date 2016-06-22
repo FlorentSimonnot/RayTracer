@@ -119,6 +119,10 @@ int main(int argc, char* argv[]) {
         Parser parser(input);
         parser.parse(objects);
     }
+    // TODO Recuperer la liste des materiaux
+    // Et après pour chaque objet , on regarde si le materiaux indiqué est dans la liste des materiaux créer
+    // Si c'est oui , alors on attribue toutes les caract ,
+    // si c'est faux , on met la valeur par default
 
     Scene scene(objects);
     if (aaParam == 0) {
