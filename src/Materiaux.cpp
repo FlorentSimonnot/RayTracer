@@ -69,6 +69,12 @@ void Materiaux::valueVerification() {
 
 Materiaux::~Materiaux() { }
 
+Materiaux::operator std::string() const {
+    return "Materiaux :\nTransparence :" + std::to_string(m_transparence)
+           + "\nIndiceRefraction : " + std::to_string(m_indiceRefraction)
+           + "\nCoefficient de reflection : " + std::to_string(m_coefReflection)
+           + "\nBrillance : " + std::to_string(m_brillance);
+}
 
 Materiaux& Materiaux::operator=(Materiaux const& m) {
     this->m_nom = m.m_nom;
@@ -125,7 +131,7 @@ float Materiaux::getIndiceRefraction() const {
 }
 
 float Materiaux::getTransparence() const {
-    return m_transparence
+    return m_transparence;
 }
 //bool Materiaux::rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi) {
 //

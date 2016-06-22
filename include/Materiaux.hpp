@@ -41,6 +41,8 @@ public:
 
     ~Materiaux();
 
+    operator std::string() const;
+
     Materiaux& operator=(Materiaux const& m);
 
     bool operator==(Materiaux const& m);
