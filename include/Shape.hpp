@@ -14,7 +14,7 @@ class Shape : public Object {
 protected:
     Vector m_position, m_direction, m_scale, m_color;
     Matrice m_Mat_rotation, m_inverse;
-    Materiaux m_Materiau;
+    Materiaux m_Materiaux;
 
     Point m_Camera_Pos;
 
@@ -59,6 +59,10 @@ public:
     virtual Vector getNormalFromPoint(const Ray& ray, float dist) const = 0;
 
     friend std::ostream& operator<<(std::ostream& out, const Shape& s);
+
+    void setMaterial(Materiaux const& m);
+
+    Materiaux const& getMaterial();
 };
 
 #endif //SHAPE_HPP

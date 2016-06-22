@@ -34,24 +34,26 @@ public:
 
     Materiaux();
 
-    Materiaux(const Materiaux& m);
+    Materiaux(Materiaux const& m);
 
     Materiaux(std::string m_nom, float m_coefReflection, float m_indiceRefraction, float m_brillance,
               float transparence);
 
     ~Materiaux();
 
-    Materiaux& operator=(const Materiaux& m);
+    Materiaux& operator=(Materiaux const& m);
 
-    bool operator==(const Materiaux& m);
+    bool operator==(Materiaux const& m);
 
-    bool operator!=(const Materiaux& m);
+    bool operator!=(Materiaux const& m);
 
     void valueVerification();
 
     void setIndiceRefraction(float v);
 
     void setBrillance(float v);
+
+    void setTransparence(float v);
 
     std::string getName() const;
 
@@ -60,6 +62,8 @@ public:
     float getIndiceRefraction() const;
 
     float getBrillance() const;
+
+    float getTransparence() const;
 
 //    bool rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi);
 };

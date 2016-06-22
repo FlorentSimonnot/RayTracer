@@ -11,7 +11,7 @@ Materiaux::Materiaux() :
         m_brillance(1.0),
         m_transparence(1.0) { }
 
-Materiaux::Materiaux(const Materiaux& m) :
+Materiaux::Materiaux(Materiaux const& m) :
         m_nom(m.m_nom),
         m_coefReflection(m.m_coefReflection),
         m_indiceRefraction(m.m_indiceRefraction),
@@ -70,7 +70,7 @@ void Materiaux::valueVerification() {
 Materiaux::~Materiaux() { }
 
 
-Materiaux& Materiaux::operator=(const Materiaux& m) {
+Materiaux& Materiaux::operator=(Materiaux const& m) {
     this->m_nom = m.m_nom;
     this->m_brillance = m.m_brillance;
     this->m_coefReflection = m.m_coefReflection;
@@ -80,7 +80,7 @@ Materiaux& Materiaux::operator=(const Materiaux& m) {
 }
 
 // TODO Eventuellement ajouter test sur la couleur
-bool Materiaux::operator!=(const Materiaux& m) {
+bool Materiaux::operator!=(Materiaux const& m) {
     return this->m_brillance != m.m_brillance ||
            this->m_coefReflection != m.m_coefReflection ||
            this->m_indiceRefraction != m.m_indiceRefraction ||
@@ -88,7 +88,7 @@ bool Materiaux::operator!=(const Materiaux& m) {
            this->m_nom != m.m_nom;
 }
 
-bool Materiaux::operator==(const Materiaux& m) {
+bool Materiaux::operator==(Materiaux const& m) {
     return this->m_brillance == m.m_brillance &&
            this->m_coefReflection == m.m_coefReflection &&
            this->m_indiceRefraction == m.m_indiceRefraction &&
@@ -102,6 +102,10 @@ void Materiaux::setIndiceRefraction(float v) {
 
 void Materiaux::setBrillance(float v) {
     this->m_brillance = v;
+}
+
+void Materiaux::setTransparence(float v) {
+    this->m_transparence = v;
 }
 
 std::string Materiaux::getName() const {
@@ -120,6 +124,9 @@ float Materiaux::getIndiceRefraction() const {
     return m_indiceRefraction;
 }
 
+float Materiaux::getTransparence() const {
+    return m_transparence
+}
 //bool Materiaux::rayonReflechi(Ray const& r, Point origin, Vector normale, Ray& rayonReflechi) {
 //
 //    Vector direction;
