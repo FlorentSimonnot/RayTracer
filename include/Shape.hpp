@@ -19,13 +19,18 @@ protected:
     Point m_Camera_Pos;
 
     BoundingVolume m_boundingVolume;
+
+    std::string m_material_name;
 public:
     Shape();
 
-    Shape(Vector const& color);
-    Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle);
+    Shape(Vector const& color, std::string material_name);
+
+    Shape(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle,
+          std::string material_name);
 
     Shape(Shape const& s);
+
     Shape& operator=(Shape const& o);
 
     virtual ~Shape();
@@ -35,6 +40,7 @@ public:
     Vector const& getColor() const;
 
     virtual bool intersect(Ray const& ray, float& dist) = 0;
+
     virtual bool intersect_shadow(Ray const& ray, float& dist) = 0;
 
     // A changer la variable color peut etre plus tard

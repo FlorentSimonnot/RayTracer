@@ -11,10 +11,11 @@ Shape::Shape()
           m_inverse(),
           m_Materiau(),
           m_Camera_Pos(),
-          m_boundingVolume() {
+          m_boundingVolume(),
+          m_material_name("Default") {
 }
 
-Shape::Shape(Vector const& color)
+Shape::Shape(Vector const& color, std::string material_name)
         : Object(),
           m_position(0.f, 0.f, 0.f),
           m_direction(0.f, 0.f, 0.f),
@@ -24,10 +25,12 @@ Shape::Shape(Vector const& color)
           m_inverse(),
           m_Materiau(),
           m_Camera_Pos(),
-          m_boundingVolume() {
+          m_boundingVolume(),
+          m_material_name(material_name) {
 }
 
-Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color, float angle)
+Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color, float angle,
+             std::string material_name)
         : Object(),
           m_position(position),
           m_direction(direction * (1.f / direction.norm())),
@@ -37,7 +40,8 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
           m_inverse(m_Mat_rotation.inverseMatrix()),
           m_Materiau(),
           m_Camera_Pos(),
-          m_boundingVolume() {
+          m_boundingVolume(),
+          m_material_name(material_name) {
 /*    m_Mat_rotation = m_Mat_rotation * Matrice(angle, Vector(0, 0, 1).rotationVector(m_Mat_rotation.inverseMatrix()));*/
 }
 

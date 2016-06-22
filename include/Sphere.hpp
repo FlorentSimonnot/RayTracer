@@ -15,7 +15,8 @@ private:
 public:
     Sphere();
 
-    Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle);
+    Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle,
+           std::string material_name);
 
     virtual ~Sphere();
 

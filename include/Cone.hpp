@@ -22,15 +22,19 @@ private:
 
 public:
     Cone();
-    Cone(Vector const& position, Vector const& direction, Vector const& scale,Vector const& color, float angle);
+
+    Cone(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle,
+         std::string material_name);
+
     virtual ~Cone();
 
     operator std::string() const;
 
     bool intersect(const Ray& ray, float& dist);
+
     bool intersect_shadow(const Ray& ray, float& dist);
 
-    float getRadius() const ;
+    float getRadius() const;
 
     float getHeight() const;
 

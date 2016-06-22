@@ -15,8 +15,11 @@ Sphere::Sphere()
     m_boundingVolume = BoundingVolume(center, radius);
 }
 
-Sphere::Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
-        : Shape(position, direction, scale, color, angle), m_d2(), m_gamma() {
+Sphere::Sphere(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle,
+               std::string material_name)
+        : Shape(position, direction, scale, color, angle, material_name),
+          m_d2(),
+          m_gamma() {
     Point center = m_position;
     float radius = fmaxf(m_scale.x(), fmaxf(m_scale.y(), m_scale.z()));
     m_boundingVolume = BoundingVolume(center, radius);

@@ -6,7 +6,6 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <Sphere.hpp>
 
 
 Cone::Cone()
@@ -72,8 +71,9 @@ Cone::Cone()
     m_boundingVolume = BoundingVolume(center, radius);
 }
 
-Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color, float angle)
-        : Shape(position, direction, m_scale, color, angle),
+Cone::Cone(Vector const& position, Vector const& direction, Vector const& m_scale, Vector const& color, float angle,
+           std::string material_name)
+        : Shape(position, direction, m_scale, color, angle, material_name),
           m_d2(),
           m_gamma(),
           m_tanX(),
@@ -376,8 +376,8 @@ void Cone::precalcul() {
     Point p2 = pos_down - v1;
     Point p3 = pos_down - v2;
 
-    m_p1 = Triangle(p0, p1, p2, m_color);
-    m_p2 = Triangle(p0, p3, p2, m_color);
+    m_p1 = Triangle(p0, p1, p2, m_color, m_material_name);
+    m_p2 = Triangle(p0, p3, p2, m_color, m_material_name);
 }
 
 Vector Cone::getNormalFromPoint(const Ray& ray, float dist) const {

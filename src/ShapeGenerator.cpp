@@ -256,7 +256,7 @@ void ShapeGenerator::generateAllSpots(std::vector<std::unique_ptr<Object>>& obje
 
 void ShapeGenerator::generateCylinder(const Point position, const Vector orientation, const Vector scale,
                                       const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Cylinder(position, orientation, scale, color, 0));
+    object.reset(new Cylinder(position, orientation, scale, color, 0, "Default"));
     std::cout << " Cylinder " << std::endl
     << " Position = " << position << std::endl
     << " Orientation = " << orientation << std::endl
@@ -266,7 +266,7 @@ void ShapeGenerator::generateCylinder(const Point position, const Vector orienta
 
 void ShapeGenerator::generateRectangle(const Point position, const Vector orientation, const Vector scale,
                                        const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Rectangle(position, orientation, scale, color, 0));
+    object.reset(new Rectangle(position, orientation, scale, color, 0, "Default"));
     std::cout << " Rectangle " << std::endl
     << " Position = " << position << std::endl
     << " Orientation = " << orientation << std::endl
@@ -276,7 +276,7 @@ void ShapeGenerator::generateRectangle(const Point position, const Vector orient
 
 void ShapeGenerator::generateSphere(const Point position, const Vector orientation, const Vector scale,
                                     const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Sphere(position, orientation, scale, color, 0));
+    object.reset(new Sphere(position, orientation, scale, color, 0, "Default"));
     std::cout << " Sphere " << std::endl
     << " Position = " << position << std::endl
     << " Orientation = " << orientation << std::endl
@@ -286,7 +286,7 @@ void ShapeGenerator::generateSphere(const Point position, const Vector orientati
 
 void ShapeGenerator::generateCone(const Point position, const Vector orientation, const Vector scale,
                                   const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Cone(position, orientation, scale, color, 0));
+    object.reset(new Cone(position, orientation, scale, color, 0, "Default"));
     std::cout << " Cone " << std::endl
     << " Position = " << position << std::endl
     << " Orientation = " << orientation << std::endl
@@ -296,7 +296,7 @@ void ShapeGenerator::generateCone(const Point position, const Vector orientation
 
 void ShapeGenerator::generateTriangle(const Point position_1, const Point position_2, const Point position_3,
                                       const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Triangle(position_1, position_2, position_3, color));
+    object.reset(new Triangle(position_1, position_2, position_3, color, "Default"));
     std::cout << " Triangle " << std::endl
     << " position = " << position_1 << std::endl
     << " position_2 = " << position_2 << std::endl

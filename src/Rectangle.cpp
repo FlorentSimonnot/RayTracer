@@ -3,7 +3,6 @@
 //
 
 #include <Triangle.hpp>
-#include <Sphere.hpp>
 #include <limits>
 #include <iostream>
 #include "Rectangle.hpp"
@@ -17,8 +16,9 @@ Rectangle::Rectangle()
     m_boundingVolume = BoundingVolume(center, radius);
 }
 
-Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
-        : Shape(position, direction, scale, color, angle),
+Rectangle::Rectangle(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color,
+                     float angle, std::string material_name)
+        : Shape(position, direction, scale, color, angle, material_name),
           m_p0(), m_p1(), m_p2(), m_p3(), m_p4(), m_p5(), m_p6(), m_p7(),
           m_t1(), m_t2(), m_t3(), m_t4(), m_t5(), m_t6(), m_t7(), m_t8(), m_t9(), m_t10(), m_t11(), m_t12() {
     Point center = m_position + (1.f / 2.f) * m_scale.rotationVector(m_inverse);
@@ -85,23 +85,23 @@ void Rectangle::precalcul() {
     m_p6 = m_position + vX + vY + vZ;
     m_p7 = m_position + vY + vZ;
 
-    m_t1 = Triangle(m_p0, m_p1, m_p2, m_color);
-    m_t2 = Triangle(m_p0, m_p2, m_p3, m_color);
+    m_t1 = Triangle(m_p0, m_p1, m_p2, m_color, m_material_name);
+    m_t2 = Triangle(m_p0, m_p2, m_p3, m_color, m_material_name);
 
-    m_t3 = Triangle(m_p0, m_p1, m_p5, m_color);
-    m_t4 = Triangle(m_p0, m_p4, m_p5, m_color);
+    m_t3 = Triangle(m_p0, m_p1, m_p5, m_color, m_material_name);
+    m_t4 = Triangle(m_p0, m_p4, m_p5, m_color, m_material_name);
 
-    m_t5 = Triangle(m_p0, m_p3, m_p7, m_color);
-    m_t6 = Triangle(m_p0, m_p4, m_p7, m_color);
+    m_t5 = Triangle(m_p0, m_p3, m_p7, m_color, m_material_name);
+    m_t6 = Triangle(m_p0, m_p4, m_p7, m_color, m_material_name);
 
-    m_t7 = Triangle(m_p6, m_p1, m_p5, m_color);
-    m_t8 = Triangle(m_p6, m_p1, m_p2, m_color);
+    m_t7 = Triangle(m_p6, m_p1, m_p5, m_color, m_material_name);
+    m_t8 = Triangle(m_p6, m_p1, m_p2, m_color, m_material_name);
 
-    m_t9 = Triangle(m_p6, m_p3, m_p7, m_color);
-    m_t10 = Triangle(m_p6, m_p3, m_p2, m_color);
+    m_t9 = Triangle(m_p6, m_p3, m_p7, m_color, m_material_name);
+    m_t10 = Triangle(m_p6, m_p3, m_p2, m_color, m_material_name);
 
-    m_t11 = Triangle(m_p6, m_p4, m_p5, m_color);
-    m_t12 = Triangle(m_p6, m_p4, m_p7, m_color);
+    m_t11 = Triangle(m_p6, m_p4, m_p5, m_color, m_material_name);
+    m_t12 = Triangle(m_p6, m_p4, m_p7, m_color, m_material_name);
 }
 
 Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {

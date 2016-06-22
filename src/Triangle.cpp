@@ -52,8 +52,8 @@ Triangle::Triangle()
     m_boundingVolume = BoundingVolume(center, radius);
 }
 
-Triangle::Triangle(Point const& p1, Point const& p2, Point const& p3, Vector const& color)
-        : Shape(color), m_p1(p1), m_p2(p2), m_p3(p3) {
+Triangle::Triangle(Point const& p1, Point const& p2, Point const& p3, Vector const& color, std::string material_name)
+        : Shape(color, material_name), m_p1(p1), m_p2(p2), m_p3(p3) {
     float A = m_p1.distance(m_p2);
     float B = m_p2.distance(m_p3);
     float C = m_p3.distance(m_p1);

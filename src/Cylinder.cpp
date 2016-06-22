@@ -6,7 +6,6 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <Sphere.hpp>
 
 
 Cylinder::Cylinder()
@@ -23,8 +22,9 @@ Cylinder::Cylinder()
     m_boundingVolume = BoundingVolume(center, radius);
 }
 
-Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color, float angle)
-        : Shape(position, direction, scale, color, angle),
+Cylinder::Cylinder(Vector const& position, Vector const& direction, Vector const& scale, Vector const& color,
+                   float angle, std::string material_name)
+        : Shape(position, direction, scale, color, angle, material_name),
           m_d2(),
           m_gamma(),
           m_f1p1(),
@@ -151,10 +151,10 @@ void Cylinder::precalcul() {
     Point p6 = pos_up - v1;
     Point p7 = pos_up - v2;
 
-    m_f1p1 = Triangle(p0, p1, p2, m_color);
-    m_f1p2 = Triangle(p0, p3, p2, m_color);
-    m_f2p1 = Triangle(p4, p5, p6, m_color);
-    m_f2p2 = Triangle(p4, p6, p7, m_color);
+    m_f1p1 = Triangle(p0, p1, p2, m_color, m_material_name);
+    m_f1p2 = Triangle(p0, p3, p2, m_color, m_material_name);
+    m_f2p1 = Triangle(p4, p5, p6, m_color, m_material_name);
+    m_f2p2 = Triangle(p4, p6, p7, m_color, m_material_name);
 }
 
 bool Cylinder::intersect_shadow(const Ray& ray, float& dist) {
@@ -256,7 +256,7 @@ Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
         normal = m_f1p2.getNormalFromPoint(ray, dist);
     }
 
-    if(ray.getDirection().produitScalaire(normal) > 0){
+    if (ray.getDirection().produitScalaire(normal) > 0) {
         normal = -normal;
     }
     return normal;
