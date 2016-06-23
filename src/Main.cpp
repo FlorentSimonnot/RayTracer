@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
     for (auto& o: objects) {
         if (Shape* s = dynamic_cast<Shape*>(o.get())) {
             for (Materiaux* m:m_materiaux) {
-                if (s->getMaterialName() == m->getName()) {
+                if (s->getMaterial().getName() == m->getName()) {
                     s->setMaterial(*m);
                 }
                 else {

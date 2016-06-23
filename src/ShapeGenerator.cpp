@@ -98,7 +98,6 @@ ShapeGenerator::ShapeGenerator(int numberObjects, int numberSpot,
 
 ShapeGenerator::~ShapeGenerator() { }
 
-// TODO
 void ShapeGenerator::testInitValues() {
     if (m_minPosX > m_maxPosX) {
         inverseValue(m_minPosX, m_maxPosX);
@@ -318,7 +317,6 @@ Vector ShapeGenerator::randomVector(float minX, float maxX, float minY, float ma
     return Vector(x, y, z);
 }
 
-// TODO
 void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<Object>>& objects) {
 
     Point position = randomVector(m_minPosX, m_maxPosX, m_minPosY, m_maxPosY, m_minPosZ, m_maxPosZ);

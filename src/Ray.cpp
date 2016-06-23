@@ -4,8 +4,6 @@
 
 #include "Ray.hpp"
 
-// TODO
-
 Ray::Ray(Point const& origin, Vector const& direction)
         : origin(origin),
           direction(direction) { }

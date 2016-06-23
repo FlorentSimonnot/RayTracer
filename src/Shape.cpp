@@ -9,10 +9,9 @@ Shape::Shape()
           m_color(255, 0, 0),
           m_Mat_rotation(),
           m_inverse(),
-          m_Materiaux(),
+          m_Materiaux("Default"),
           m_Camera_Pos(),
-          m_boundingVolume(),
-          m_material_name("Default") {
+          m_boundingVolume() {
 }
 
 Shape::Shape(Vector const& color, std::string material_name)
@@ -23,10 +22,9 @@ Shape::Shape(Vector const& color, std::string material_name)
           m_color(color),
           m_Mat_rotation(),
           m_inverse(),
-          m_Materiaux(),
+          m_Materiaux(material_name),
           m_Camera_Pos(),
-          m_boundingVolume(),
-          m_material_name(material_name) {
+          m_boundingVolume() {
 }
 
 Shape::Shape(const Vector& position, const Vector& direction, const Vector& scale, Vector const& color, float angle,
@@ -38,10 +36,9 @@ Shape::Shape(const Vector& position, const Vector& direction, const Vector& scal
           m_color(color),
           m_Mat_rotation(Matrice(Vector(0, 0, 1), m_direction, angle)/*/ * Matrice(angle, Vector(0, 0, 1))/*/),
           m_inverse(m_Mat_rotation.inverseMatrix()),
-          m_Materiaux(),
+          m_Materiaux(material_name),
           m_Camera_Pos(),
-          m_boundingVolume(),
-          m_material_name(material_name) {
+          m_boundingVolume() {
 /*    m_Mat_rotation = m_Mat_rotation * Matrice(angle, Vector(0, 0, 1).rotationVector(m_Mat_rotation.inverseMatrix()));*/
 }
 
@@ -112,13 +109,9 @@ std::ostream& operator<<(std::ostream& out, const Shape& s) {
 }
 
 void Shape::setMaterial(const Materiaux& m) {
-    m_Materiaux = m;
+    this->m_Materiaux = m;
 }
 
 Materiaux const& Shape::getMaterial() {
     return m_Materiaux;
-}
-
-std::string Shape::getMaterialName() const {
-    return m_material_name;
 }

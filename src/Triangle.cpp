@@ -110,7 +110,6 @@ Triangle::operator std::string() const {
 }
 
 // Algo de Möller-Trumbdore
-// TODO A verifier
 bool Triangle::intersect(const Ray& ray, float& dist) {
     Vector edge_1(m_p2 - m_p1);
     Vector edge_2(m_p3 - m_p1);

@@ -376,8 +376,8 @@ void Cone::precalcul() {
     Point p2 = pos_down - v1;
     Point p3 = pos_down - v2;
 
-    m_p1 = Triangle(p0, p1, p2, m_color, m_material_name);
-    m_p2 = Triangle(p0, p3, p2, m_color, m_material_name);
+    m_p1 = Triangle(p0, p1, p2, m_color, m_Materiaux.getName());
+    m_p2 = Triangle(p0, p3, p2, m_color, m_Materiaux.getName());
 }
 
 Vector Cone::getNormalFromPoint(const Ray& ray, float dist) const {

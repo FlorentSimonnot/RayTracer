@@ -7,7 +7,6 @@
 
 #include <Shape.hpp>
 
-// TODO
 class Sphere : public Shape {
 private:
     Point m_d2; // pre-Calcul pour l'optimisation d'intersection de sphere -> servira pour sphere englobante

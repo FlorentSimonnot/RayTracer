@@ -9,14 +9,27 @@ Materiaux::Materiaux() :
         m_coefReflection(100.0),
         m_indiceRefraction(100.0),
         m_brillance(0.0),
-        m_transparence(0.0) { }
+        m_transparence(0.0) {
+    valueVerification();
+}
+
+Materiaux::Materiaux(std::string nom) :
+        m_nom(nom),
+        m_coefReflection(100.0),
+        m_indiceRefraction(0.0),
+        m_brillance(0.0),
+        m_transparence(0.0) {
+    valueVerification();
+}
 
 Materiaux::Materiaux(Materiaux const& m) :
         m_nom(m.m_nom),
         m_coefReflection(m.m_coefReflection),
         m_indiceRefraction(m.m_indiceRefraction),
         m_brillance(m.m_brillance),
-        m_transparence(m.m_brillance) { }
+        m_transparence(m.m_brillance) {
+    valueVerification();
+}
 
 Materiaux::Materiaux(std::string m_nom,
                      float m_coefReflection,
@@ -85,7 +98,6 @@ Materiaux& Materiaux::operator=(Materiaux const& m) {
     return (*this);
 }
 
-// TODO Eventuellement ajouter test sur la couleur
 bool Materiaux::operator!=(Materiaux const& m) {
     return this->m_brillance != m.m_brillance ||
            this->m_coefReflection != m.m_coefReflection ||

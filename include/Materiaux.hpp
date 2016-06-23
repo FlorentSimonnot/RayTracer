@@ -34,6 +34,8 @@ public:
 
     Materiaux();
 
+    Materiaux(std::string m_nom);
+
     Materiaux(Materiaux const& m);
 
     Materiaux(std::string m_nom, float m_coefReflection, float m_indiceRefraction, float m_brillance,

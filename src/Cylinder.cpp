@@ -151,10 +151,10 @@ void Cylinder::precalcul() {
     Point p6 = pos_up - v1;
     Point p7 = pos_up - v2;
 
-    m_f1p1 = Triangle(p0, p1, p2, m_color, m_material_name);
-    m_f1p2 = Triangle(p0, p3, p2, m_color, m_material_name);
-    m_f2p1 = Triangle(p4, p5, p6, m_color, m_material_name);
-    m_f2p2 = Triangle(p4, p6, p7, m_color, m_material_name);
+    m_f1p1 = Triangle(p0, p1, p2, m_color, m_Materiaux.getName());
+    m_f1p2 = Triangle(p0, p3, p2, m_color, m_Materiaux.getName());
+    m_f2p1 = Triangle(p4, p5, p6, m_color, m_Materiaux.getName());
+    m_f2p2 = Triangle(p4, p6, p7, m_color, m_Materiaux.getName());
 }
 
 bool Cylinder::intersect_shadow(const Ray& ray, float& dist) {

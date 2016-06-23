@@ -19,8 +19,6 @@ protected:
     Point m_Camera_Pos;
 
     BoundingVolume m_boundingVolume;
-
-    std::string m_material_name;
 public:
     Shape();
 
@@ -63,8 +61,6 @@ public:
     void setMaterial(Materiaux const& m);
 
     Materiaux const& getMaterial();
-
-    std::string getMaterialName() const;
 };
 
 #endif //SHAPE_HPP
