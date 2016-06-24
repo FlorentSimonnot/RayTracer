@@ -11,6 +11,10 @@ Materiaux::Materiaux() :
         m_brillance(0.0),
         m_transparence(0.0) {
     valueVerification();
+    m_transparence /= 100;
+    m_indiceRefraction /= 100;
+    m_brillance /= 100;
+    m_coefReflection /= 100;
 }
 
 Materiaux::Materiaux(std::string nom) :
@@ -20,6 +24,10 @@ Materiaux::Materiaux(std::string nom) :
         m_brillance(0.0),
         m_transparence(0.0) {
     valueVerification();
+    m_transparence /= 100;
+    m_indiceRefraction /= 100;
+    m_brillance /= 100;
+    m_coefReflection /= 100;
 }
 
 Materiaux::Materiaux(Materiaux const& m) :
@@ -43,6 +51,10 @@ Materiaux::Materiaux(std::string m_nom,
         m_transparence(transparence) {
 
     valueVerification();
+    m_transparence /= 100;
+    m_indiceRefraction /= 100;
+    m_brillance /= 100;
+    m_coefReflection /= 100;
 }
 
 void Materiaux::valueVerification() {
@@ -73,11 +85,6 @@ void Materiaux::valueVerification() {
     if (m_coefReflection < 0) {
         m_coefReflection = 0;
     }
-
-    m_transparence /= 100;
-    m_indiceRefraction /= 100;
-    m_brillance /= 100;
-    m_coefReflection /= 100;
 }
 
 Materiaux::~Materiaux() { }

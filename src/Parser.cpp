@@ -272,7 +272,6 @@ static bool parseSpot(std::string const& content, size_t& pos, std::unique_ptr<O
     return false;
 }
 
-// TODO -> a Test
 static bool parseMaterial(std::string const& content, size_t& pos, std::unique_ptr<Object>& object) {
     std::string name;
     float coefReflection, indiceRefraction, brillance, transparence;

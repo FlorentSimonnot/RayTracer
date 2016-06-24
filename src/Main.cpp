@@ -136,20 +136,37 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    for (Materiaux* m:m_materiaux) {
+        std::cout << "\nmat = " << m->getName() << std::endl;
+    }
+
+    bool testMat = true;
     for (auto& o: objects) {
         if (Shape* s = dynamic_cast<Shape*>(o.get())) {
             for (Materiaux* m:m_materiaux) {
                 if (s->getMaterial().getName() == m->getName()) {
                     s->setMaterial(*m);
-                }
-                else {
-                    std::cout << "Material doesn't exist , setting default material" << std::endl;
-                    s->setMaterial(Materiaux());
+                    testMat = false;
+                    break;
                 }
             }
+            if (testMat) {
+                std::cout << "Material " << s->getMaterial().getName() << " doesn't exist , setting default material" <<
+                std::endl;
+                s->setMaterial(Materiaux());
+            }
         }
+        testMat = true;
     }
 
+//    for (auto& o: objects) {
+//        if (Shape* s = dynamic_cast<Shape*>(o.get())) {
+//            std::cout << "-----------------" << std::endl;
+//            std::cout << "\nObject " << std::string(*s)<<"\nMaterial "<< s->getMaterial().getName();
+//            std::cout << "-----------------" << std::endl;
+//
+//        }
+//    }
     ////////////////////////////////////////////
     Scene scene(objects);
     if (aaParam == 0) {
