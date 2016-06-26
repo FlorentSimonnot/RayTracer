@@ -70,19 +70,19 @@ private:
 private:
 /// Fonctions de generation ///
     void generateCylinder(const Point position, const Vector orientation, const Vector scale, const Vector color,
-                          std::unique_ptr<Object>& object);
+                          std::unique_ptr<Object>& object, Materiaux const& mat);
 
     void generateRectangle(const Point position, const Vector orientation, const Vector scale, const Vector color,
-                           std::unique_ptr<Object>& object);
+                           std::unique_ptr<Object>& object, Materiaux const& mat);
 
     void generateSphere(const Point position, const Vector orientation, const Vector scale, const Vector color,
-                        std::unique_ptr<Object>& object);
+                        std::unique_ptr<Object>& object, Materiaux const& mat);
 
     void generateTriangle(const Point position_1, const Point position_2, const Point position_3, const Vector color,
-                          std::unique_ptr<Object>& object);
+                          std::unique_ptr<Object>& object, Materiaux const& mat);
 
     void generateCone(const Point position, const Vector orientation, const Vector scale, const Vector color,
-                      std::unique_ptr<Object>& object);
+                      std::unique_ptr<Object>& object, Materiaux const& mat);
 
     void generateShape(const ObjectType type, std::vector<std::unique_ptr<Object>>& objects);
 
@@ -107,6 +107,8 @@ private:
     void generateAllSpots(std::vector<std::unique_ptr<Object>>& objects);
 
     void generateCamera(std::unique_ptr<Object>& object);
+
+    void generateMaterial(Materiaux& mat);
 
     void inverseValue(float& a, float& b);
 

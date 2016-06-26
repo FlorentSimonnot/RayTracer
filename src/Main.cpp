@@ -118,55 +118,43 @@ int main(int argc, char* argv[]) {
     else {
         Parser parser(input);
         parser.parse(objects);
+
+        // Extraction liste materiaux
+        std::vector<Materiaux*> m_materiaux;
+        for (auto& o: objects) {
+            if (Materiaux* m = dynamic_cast<Materiaux*>(o.get())) {
+                m_materiaux.emplace_back(m);
+            }
+        }
+
+//        for (Materiaux* m:m_materiaux) {
+//            std::cout << "\nmat = " << m->getName() << std::endl;
+//        }
+
+        bool testMat = true;
+        for (auto& o: objects) {
+            if (Shape* s = dynamic_cast<Shape*>(o.get())) {
+                for (Materiaux* m:m_materiaux) {
+                    if (s->getMaterial().getName() == m->getName()) {
+                        s->setMaterial(*m);
+                        testMat = false;
+                        break;
+                    }
+                }
+                if (testMat) {
+                    std::cout << "Material " << s->getMaterial().getName() <<
+                    " doesn't exist , setting default material" << std::endl;
+                    s->setMaterial(Materiaux());
+                }
+            }
+            testMat = true;
+        }
     }
 
     ////////////////////////////////////////////
 
 
-    // TODO Recuperer la liste des materiaux
-    // Et après pour chaque objet , on regarde si le materiaux indiqué est dans la liste des materiaux créer
-    // Si c'est oui , alors on attribue toutes les caract ,
-    // si c'est faux , on met la valeur par default
 
-    // Extraction liste materiaux
-    std::vector<Materiaux*> m_materiaux;
-    for (auto& o: objects) {
-        if (Materiaux* m = dynamic_cast<Materiaux*>(o.get())) {
-            m_materiaux.emplace_back(m);
-        }
-    }
-
-    for (Materiaux* m:m_materiaux) {
-        std::cout << "\nmat = " << m->getName() << std::endl;
-    }
-
-    bool testMat = true;
-    for (auto& o: objects) {
-        if (Shape* s = dynamic_cast<Shape*>(o.get())) {
-            for (Materiaux* m:m_materiaux) {
-                if (s->getMaterial().getName() == m->getName()) {
-                    s->setMaterial(*m);
-                    testMat = false;
-                    break;
-                }
-            }
-            if (testMat) {
-                std::cout << "Material " << s->getMaterial().getName() << " doesn't exist , setting default material" <<
-                std::endl;
-                s->setMaterial(Materiaux());
-            }
-        }
-        testMat = true;
-    }
-
-//    for (auto& o: objects) {
-//        if (Shape* s = dynamic_cast<Shape*>(o.get())) {
-//            std::cout << "-----------------" << std::endl;
-//            std::cout << "\nObject " << std::string(*s)<<"\nMaterial "<< s->getMaterial().getName();
-//            std::cout << "-----------------" << std::endl;
-//
-//        }
-//    }
     ////////////////////////////////////////////
     Scene scene(objects);
     if (aaParam == 0) {

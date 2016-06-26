@@ -177,7 +177,7 @@ void ShapeGenerator::generate(std::vector<std::unique_ptr<Object>>& objects) {
         // Au cas ou il n'y a pas eu de generation de lumiere lors de l'aleatoire
         if (m_numberSpot) {
             generateAllSpots(objects);
-            std::cout << " -------------------- " << std::endl;
+//            std::cout << " -------------------- " << std::endl;
         }
     }
     else {
@@ -213,7 +213,7 @@ void ShapeGenerator::generateRandomObjects(std::vector<std::unique_ptr<Object>>&
             continue;
         }/*/
         generateShape(type, objects);
-        std::cout << " -------------------- " << std::endl;
+//        std::cout << " -------------------- " << std::endl;
     }
 }
 
@@ -254,53 +254,53 @@ void ShapeGenerator::generateAllSpots(std::vector<std::unique_ptr<Object>>& obje
 }
 
 void ShapeGenerator::generateCylinder(const Point position, const Vector orientation, const Vector scale,
-                                      const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Cylinder(position, orientation, scale, color, 0, "Default"));
-    std::cout << " Cylinder " << std::endl
-    << " Position = " << position << std::endl
-    << " Orientation = " << orientation << std::endl
-    << " Scale = " << scale << std::endl
-    << " Color = " << color << std::endl;
+                                      const Vector color, std::unique_ptr<Object>& object, Materiaux const& mat) {
+    object.reset(new Cylinder(position, orientation, scale, color, 0, mat));
+//    std::cout << " Cylinder " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Orientation = " << orientation << std::endl
+//    << " Scale = " << scale << std::endl
+//    << " Color = " << color << std::endl;
 }
 
 void ShapeGenerator::generateRectangle(const Point position, const Vector orientation, const Vector scale,
-                                       const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Rectangle(position, orientation, scale, color, 0, "Default"));
-    std::cout << " Rectangle " << std::endl
-    << " Position = " << position << std::endl
-    << " Orientation = " << orientation << std::endl
-    << " Scale = " << scale << std::endl
-    << " Color = " << color << std::endl;
+                                       const Vector color, std::unique_ptr<Object>& object, Materiaux const& mat) {
+    object.reset(new Rectangle(position, orientation, scale, color, 0, mat));
+//    std::cout << " Rectangle " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Orientation = " << orientation << std::endl
+//    << " Scale = " << scale << std::endl
+//    << " Color = " << color << std::endl;
 }
 
 void ShapeGenerator::generateSphere(const Point position, const Vector orientation, const Vector scale,
-                                    const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Sphere(position, orientation, scale, color, 0, "Default"));
-    std::cout << " Sphere " << std::endl
-    << " Position = " << position << std::endl
-    << " Orientation = " << orientation << std::endl
-    << " Scale = " << scale << std::endl
-    << " Color = " << color << std::endl;
+                                    const Vector color, std::unique_ptr<Object>& object, Materiaux const& mat) {
+    object.reset(new Sphere(position, orientation, scale, color, 0, mat));
+//    std::cout << " Sphere " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Orientation = " << orientation << std::endl
+//    << " Scale = " << scale << std::endl
+//    << " Color = " << color << std::endl;
 }
 
 void ShapeGenerator::generateCone(const Point position, const Vector orientation, const Vector scale,
-                                  const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Cone(position, orientation, scale, color, 0, "Default"));
-    std::cout << " Cone " << std::endl
-    << " Position = " << position << std::endl
-    << " Orientation = " << orientation << std::endl
-    << " Scale = " << scale << std::endl
-    << " Color = " << color << std::endl;
+                                  const Vector color, std::unique_ptr<Object>& object, Materiaux const& mat) {
+    object.reset(new Cone(position, orientation, scale, color, 0, mat));
+//    std::cout << " Cone " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Orientation = " << orientation << std::endl
+//    << " Scale = " << scale << std::endl
+//    << " Color = " << color << std::endl;
 }
 
 void ShapeGenerator::generateTriangle(const Point position_1, const Point position_2, const Point position_3,
-                                      const Vector color, std::unique_ptr<Object>& object) {
-    object.reset(new Triangle(position_1, position_2, position_3, color, "Default"));
-    std::cout << " Triangle " << std::endl
-    << " position = " << position_1 << std::endl
-    << " position_2 = " << position_2 << std::endl
-    << " position_3 = " << position_3 << std::endl
-    << " Color = " << color << std::endl;
+                                      const Vector color, std::unique_ptr<Object>& object, Materiaux const& mat) {
+    object.reset(new Triangle(position_1, position_2, position_3, color, mat));
+//    std::cout << " Triangle " << std::endl
+//    << " position = " << position_1 << std::endl
+//    << " position_2 = " << position_2 << std::endl
+//    << " position_3 = " << position_3 << std::endl
+//    << " Color = " << color << std::endl;
 }
 
 
@@ -328,21 +328,23 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
                                     position.z() - 2, position.z() + 2);
     Point position_3 = randomVector(position.x() - 2, position.x() + 2, position.y() - 2, position.y() + 2,
                                     position.z() - 2, position.z() + 2);
+    Materiaux mat;
+    generateMaterial(mat);
     switch (type) {
         case CYLINDER:
-            generateCylinder(position, orientation, scale, color, object);
+            generateCylinder(position, orientation, scale, color, object, mat);
             break;
         case RECTANGLE:
-            generateRectangle(position, orientation, scale, color, object);
+            generateRectangle(position, orientation, scale, color, object, mat);
             break;
         case SPHERE:
-            generateSphere(position, orientation, scale, color, object);
+            generateSphere(position, orientation, scale, color, object, mat);
             break;
         case TRIANGLE:
-            generateTriangle(position, position_2, position_3, color, object);
+            generateTriangle(position, position_2, position_3, color, object, mat);
             break;
         case CONE:
-            generateCone(position, orientation, scale, color, object);
+            generateCone(position, orientation, scale, color, object, mat);
             break;
         case LIGHT:
             generateSpotLight(position, color, object);
@@ -359,10 +361,10 @@ void ShapeGenerator::generateShape(ObjectType type, std::vector<std::unique_ptr<
 
 void ShapeGenerator::generateSpotLight(const Point position, const Vector color, std::unique_ptr<Object>& object) {
     object.reset(new Light(position, color));
-    std::cout << " Light " << std::endl
-    << " Position = " << position << std::endl
-    << " Color = " << color << std::endl;
-    std::cout << " -------------------- " << std::endl;
+//    std::cout << " Light " << std::endl
+//    << " Position = " << position << std::endl
+//    << " Color = " << color << std::endl;
+//    std::cout << " -------------------- " << std::endl;
 
 }
 
@@ -376,8 +378,10 @@ void ShapeGenerator::generateCamera(std::unique_ptr<Object>& object) {
 //    << " Orientation = " << orientation << std::endl;
 }
 
-
-
+// TODO
+void ShapeGenerator::generateMaterial(Materiaux& mat) {
+    mat = Materiaux();
+}
 
 
 
