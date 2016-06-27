@@ -200,11 +200,17 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
         color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
         if (n > 0) {
             Materiaux material = shape->getMaterial();
+            Vector colorRefl(0, 0, 0);
+            Vector colorTrans(0, 0, 0);
             if (material.getCoefReflection() > 0) {
                 Ray rayRefl = Ray(caracteristics.pointIntersection(), refl);
-                Vector colorRefl = computColor(rayRefl, scene, cameraDepth, n - 1);
-                color = color * (1 - material.getCoefReflection()) + colorRefl * material.getCoefReflection();
+                colorRefl = computColor(rayRefl, scene, cameraDepth, n - 1);
             }
+            if (material.getTransparence() > 0) {
+                Ray rayTrans = Ray(caracteristics.pointIntersection(), ray.getDirection());
+                colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
+            }
+            color = color * (1 - material.getCoefReflection() - material.getTransparence()) + colorRefl * material.getCoefReflection() + colorTrans * material.getTransparence();
         }
         color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
         color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));

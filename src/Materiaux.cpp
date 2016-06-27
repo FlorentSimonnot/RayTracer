@@ -22,26 +22,26 @@ Materiaux::Materiaux(std::string nom) :
     valueVerification();
 }
 
+
+#include <iostream>
 Materiaux::Materiaux(Materiaux const& m) :
         m_nom(m.m_nom),
         m_coefReflection(m.m_coefReflection),
         m_indiceRefraction(m.m_indiceRefraction),
         m_brillance(m.m_brillance),
-        m_transparence(m.m_brillance) {
-    valueVerification();
+        m_transparence(m.m_transparence) {
 }
 
-Materiaux::Materiaux(std::string m_nom,
-                     float m_coefReflection,
-                     float m_indiceRefraction,
-                     float m_brillance,
+Materiaux::Materiaux(std::string nom,
+                     float coefReflection,
+                     float indiceRefraction,
+                     float brillance,
                      float transparence) :
-        m_nom(m_nom),
-        m_coefReflection(m_coefReflection / 100.f),
-        m_indiceRefraction(m_indiceRefraction / 100.f),
-        m_brillance(m_brillance),
-        m_transparence(transparence) {
-
+        m_nom(nom),
+        m_coefReflection(coefReflection / 100.f),
+        m_indiceRefraction(indiceRefraction),
+        m_brillance(brillance),
+        m_transparence(transparence / 100.f) {
     valueVerification();
 }
 
