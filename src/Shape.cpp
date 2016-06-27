@@ -112,6 +112,6 @@ void Shape::setMaterial(const Materiaux& m) {
     this->m_Materiaux = m;
 }
 
-Materiaux const& Shape::getMaterial() {
+Materiaux const& Shape::getMaterial() const{
     return m_Materiaux;
 }

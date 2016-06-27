@@ -6,28 +6,20 @@
 
 Materiaux::Materiaux() :
         m_nom("Default"),
-        m_coefReflection(100.0),
-        m_indiceRefraction(100.0),
-        m_brillance(0.0),
-        m_transparence(0.0) {
-    valueVerification();
-    m_transparence /= 100;
-    m_indiceRefraction /= 100;
-    m_brillance /= 100;
-    m_coefReflection /= 100;
-}
-
-Materiaux::Materiaux(std::string nom) :
-        m_nom(nom),
-        m_coefReflection(100.0),
+        m_coefReflection(0.0),
         m_indiceRefraction(0.0),
         m_brillance(0.0),
         m_transparence(0.0) {
     valueVerification();
-    m_transparence /= 100;
-    m_indiceRefraction /= 100;
-    m_brillance /= 100;
-    m_coefReflection /= 100;
+}
+
+Materiaux::Materiaux(std::string nom) :
+        m_nom(nom),
+        m_coefReflection(0.0),
+        m_indiceRefraction(0.0),
+        m_brillance(0.0),
+        m_transparence(0.0) {
+    valueVerification();
 }
 
 Materiaux::Materiaux(Materiaux const& m) :
@@ -45,42 +37,24 @@ Materiaux::Materiaux(std::string m_nom,
                      float m_brillance,
                      float transparence) :
         m_nom(m_nom),
-        m_coefReflection(m_coefReflection),
-        m_indiceRefraction(m_indiceRefraction),
+        m_coefReflection(m_coefReflection / 100.f),
+        m_indiceRefraction(m_indiceRefraction / 100.f),
         m_brillance(m_brillance),
         m_transparence(transparence) {
 
     valueVerification();
-    m_transparence /= 100;
-    m_indiceRefraction /= 100;
-    m_brillance /= 100;
-    m_coefReflection /= 100;
 }
 
 void Materiaux::valueVerification() {
-    if (m_transparence > 100) {
-        m_transparence = 100;
+    if (m_transparence > 1) {
+        m_transparence = 1;
     }
     if (m_transparence < 0) {
         m_transparence = 0;
     }
 
-    if (m_indiceRefraction > 100) {
-        m_indiceRefraction = 100;
-    }
-    if (m_indiceRefraction < 0) {
-        m_indiceRefraction = 0;
-    }
-
-    if (m_brillance > 100) {
-        m_brillance = 100;
-    }
-    if (m_brillance < 0) {
-        m_brillance = 0;
-    }
-
-    if (m_coefReflection > 100) {
-        m_coefReflection = 100;
+    if (m_coefReflection > 1 - m_transparence) {
+        m_coefReflection = 1 - m_transparence;
     }
     if (m_coefReflection < 0) {
         m_coefReflection = 0;

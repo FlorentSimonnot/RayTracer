@@ -39,7 +39,7 @@ Shape const *Scene::getFirstCollision(Ray const& ray, float depth, float& distHi
 
     distHit = depth;
     for (auto const& s: m_shapes) {
-        if (s->getBoundingVolume().intersect(ray, distHit) && s->intersect(ray, dist) && dist < distHit && dist > 0.0001) {
+        if (s->getBoundingVolume().intersect(ray, distHit) && s->intersect_shadow(ray, dist) && dist < distHit && dist > 0.0001) {
             distHit = dist;
             shape = s;
         }

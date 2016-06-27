@@ -1,0 +1,6 @@
+camera 50 (-5 0 0) (1 0 0)
+material mirror 50 0 0 0
+material solid 0 0 0 0
+spot (-5 0 0) (255 255 255)
+triangle (1 1 0) (-1 -1 0) (0 0 1) (0 0 255) mirror
+sphere (0 3 0) (0 0 1) (1 1 1) (0 255 0) 0 solid

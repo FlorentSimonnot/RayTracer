@@ -60,7 +60,7 @@ public:
 
     void setMaterial(Materiaux const& m);
 
-    Materiaux const& getMaterial();
+    Materiaux const& getMaterial() const;
 };
 
 #endif //SHAPE_HPP

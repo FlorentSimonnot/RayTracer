@@ -61,7 +61,7 @@ int *RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
                 Ray ray(p, directionTempo);
 
-                color += computColor(ray, scene, camera.depth());
+                color += computColor(ray, scene, camera.depth(), 6);
 
 //                float dist;
 //                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
@@ -121,7 +121,7 @@ int *RayTracer::draw(Scene const& scene) {
 
                 Ray ray(p, directionTempo);
 
-                color += computColor(ray, scene, camera.depth());
+                color += computColor(ray, scene, camera.depth(), 6);
 
 //                float dist;
 //                Shape const *shape = scene.getFirstCollision(ray, camera.depth(), dist);
@@ -147,7 +147,7 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
                   (float) round(colors.z() * divide));
 }
 
-Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDepth) {
+Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDepth, int n) {
     float dist;
     Vector color (0, 0, 0);
 
@@ -193,6 +193,17 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                         color += specular;
                     }
                 }
+            }
+        }
+        color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
+        color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
+        color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
+        if (n > 0) {
+            Materiaux material = shape->getMaterial();
+            if (material.getCoefReflection() > 0) {
+                Ray rayRefl = Ray(caracteristics.pointIntersection(), refl);
+                Vector colorRefl = computColor(rayRefl, scene, cameraDepth, n - 1);
+                color = color * (1 - material.getCoefReflection()) + colorRefl * material.getCoefReflection();
             }
         }
         color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
