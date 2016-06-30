@@ -22,6 +22,8 @@ public:
     bool intersect(const Ray& ray, float& dist);
     bool intersect_shadow(Ray const& ray, float &dist);
 
+    bool enter(Point position, Vector normal) const;
+
     float getRadius();
 
     Sphere& operator=(Sphere const& o);

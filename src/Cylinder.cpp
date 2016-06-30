@@ -261,3 +261,11 @@ Vector Cylinder::getNormalFromPoint(const Ray& ray, float dist) const {
     }
     return normal;
 }
+
+bool Cylinder::enter(Point position, Vector normal) const {
+    Vector out = getBoundingVolume().getCenter() - position;
+
+    if (out.produitScalaire(normal) > 0)
+        return (true);
+    return (false);
+}

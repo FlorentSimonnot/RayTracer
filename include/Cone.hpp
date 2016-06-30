@@ -34,6 +34,8 @@ public:
 
     bool intersect_shadow(const Ray& ray, float& dist);
 
+    bool enter(Point position, Vector normal) const;
+
     float getRadius() const;
 
     float getHeight() const;

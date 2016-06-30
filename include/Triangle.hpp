@@ -16,6 +16,7 @@ public:
 
 	bool intersect(Ray const& ray, float &dist);
 	bool intersect_shadow(Ray const& ray, float &dist);
+	bool enter(Point position, Vector normal) const;
 
 	void precalcul();
 

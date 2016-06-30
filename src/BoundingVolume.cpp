@@ -32,3 +32,7 @@ bool BoundingVolume::intersect(Ray const &ray, float depth) const {
 	}
 	return true;
 }
+
+Vector BoundingVolume::getCenter(void) const {
+	return (m_center);
+}

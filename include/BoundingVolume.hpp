@@ -14,6 +14,7 @@ public:
 	BoundingVolume();
 
 	bool intersect(Ray const &ray, float depth) const;
+	Vector getCenter(void) const;
 
 private:
 	Vector m_center;
