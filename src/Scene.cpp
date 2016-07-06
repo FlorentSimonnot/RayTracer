@@ -51,7 +51,7 @@ bool Scene::getShadowCollision(Ray const& ray, float depth, Shape const* shape) 
     float dist;
 
     for (auto const& s: m_shapes) {
-        if (shape != s && s->getBoundingVolume().intersect(ray, depth) && s->intersect_shadow(ray, dist) && dist < depth && dist > 0.0001) {
+        if (shape != s && s->getBoundingVolume().intersect(ray, depth) && s->intersect_shadow(ray, dist) && dist < depth && dist > 0.001) {
             return true;
         }
     }

@@ -1,6 +1,6 @@
 camera 50 (-5 0 0) (1 0 0)
-material glass 0 50 0 0
+material glass 0 90 1 0
 material solid 0 0 0 0
 spot (-5 0 0) (255 255 255)
-triangle (0 1 0) (0 -1 0) (0 0 1) (0 0 255) glass
-sphere (2 0 0) (0 0 1) (1 1 1) (0 255 0) 0 solid
+triangle (0.5 2 0) (0.5 -2 0) (0.5 0 2) (0 0 255) solid
+sphere (0 0 0) (0 0 1) (1 1 1) (0 255 0) 0 glass
