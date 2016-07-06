@@ -160,6 +160,12 @@ Vector Triangle::getNormalFromPoint(const Ray& ray, float dist) const {
     return normal;
 }
 
+bool Triangle::enter(Point position, Vector normal) const {
+    (void)position;
+    (void)normal;
+    return (false);
+}
+
 //void Triangle::computeColorNormal(const Ray& ray, float dist, Vector& color, Vector& normal) {
 //
 //}

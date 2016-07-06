@@ -120,3 +120,11 @@ Vector Rectangle::getNormalFromPoint(const Ray& ray, float dist) const {
 
     return triangle.getNormalFromPoint(ray, dist);
 }
+
+bool Rectangle::enter(Point position, Vector normal) const {
+    Vector out = getBoundingVolume().getCenter() - position;
+
+    if (out.produitScalaire(normal) > 0)
+        return (true);
+    return (false);
+}

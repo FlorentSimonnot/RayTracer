@@ -3,6 +3,7 @@
 //
 
 #include <Shape.hpp>
+#include <Triangle.hpp>
 #include <math.h>
 #include <stdlib.h>
 #include <Light.hpp>
@@ -206,15 +207,28 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 Ray rayRefl = Ray(caracteristics.pointIntersection(), refl);
                 colorRefl = computColor(rayRefl, scene, cameraDepth, n - 1);
             }
-            if (material.getTransparence() > 0) {
+            if (material.getTransparence() > 0 && dynamic_cast<const Triangle *>(shape)) {
                 Ray rayTrans = Ray(caracteristics.pointIntersection(), ray.getDirection());
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
+            else if (material.getTransparence() > 0) {
+                float rate;
+                if (shape->enter(caracteristics.pointIntersection(), caracteristics.normal()))
+                    rate = 1 / material.getIndiceRefraction();
+                else
+                    rate = material.getIndiceRefraction();
+                float angle1 = (-caracteristics.normal()).calculAngle(ray.getDirection());
+                float angle2 = asinf(rate * sinf(angle1));
+                Vector tmp = caracteristics.normal() * ray.getDirection();
+                Vector dirTrans = (-caracteristics.normal()).rotationVector(angle2, tmp);
+                Ray rayTrans = Ray(caracteristics.pointIntersection(), dirTrans);
+                colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
+            }
             color = color * (1 - material.getCoefReflection() - material.getTransparence()) + colorRefl * material.getCoefReflection() + colorTrans * material.getTransparence();
+            color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
+            color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
+            color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
         }
-        color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
-        color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
-        color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
 
 //        color = scene.computColor(, caracteristics);
 //        if (level < m_nbReflexions) {
