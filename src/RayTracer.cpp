@@ -212,7 +212,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
             else if (material.getTransparence() > 0) {
-                float rate;
+                /*float rate;
                 if (shape->enter(caracteristics.pointIntersection(), caracteristics.normal()))
                     rate = 1 / material.getIndiceRefraction();
                 else
@@ -220,7 +220,8 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 float angle1 = (-caracteristics.normal()).calculAngle(ray.getDirection());
                 float angle2 = asinf(rate * sinf(angle1));
                 Vector tmp = caracteristics.normal() * ray.getDirection();
-                Vector dirTrans = (-caracteristics.normal()).rotationVector(angle2, tmp);
+                Vector dirTrans = (-caracteristics.normal()).rotationVector(angle2, tmp);*/
+                Vector dirTrans = ray.getDirection();
                 Ray rayTrans = Ray(caracteristics.pointIntersection(), dirTrans);
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
