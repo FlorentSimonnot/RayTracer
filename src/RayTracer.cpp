@@ -179,7 +179,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
             float lightNorm = lightDir.norm();
             lightDir *= 1 / lightNorm;
             Ray lightRay = Ray(caracteristics.pointIntersection(), lightDir);
-            if (!scene.getShadowCollision(lightRay, lightNorm, shape)) {
+//           if (!scene.getShadowCollision(lightRay, lightNorm, shape)) {
                 scalaire = caracteristics.normal().produitScalaire(lightDir);
                 if (scalaire > 0) {
                     diffuse = scalaire * caracteristics.color();
@@ -193,7 +193,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                         specular = facteur * l->getColor();
                         color += specular;
                     }
-                }
+  //              }
             }
         }
         color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
@@ -223,6 +223,12 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 Vector dirTrans = (-caracteristics.normal()).rotationVector(angle2, tmp);*/
                 Vector dirTrans = ray.getDirection();
                 Ray rayTrans = Ray(caracteristics.pointIntersection(), dirTrans);
+                float distTrans;
+                Shape const *shapeTrans = scene.getFirstCollision(rayTrans, cameraDepth, distTrans);
+                if (shape == shapeTrans) {
+                    Point posTrans = rayTrans.getOrigin() + distTrans * rayTrans.getDirection();
+                    rayTrans = Ray(posTrans, dirTrans);
+                }
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
             color = color * (1 - material.getCoefReflection() - material.getTransparence()) + colorRefl * material.getCoefReflection() + colorTrans * material.getTransparence();
