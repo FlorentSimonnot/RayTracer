@@ -1,5 +1,9 @@
 # Raytracer 
 
+## You need the SDL2 libraries installed to be able to compil & run the program
+   * Here is a link to how to do it on the different platforms https://wiki.libsdl.org/Installation
+   * This program should be run on a linux OS, we didn't try on others one, free to you to try and give feedback :)
+
 ## How to use it :
 
 * Usage using command line: 
