@@ -28,7 +28,7 @@
     * -h -> show this usage
 
 He is an example :
-* ./bin/synthese_image -n 3 -r 100 -s 4
+* ./bin/Synthese_Image -n 3 -r 100 -s 4
 * This will create 100 random items in the scene, with AA set to 4
  
-* ./bin/synthese_image -n 2 -i myFile -o anotherFile.ppm
+* ./bin/Synthese_Image -n 2 -i myFile -o anotherFile.ppm
