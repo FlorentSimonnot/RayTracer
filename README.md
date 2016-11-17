@@ -2,15 +2,15 @@
 
 ## You need the SDL2 libraries installed to be able to compil & run the program
    * Here is a link to how to do it on the different platforms https://wiki.libsdl.org/Installation
-   * This program should be run on a linux OS, we didn't try on others one, free to you to try and give feedback :)
+   * This program should be run on a linux OS, we didn't try on others one, feel free to try and give feedback :)
 
 ## How to use it :
 
 * Usage using command line: 
-    * Go in the "build" directory
-    * run "cmake .."
-    * run "make"
-    * run the program ( options are written below )
+  * Go in the "build" directory
+  * run "cmake .."
+  * run "make"
+  * run the program ( options are written below )
 
 * Program options :
     * You need at least the -n option with another option such as -i for the input file or -r to randomly generate items
@@ -27,8 +27,21 @@
     * -s [value] : AA(Anti aliasing) value can be 2 to 16 (included), the best would be using only the following values 2, 4, 8, 16, the other ones may produce something odd
     * -h -> show this usage
 
-He is an example :
+* Program commands once launched (All have been done with a QWERTY keyboard, some controls can feel weird on an AZERTY layout):
+  * Camera movement :
+    * E : Move FORWARD
+    * D : Move BACKWARD
+    * S : Move LEFT
+    * F : Move RIGHT
+    * Q : Move UP
+    * A : Move DOWN
+  * Camera rotation :
+    * W : Rotate LEFT
+    * R : Rotate RIGHT
+    * T : Rotate UP
+    * G : Rotate DOWN
+Here are some examples :
+
 * ./bin/Synthese_Image -n 3 -r 100 -s 4
 * This will create 100 random items in the scene, with AA set to 4
- 
 * ./bin/Synthese_Image -n 2 -i myFile -o anotherFile.ppm
