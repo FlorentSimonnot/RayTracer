@@ -4,7 +4,9 @@
 #include <iostream>
 
 Gui::Gui()
-        : m_window(nullptr), m_renderer(nullptr) {
+        : m_window(nullptr),
+          m_renderer(nullptr),
+          m_texture(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "Error when initialising: " << SDL_GetError() << std::endl;
         return;
@@ -22,7 +24,7 @@ Gui::Gui()
     }
 
     m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC,
-                                   WINDOW_WIDTH, WINDOW_HEIGHT);
+                                  WINDOW_WIDTH, WINDOW_HEIGHT);
     if (m_texture == nullptr) {
         std::cerr << "Could not create texture: " << SDL_GetError() << std::endl;
     }
@@ -44,7 +46,7 @@ void Gui::setPixel(int x, int y, Vector const& color) {
     SDL_RenderDrawPoint(m_renderer, x, y);
 }
 
-void Gui::render(int *image) {
+void Gui::render(int* image) {
 //    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_UpdateTexture(m_texture, NULL, image, WINDOW_WIDTH * sizeof(Uint32));
     SDL_RenderClear(m_renderer);
@@ -54,7 +56,8 @@ void Gui::render(int *image) {
 
 Gui::Gui(Gui const& g)
         : m_window(g.m_window),
-          m_renderer(g.m_renderer) {
+          m_renderer(g.m_renderer),
+          m_texture(g.m_texture) {
 }
 
 Gui& Gui::operator=(Gui const& g) {
