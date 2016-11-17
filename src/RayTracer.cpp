@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <Light.hpp>
 #include <PPMExporter.hpp>
-#include <MaterialPoint.hpp>
 
 #include "RayTracer.hpp"
 

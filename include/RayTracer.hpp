@@ -8,6 +8,7 @@
 #include "Scene.hpp"
 #include "Gui.hpp"
 #include "PPMExporter.hpp"
+#include <MaterialPoint.hpp>
 
 class RayTracer {
 private:
@@ -15,25 +16,27 @@ private:
     float m_pas;
 
     // The window used to render the scene.
- //   Gui m_gui;
+    //   Gui m_gui;
 
     int m_nbRayons;
 
 public:
     RayTracer(int nbRayons);
+
     ~RayTracer();
 
-    int *draw(Scene const& scene,PPMExporter& ppme);
-    int *draw(Scene const& scene);
+    int* draw(Scene const& scene, PPMExporter& ppme);
 
-    Vector moyenneColor(Vector const &colors) const;
+    int* draw(Scene const& scene);
+
+    Vector moyenneColor(Vector const& colors) const;
 
     Vector computColor(Ray const& ray, Scene const& scene, float cameraDepth, int n);
 
-    Vector& calculAmbientLight(Vector& color, const MaterialPoint& caracteristics) const;
+    Vector& calculAmbientLight(Vector& color, MaterialPoint const& caracteristics) const;
 
-    Vector& calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics,
-                         const Vector& refl) const;
+    Vector& calculLights(Scene const& scene, Vector& color, MaterialPoint const& caracteristics,
+                         Vector const& refl) const;
 
     void keepColorInBounds(Vector& color) const;
 };
