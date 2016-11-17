@@ -27,10 +27,11 @@ bool BoundingVolume::intersect(Ray const &ray, float depth) const {
 	float t1 = (-beta + sqrt(delta)) / 2;
 	float t2 = (-beta - sqrt(delta)) / 2;
 
-	if (t1 < std::numeric_limits<float>::epsilon() || t2 > depth) {
-		return false;
-	}
-	return true;
+//	if (t1 < std::numeric_limits<float>::epsilon() || t2 > depth) {
+//		return false;
+//	}
+//	return true;
+	return !(t1 < std::numeric_limits<float>::epsilon() || t2 > depth);
 }
 
 Vector BoundingVolume::getCenter(void) const {
