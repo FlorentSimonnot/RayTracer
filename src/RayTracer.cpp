@@ -174,9 +174,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
         // Calcul des lumières dans la scene
         color = calculLights(scene, color, caracteristics, refl);
 
-        color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
-        color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
-        color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
+        avoidColorErrors(color);
         if (n > 0) {
             Materiaux material = shape->getMaterial();
             Vector colorRefl(0, 0, 0);
@@ -212,9 +210,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
             color = color * (1 - material.getCoefReflection() - material.getTransparence()) + colorRefl * material.getCoefReflection() + colorTrans * material.getTransparence();
-            color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
-            color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
-            color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
+            avoidColorErrors(color);
         }
 
 //        color = scene.computColor(, caracteristics);
@@ -234,6 +230,12 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
 //        }
     }
     return (color);
+}
+
+void RayTracer::avoidColorErrors(Vector& color) const {
+    color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
+    color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
+    color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
 }
 
 Vector& RayTracer::calculAmbientLight(Vector& color, MaterialPoint const& caracteristics) const {
