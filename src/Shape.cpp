@@ -14,6 +14,19 @@ Shape::Shape()
           m_boundingVolume() {
 }
 
+Shape::Shape(Shape const& s)
+        : Object(),
+          m_position(s.m_position),
+          m_direction(s.m_direction * (1.f / s.m_direction.norm())),
+          m_scale(s.m_scale),
+          m_color(s.m_color),
+          m_Mat_rotation(s.m_Mat_rotation),
+          m_inverse(s.m_inverse),
+          m_Materiaux(s.m_Materiaux),
+          m_Camera_Pos(s.m_Camera_Pos),
+          m_boundingVolume(s.m_boundingVolume) {
+}
+
 Shape::Shape(Vector const& color, std::string material_name)
         : Object(),
           m_position(0.f, 0.f, 0.f),
@@ -76,17 +89,6 @@ BoundingVolume Shape::getBoundingVolume() const {
     return m_boundingVolume;
 }
 
-Shape::Shape(Shape const& s)
-        : Object(),
-          m_position(s.m_position),
-          m_direction(s.m_direction * (1.f / s.m_direction.norm())),
-          m_scale(s.m_scale),
-          m_color(s.m_color),
-          m_Mat_rotation(s.m_Mat_rotation),
-          m_Materiaux(s.m_Materiaux),
-          m_Camera_Pos(s.m_Camera_Pos),
-          m_boundingVolume(s.m_boundingVolume) {
-}
 
 Shape& Shape::operator=(Shape const& o) {
     m_position = o.m_position;
