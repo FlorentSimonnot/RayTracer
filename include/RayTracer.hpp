@@ -29,6 +29,9 @@ public:
     Vector moyenneColor(Vector const &colors) const;
 
     Vector computColor(Ray const& ray, Scene const& scene, float cameraDepth, int n);
+
+    Vector& calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics, float facteur,
+                         float scalaire, const Vector& refl, Vector& diffuse, Vector& specular) const;
 };
 
 

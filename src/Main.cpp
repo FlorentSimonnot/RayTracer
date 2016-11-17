@@ -12,14 +12,16 @@
 
 void usage() {
     std::cout <<
-    "\nFormat : ./bin/synthese_image -n [level to load] -i [input file] -o [output file] -r [number of elements]\n"
-    << "The input file contains the scene that you want to load\n"
-    << "The output file is the name of the file for ppme format export\n"
-    << "The number of elements is the number of elements you want to randomly generate\n"
+    "\nFormat : ./bin/synthese_image -n [level to load] -i [input file] -o [output file] -r [number of elements] -s [value]\n"
+    << "-n [value] : level to load\n"
+    << "-i [input file] : The input file contains the scene that you want to load\n"
+    << "-o [output file]: The output file is the name of the file for ppme format export\n"
+    << "-r [value]: The number of elements is the number of elements you want to randomly generate\n"
     << "If the -r option is active , the input file wont be red\n"
-    << "If the level number is > 2, the output file wont be created\n"
+    << "If the level number is superior to 2 , the output file wont be created\n"
     << "The level 1 & 2 require an output file\n"
-    << "h -> show this usage"
+    << "-s [value] : AA(Anti aliasing) value can be 0 (default), 2, 4, 8, 16 no other values\n"
+    << "h : show this usage"
     << std::endl;
 }
 // lray -n 1 -i <mon_fichier.format> -o image.ppm
@@ -184,6 +186,7 @@ int main(int argc, char* argv[]) {
         }
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.scancode) { //voir https://wiki.libsdl.org/SDL_Keycode
+                // Deplacement de la camera
                 case SDL_SCANCODE_E:
                     scene.moveCamera(Camera::Direction::forward);
                     image = rayTracer.draw(scene);
@@ -220,6 +223,7 @@ int main(int argc, char* argv[]) {
                     gui.render(image);
                     delete image;
                     break;
+                    // Rotation de la camera
                 case SDL_SCANCODE_W:
                     scene.rotateCamera(Camera::Direction::left);
                     image = rayTracer.draw(scene);
