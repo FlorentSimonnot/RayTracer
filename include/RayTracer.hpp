@@ -35,7 +35,7 @@ public:
     Vector& calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics,
                          const Vector& refl) const;
 
-    void avoidColorErrors(Vector& color) const;
+    void keepColorInBounds(Vector& color) const;
 };
 
 
