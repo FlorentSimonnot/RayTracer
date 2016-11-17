@@ -144,7 +144,5 @@ Vector Sphere::getNormalFromPoint(const Ray& ray, float dist) const {
 bool Sphere::enter(Point position, Vector normal) const {
     Vector out = getBoundingVolume().getCenter() - position;
 
-    if (out.produitScalaire(normal) > 0)
-        return (true);
-    return (false);
+    return out.produitScalaire(normal) > 0;
 }
