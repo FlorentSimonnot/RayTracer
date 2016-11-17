@@ -22,11 +22,9 @@ RayTracer::RayTracer(int nbRayon)
 RayTracer::~RayTracer() { }
 
 // Draw the scene given in parameters and exports it to the ppme file
-int *RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
+int* RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
     Camera camera = scene.getCamera();
-//    scene.test();
-//	(void)ppme;
-    int *ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
+    int* ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -40,7 +38,7 @@ int *RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
     float off_y[m_nbRayons];
     for (int k = 0; k < m_nbRayons; k++) {
         off_x[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;        
+        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
     }
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
@@ -73,20 +71,17 @@ int *RayTracer::draw(Scene const& scene, PPMExporter& ppme) {
 
             }
             color = moyenneColor(color);
-//            m_gui.setPixel(i, j, color);
             ret[i + j * WINDOW_WIDTH] = color.x() * 0x10000 + color.y() * 0x100 + color.z();
             ppme.writePixel(color);
         }
     }
     return ret;
-//    m_gui.render();
 }
 
 // Draw the scene given in parameters
-int *RayTracer::draw(Scene const& scene) {
+int* RayTracer::draw(Scene const& scene) {
     Camera camera = scene.getCamera();
-//    scene.test();
-    int *ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
+    int* ret = new int[WINDOW_WIDTH * WINDOW_HEIGHT * sizeof(int)];
     Point p = camera.position();
     for (auto const& s:scene.getShapes()) {
         s->setCamera_Pos(p);
@@ -100,7 +95,7 @@ int *RayTracer::draw(Scene const& scene) {
     float off_y[m_nbRayons];
     for (int k = 0; k < m_nbRayons; k++) {
         off_x[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
-        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;        
+        off_y[k] = (float) ((static_cast<float> (rand()) / static_cast<float> (RAND_MAX)) - 0.5) * m_pas;
     }
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
 
@@ -135,10 +130,8 @@ int *RayTracer::draw(Scene const& scene) {
             }
             color = moyenneColor(color);
             ret[i + j * WINDOW_WIDTH] = color.x() * 0x10000 + color.y() * 0x100 + color.z();
-//            m_gui.setPixel(i, j, color);
         }
     }
-//    m_gui.render();
     return ret;
 }
 
@@ -149,21 +142,24 @@ Vector RayTracer::moyenneColor(Vector const& colors) const {
                   (float) round(colors.z() * divide));
 }
 
+// Calcul de la couleur du pixel
+// Ray : Rayon lancer
+// Scene : Scene dans laquel le rayon est lancé
+// cameraDepth : Profondeur jusqu'a laquel la camera voit
+// n : Nombre de rebonds que doit effectuer le rayon ( dans le cas de la transparence et la reflexion )
 Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDepth, int n) {
     float dist;
-    Vector color (0, 0, 0);
+    Vector color(0, 0, 0);
 
     // Recupere la 1ere shape touché par le rayon
-    Shape const *shape = scene.getFirstCollision(ray, cameraDepth, dist);
+    Shape const* shape = scene.getFirstCollision(ray, cameraDepth, dist);
     if (shape) {
         MaterialPoint caracteristics;
         caracteristics.setPointIntersection(ray.getOrigin() + dist * ray.getDirection());
         caracteristics.setNormal(shape->getNormalFromPoint(ray, dist));
         caracteristics.setColor(shape->getColor());
 
-        float facteur, scalaire;
         Vector refl = ray.getDirection() - 2 * caracteristics.normal().produitScalaire(ray.getDirection()) * caracteristics.normal();
-        Vector ambient, diffuse, specular;
 
         /// TEST UNIQUEMENT ////
 //        Light light(Point(-5, 0, 0), Vector(0, 0, 0));
@@ -173,10 +169,11 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
 //        facteur = (float) ((0.8 * facteur) / (float) 1.f + 0.2);
 //        color += facteur * caracteristics.color();
 
-        ambient = 0.2 * caracteristics.color();
-        color += ambient;
-        // Calcul des lumière dans la scene
-        color = calculLights(scene, color, caracteristics, facteur, scalaire, refl, diffuse, specular);
+        // Calcul de la lumière ambiante
+        color = calculAmbientLight(color, caracteristics);
+        // Calcul des lumières dans la scene
+        color = calculLights(scene, color, caracteristics, refl);
+
         color.setX(color.x() < 0 ? 0 : (color.x() > 0xff ? 0xff : color.x()));
         color.setY(color.y() < 0 ? 0 : (color.y() > 0xff ? 0xff : color.y()));
         color.setZ(color.z() < 0 ? 0 : (color.z() > 0xff ? 0xff : color.z()));
@@ -189,7 +186,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 Ray rayRefl = Ray(caracteristics.pointIntersection(), refl);
                 colorRefl = computColor(rayRefl, scene, cameraDepth, n - 1);
             }
-            if (material.getTransparence() > 0 && dynamic_cast<const Triangle *>(shape)) {
+            if (material.getTransparence() > 0 && dynamic_cast<const Triangle*>(shape)) {
                 Ray rayTrans = Ray(caracteristics.pointIntersection(), ray.getDirection());
                 colorTrans = computColor(rayTrans, scene, cameraDepth, n - 1);
             }
@@ -207,7 +204,7 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
                 Vector dirTrans = ray.getDirection();
                 Ray rayTrans = Ray(caracteristics.pointIntersection(), dirTrans);
                 float distTrans;
-                Shape const *shapeTrans = scene.getFirstCollision(rayTrans, cameraDepth, distTrans);
+                Shape const* shapeTrans = scene.getFirstCollision(rayTrans, cameraDepth, distTrans);
                 if (shape == shapeTrans) {
                     Point posTrans = rayTrans.getOrigin() + distTrans * rayTrans.getDirection();
                     rayTrans = Ray(posTrans, dirTrans);
@@ -239,8 +236,17 @@ Vector RayTracer::computColor(Ray const& ray, Scene const& scene, float cameraDe
     return (color);
 }
 
-Vector& RayTracer::calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics, float facteur,
-                                float scalaire, const Vector& refl, Vector& diffuse, Vector& specular) const {
+Vector& RayTracer::calculAmbientLight(Vector& color, MaterialPoint const& caracteristics) const {
+    Vector ambient;
+    ambient = 0.2 * caracteristics.color();
+    color += ambient;
+    return color;
+}
+
+Vector& RayTracer::calculLights(Scene const& scene, Vector& color, MaterialPoint const& caracteristics,
+                                Vector const& refl) const {
+    Vector diffuse, specular;
+    float facteur, scalaire;
     for (auto const& l:scene.getLights()) {
         Vector lightDir = l->getCenter() - caracteristics.pointIntersection();
         float lightNorm = lightDir.norm();

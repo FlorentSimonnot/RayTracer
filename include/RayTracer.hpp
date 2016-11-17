@@ -30,8 +30,10 @@ public:
 
     Vector computColor(Ray const& ray, Scene const& scene, float cameraDepth, int n);
 
-    Vector& calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics, float facteur,
-                         float scalaire, const Vector& refl, Vector& diffuse, Vector& specular) const;
+    Vector& calculAmbientLight(Vector& color, const MaterialPoint& caracteristics) const;
+
+    Vector& calculLights(const Scene& scene, Vector& color, const MaterialPoint& caracteristics,
+                         const Vector& refl) const;
 };
 
 
